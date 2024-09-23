@@ -19,12 +19,13 @@ export default function useForm(initialValues, submitHandler, formType) {
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        let validationErrors = "";
         switch (formType) {
             case "register":
-                var validationErrors = validateRegisterForm(values);
+                validationErrors = validateRegisterForm(values);
                 break;
             case "login":
-                var validationErrors = validateLoginForm(values);
+                 validationErrors = validateLoginForm(values);
                 break;
             default:
                 break;
@@ -37,7 +38,8 @@ export default function useForm(initialValues, submitHandler, formType) {
         setLoading(true);
         await submitHandler(values);
         setLoading(false);
-        resetForm();
+        //Temporary reset form is disabled for testing purposes
+        // resetForm();
     };
 
 
