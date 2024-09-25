@@ -48,4 +48,42 @@ router.post("/register", async (req, res) => {
     }
 });
 
+router.post("/login", async (req, res) => {
+    const { email, password } = req.body;
+    console.log("Login request received with email:", email, "and password ", password);
+    try {
+        const searchedUser = await User.findOne({ email: email });
+        if (!searchedUser) {
+            return res.status(400).json("User not found");
+        }
+        // const isPasswordValid = bcrypt.compareSync(password, searchedUser.password);
+        const isPasswordValid = await bcrypt.compare(password, searchedUser.password);
+        console.log(`isPasswordValid: ${isPasswordValid}`);
+        if (!isPasswordValid) {
+            return res.status(400).json("Invalid password");
+        }
+        const payload = {
+            id: searchedUser._id,
+            email: searchedUser.email,
+            firstName: searchedUser.firstName,
+            lastName: searchedUser.lastName,
+        }
+        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "72h" });
+        console.log("key is: ", process.env.JWT_SECRET);
+        console.log("Setting cookie with token:", token);
+
+        res.cookie("authToken", token, {
+            httpOnly: true,
+            path: "/",
+        });
+
+        console.log(`searched user: ${searchedUser}`);
+        res.status(200).json(searchedUser);
+
+    } catch (err) {
+        const errorMessage = getErrorMessage(err);
+        return res.status(400).json({ message: errorMessage });
+    }
+});
+
 module.exports = router;
