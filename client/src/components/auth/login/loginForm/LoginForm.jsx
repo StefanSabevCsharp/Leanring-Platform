@@ -1,96 +1,113 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useForm from "../../../../hooks/useForm";
+import { login } from "../../../../dataService/authService";
+import toast, { Toaster } from "react-hot-toast";
+import { useContext } from "react";
+import AuthContext from "../../../../context/authContext";
 
 export default function LoginForm({ setIsLogin }) {
+    const { user, setUser } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     //TODO: Add error notification with toast or directly on the form
 
     let initialValues = {
-        username: "",
+        email: "",
         password: "",
     };
 
 
-    const submitHandler = (values) => {
+    const submitHandler = async (values) => {
         console.log("Submitted Login", values);
         //TODO: Add API call to login user
+        try {
+            const newUser = await login(values);
+            console.log(newUser);
+            setUser(newUser);
+            navigate("/dashboard");
+        } catch (err) {
+            console.log(err);
+            toast.error(err.message);
+        }
     }
-   
-    const [values, onChange, onSubmit, loading, errors] = useForm(initialValues, submitHandler,"login");
+
+    const [values, onChange, onSubmit, loading, errors] = useForm(initialValues, submitHandler, "login");
 
     return (
-        <div className="block opacity-100 transition-opacity duration-150 ease-linear">
-            {/* heading   */}
-            <div className="text-center">
-                <h3 className="text-size-32 font-bold text-blackColor dark:text-blackColor-dark mb-2 leading-normal">
-                    Login
-                </h3>
-                <p className="text-contentColor dark:text-contentColor-dark mb-15px">
-                    Don't have an account yet?
-                    <Link
-                        to="/login"
-                        onClick={() => setIsLogin(false)}
-                        className="ml-5 hover:text-primaryColor relative after:absolute after:left-0 after:bottom-0.5 after:w-0 after:h-0.5 after:bg-primaryColor after:transition-all after:duration-300 hover:after:w-full"
-                    >
-                        Sign up for free
-                    </Link>
-                </p>
-            </div>
-            <form onSubmit={onSubmit} className="pt-25px" data-aos="fade-up">
-                <div className="mb-25px">
-                    <label className="text-contentColor dark:text-contentColor-dark mb-10px block">
-                        Username
-                    </label>
-                    <input
-                        name="username"
-                        value={values.username}
-                        onChange={onChange}
-                        type="text"
-                        placeholder="Your username"
-                        className="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
-                    />
-                </div>
-                <div className="mb-25px">
-                    <label className="text-contentColor dark:text-contentColor-dark mb-10px block">
-                        Password
-                    </label>
-                    <input
-                        name="password"
-                        value={values.password}
-                        onChange={onChange}
-                        type="password"
-                        placeholder="Password"
-                        className="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
-                    />
-                </div>
-                <div className="text-contentColor dark:text-contentColor-dark flex items-center justify-between">
-                    <div className="flex items-center">
-                        <input
-                            type="checkbox"
-                            id="remember"
-                            className="w-18px h-18px mr-2 block box-content"
-                        />
-                        <label htmlFor="remember"> Remember me</label>
-                    </div>
-                    <div>
-                        <a
-                            href="#"
-                            className="hover:text-primaryColor relative after:absolute after:left-0 after:bottom-0.5 after:w-0 after:h-0.5 after:bg-primaryColor after:transition-all after:duration-300 hover:after:w-full"
+        <>
+        <Toaster />
+            <div className="block opacity-100 transition-opacity duration-150 ease-linear">
+                {/* heading   */}
+                <div className="text-center">
+                    <h3 className="text-size-32 font-bold text-blackColor dark:text-blackColor-dark mb-2 leading-normal">
+                        Login
+                    </h3>
+                    <p className="text-contentColor dark:text-contentColor-dark mb-15px">
+                        Don't have an account yet?
+                        <Link
+                            to="/login"
+                            onClick={() => setIsLogin(false)}
+                            className="ml-5 hover:text-primaryColor relative after:absolute after:left-0 after:bottom-0.5 after:w-0 after:h-0.5 after:bg-primaryColor after:transition-all after:duration-300 hover:after:w-full"
                         >
-                            Forgot your password?
-                        </a>
+                            Sign up for free
+                        </Link>
+                    </p>
+                </div>
+                <form onSubmit={onSubmit} className="pt-25px" data-aos="fade-up">
+                    <div className="mb-25px">
+                        <label className="text-contentColor dark:text-contentColor-dark mb-10px block">
+                            Username
+                        </label>
+                        <input
+                            name="email"
+                            value={values.email}
+                            onChange={onChange}
+                            type="text"
+                            placeholder="Your username"
+                            className="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
+                        />
                     </div>
-                </div>
-                <div className="my-25px text-center">
-                    <button
-                        type="submit"
-                        className="text-size-15 text-whiteColor bg-primaryColor px-25px py-10px w-full border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark"
-                    >
-                        Log in
-                    </button>
-                </div>
-                {/* other login */}
-                {/* <div>
+                    <div className="mb-25px">
+                        <label className="text-contentColor dark:text-contentColor-dark mb-10px block">
+                            Password
+                        </label>
+                        <input
+                            name="password"
+                            value={values.password}
+                            onChange={onChange}
+                            type="password"
+                            placeholder="Password"
+                            className="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
+                        />
+                    </div>
+                    <div className="text-contentColor dark:text-contentColor-dark flex items-center justify-between">
+                        <div className="flex items-center">
+                            <input
+                                type="checkbox"
+                                id="remember"
+                                className="w-18px h-18px mr-2 block box-content"
+                            />
+                            <label htmlFor="remember"> Remember me</label>
+                        </div>
+                        <div>
+                            <a
+                                href="#"
+                                className="hover:text-primaryColor relative after:absolute after:left-0 after:bottom-0.5 after:w-0 after:h-0.5 after:bg-primaryColor after:transition-all after:duration-300 hover:after:w-full"
+                            >
+                                Forgot your password?
+                            </a>
+                        </div>
+                    </div>
+                    <div className="my-25px text-center">
+                        <button
+                            type="submit"
+                            className="text-size-15 text-whiteColor bg-primaryColor px-25px py-10px w-full border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark"
+                        >
+                            Log in
+                        </button>
+                    </div>
+                    {/* other login */}
+                    {/* <div>
             <p className="text-contentColor dark:text-contentColor-dark text-center relative mb-15px before:w-2/5 before:h-1px before:bg-borderColor4 dark:before:bg-borderColor2-dark before:absolute before:left-0 before:top-4 after:w-2/5 after:h-1px after:bg-borderColor4 dark:after:bg-borderColor2-dark after:absolute after:right-0 after:top-4">
                 or Log-in with
             </p>
@@ -109,7 +126,8 @@ export default function LoginForm({ setIsLogin }) {
                 <i className="icofont-google-plus" /> Google
             </button>
         </div> */}
-            </form>
-        </div>
+                </form>
+            </div>
+        </>
     );
 }
