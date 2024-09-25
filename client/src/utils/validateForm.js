@@ -18,7 +18,7 @@ const validateRegisterForm = (values) => {
     if (!isEmail(email)) {
         errors.email = "Invalid email";
     }
-    if (!isLength(password, { min: 6, max: 30 })) {
+    if (!isLength(password, { min: 5, max: 30 })) {
         errors.password = "Password must be between 6 and 30 characters";
     }
     if (password !== rePassword) {
@@ -31,12 +31,12 @@ const validateRegisterForm = (values) => {
 
 const validateLoginForm = (values) => {
     let errors = {};
-    const {username, password} = values;
+    const {email, password} = values;
 
-    if (!isLength(username, { min: 3, max: 30 })) {
-        errors.username = "Username must be between 3 and 30 characters";
+    if (!isLength(email, { min: 3, max: 30 })) {
+        errors.email = "Email must be between 3 and 30 characters";
     }
-    if (!isLength(password, { min: 6, max: 30 })) {
+    if (!isLength(password, { min: 3, max: 30 })) {
         errors.password = "Password must be between 6 and 30 characters";
     }
 
