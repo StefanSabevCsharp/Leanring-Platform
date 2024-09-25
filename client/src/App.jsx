@@ -13,35 +13,44 @@ import RegistrationSection from "./components/registrationSection/RegistrationSe
 import ThemeController from "./components/themeController/ThemeController"
 import Login from "./components/auth/login/Login"
 import CoursesPage from "./components/courses/coursesPage/CoursesPage"
+import { useContext } from "react"
+import AuthContext from "./context/authContext"
+import Dashboard from "./components/dashboard/DashBoard"
+
 
 function App() {
-
-
+  const {user} = useContext(AuthContext)
+  console.log(user)
+  
   return (
-    <>
-      <ThemeController />
-      <Header />
-      <main className="bg-transparent">
-        <Routes>
-          <Route path="/" element={
-            <>
-              <Banner />
-              <Brand />
-              <About />
-              <Popular />
-              <Courses />
-              <RegistrationSection />
-              <Pricing />
-              <AboutInstructor />
-              <News />
-            </>} />
+   
+      <>
+        <ThemeController />
+        <Header />
+        <main className="bg-transparent">
+          <Routes>
+            <Route path="/" element={
+              <>
+                <Banner />
+                <Brand />
+                <About />
+                <Popular />
+                <Courses />
+                {!user && <RegistrationSection />}
+                
+                <Pricing />
+                <AboutInstructor />
+                <News />
+              </>} />
             <Route path="/login" element={<Login />} />
             <Route path="/courses" element={<CoursesPage />} />
+            <Route path="/dashboard" element={<Dashboard />} />
 
-        </Routes>
-      </main>
-      <Footer />
-    </>
+          </Routes>
+        </main>
+        <Footer />
+      </>
+      
   )
 }
 
