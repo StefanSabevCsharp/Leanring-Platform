@@ -1,18 +1,16 @@
-const mongoose = require('mongoose');
 
-exports.getErrorMessage = (err) => {
-    if (err instanceof mongoose.MongooseError) {
-        if (err.errors) {
-            
-            return Object.values(err.errors).map(e => e.message).join(', ');
-        }
-        
-        if (err.code === 11000) {
-            return 'Duplicate key error: a record with this value already exists.';
-        }
-        return 'Mongoose validation error.';
-    } else if (err instanceof Error) {
-        return err.message; 
+const getErrorMessage = (err) => {
+    
+    if (err.name === 'ValidationError') {
+        return Object.values(err.errors).map((val) => val.message).join(', ');
     }
-    return 'An unknown error occurred.';
+
+    if (err.code && err.code === 11000) {
+        const field = Object.keys(err.keyValue);
+        return `${field} already exists. Please choose a different ${field}.`;
+    }
+
+    return err.message || 'An unknown error occurred';
 };
+
+module.exports = { getErrorMessage };
