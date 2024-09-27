@@ -3,15 +3,16 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../schemas/authSchema");
 const { getErrorMessage } = require("../utils/errorParser");
+const authenticateToken = require("../middlewares/authMiddleware");
 
 router.post("/register", async (req, res) => {
     console.log(req.body);
     const { firstName, lastName, username, email, password } = req.body;
 
     try {
-       
+
         // const existingUser = await User.findOne({ email: email  });
-        const existingUser = await User.findOne({ 
+        const existingUser = await User.findOne({
             $or: [
                 { email: email },
                 { username: username }
@@ -36,6 +37,7 @@ router.post("/register", async (req, res) => {
             email: savedUser.email,
             firstName: savedUser.firstName,
             lastName: savedUser.lastName,
+            role: savedUser.role,
         }
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "72h" });
         console.log("Setting cookie with token:", token);
@@ -72,6 +74,7 @@ router.post("/login", async (req, res) => {
             email: searchedUser.email,
             firstName: searchedUser.firstName,
             lastName: searchedUser.lastName,
+            role: searchedUser.role,
         }
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "72h" });
         console.log("key is: ", process.env.JWT_SECRET);
@@ -88,6 +91,15 @@ router.post("/login", async (req, res) => {
     } catch (err) {
         const errorMessage = getErrorMessage(err);
         return res.status(400).json({ message: errorMessage });
+    }
+});
+
+router.get("/checkAuth", authenticateToken, (req, res) => {
+    try {
+        const user = req.user; 
+        res.status(200).json(user);
+    } catch (err) {
+        res.status(500).json({ message: "Internal server error" });
     }
 });
 
