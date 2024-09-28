@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import { getUserFromCookie } from "../dataService/authService";
+import { getUserFromCookie, logoutUser } from "../dataService/authService";
 
 const AuthContext = createContext();
 
@@ -25,7 +25,8 @@ export function AuthProvider({ children }) {
         checkUserAuth();
     }, []);
 
-    const logout = () => {
+    const logout = async () => {
+        await logoutUser();
         setUser(null);
         localStorage.removeItem('user');
     };
