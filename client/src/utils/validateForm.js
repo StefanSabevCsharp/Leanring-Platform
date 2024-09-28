@@ -1,10 +1,10 @@
-import { isLength } from "validator";
+import { isLength, isMobilePhone } from "validator";
 import isEmail from "validator/lib/isEmail";
 
 
 const validateRegisterForm = (values) => {
     let errors = {};
-    const {firstName, lastName, email, username, password, rePassword} = values;
+    const { firstName, lastName, email, username, password, rePassword } = values;
 
     if (!isLength(firstName, { min: 3, max: 30 })) {
         errors.firstName = "First name must be between 3 and 30 characters";
@@ -31,7 +31,7 @@ const validateRegisterForm = (values) => {
 
 const validateLoginForm = (values) => {
     let errors = {};
-    const {email, password} = values;
+    const { email, password } = values;
 
     if (!isLength(email, { min: 3, max: 30 })) {
         errors.email = "Email must be between 3 and 30 characters";
@@ -44,7 +44,31 @@ const validateLoginForm = (values) => {
 
 }
 
+const validateProfileSettingsForm = (values) => {
+    console.log(values);
+    let errors = {};
+    const { firstName, lastName, userName, phoneNumber, bio } = values;
+    if(!isLength(firstName, { min: 3, max: 30 })) {
+        errors.firstName = "First name must be between 3 and 30 characters";
+    }
+    if(!isLength(lastName, { min: 3, max: 30 })) {
+        errors.lastName = "Last name must be between 3 and 30 characters";
+    }
+    if(!isLength(userName, { min: 3, max: 30 })) {
+        errors.userName = "Username must be between 3 and 30 characters";
+    }
+    if(phoneNumber != "" && !isMobilePhone(phoneNumber)) {
+        errors.phoneNumber = "Invalid phone number";
+    }
+    if(!isLength(bio, { min: 0, max: 1000 })) {
+        errors.bio = "Bio must be between 3 and 1000 characters";
+    }
+    return errors;
+
+}
+
 export {
     validateRegisterForm,
-    validateLoginForm
+    validateLoginForm,
+    validateProfileSettingsForm
 }
