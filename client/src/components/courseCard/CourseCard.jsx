@@ -1,24 +1,24 @@
 export default function CourseCard() {
   return (
-    <div className="w-full sm:w-1/2 lg:w-1/3 group grid-item filter1 filter3">
-      <div className="tab-content-wrapper sm:px-15px mb-30px">
+    <div className="group">
+      <div className="tab-content-wrapper" data-aos="fade-up">
         <div className="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark">
           {/* card image */}
           <div className="relative mb-4">
             <a
-              href="course-details.html"
+              href="../../course-details.html"
               className="w-full overflow-hidden rounded"
             >
               <img
-                src="assets/images/grid/grid_1.png"
+                src="../../assets/images/grid/grid_2.png"
                 alt=""
                 className="w-full transition-all duration-300 group-hover:scale-110"
               />
             </a>
             <div className="absolute left-0 top-1 flex justify-between w-full items-center px-2">
               <div>
-                <p className="text-xs text-whiteColor px-4 py-[3px] bg-secondaryColor rounded font-semibold">
-                  Data &amp; Tech
+                <p className="text-xs text-whiteColor px-4 py-[3px] bg-blue rounded font-semibold">
+                  Mechanical
                 </p>
               </div>
               <a
@@ -38,7 +38,7 @@ export default function CourseCard() {
                 </div>
                 <div>
                   <span className="text-sm text-black dark:text-blackColor-dark">
-                    23 Lesson
+                    29 Lesson
                   </span>
                 </div>
               </div>
@@ -48,16 +48,16 @@ export default function CourseCard() {
                 </div>
                 <div>
                   <span className="text-sm text-black dark:text-blackColor-dark">
-                    1 hr 30 min
+                    2 hr 10 min
                   </span>
                 </div>
               </div>
             </div>
             <a
-              href="course-details.html"
-              className="text-xl font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor"
+              href="../../course-details.html"
+              className="text-lg font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor"
             >
-              Foundation course to under stand about softwere
+              Nidnies course to under stand about softwere
             </a>
             {/* price */}
             <div className="text-lg font-semibold text-primaryColor font-inter mb-4">
@@ -66,7 +66,7 @@ export default function CourseCard() {
                 / $67.00
               </del>
               <span className="ml-6">
-                <del className="text-base font-semibold text-secondaryColor3">
+                <del className="text-base font-semibold text-greencolor">
                   Free
                 </del>
               </span>
@@ -80,10 +80,10 @@ export default function CourseCard() {
                 >
                   <img
                     className="w-[30px] h-[30px] rounded-full mr-15px"
-                    src="assets/images/grid/grid_small_1.jpg"
+                    src="../../assets/images/grid/grid_small_2.jpg"
                     alt=""
                   />
-                  <span className="flex">Micle john</span>
+                  Rinis Jhon
                 </a>
               </div>
               <div className="text-start md:text-end">
