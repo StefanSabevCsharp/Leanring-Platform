@@ -1,4 +1,8 @@
-export default function Profile() {
+import { Link } from "react-router-dom";
+import dataParser from "../../../../utils/dataParser";
+
+export default function Profile({ user }) {
+    const { firstName, lastName, username, email, createdAt } = user;
     return (
         <div className="lg:col-start-4 lg:col-span-9">
             {/* profile details */}
@@ -15,7 +19,7 @@ export default function Profile() {
                                 <span className="inline-block">Registration Date</span>
                             </div>
                             <div className="md:col-start-5 md:col-span-8">
-                                <span className="inline-block">20, January 2024 9:00 PM</span>
+                                <span className="inline-block">{dataParser(user.createdAt)}</span>
                             </div>
                         </li>
                         <li className="text-lg text-contentColor dark:text-contentColor-dark leading-1.67 grid grid-cols-1 md:grid-cols-12 gap-x-30px mt-15px">
@@ -23,7 +27,7 @@ export default function Profile() {
                                 <span className="inline-block">First Name</span>
                             </div>
                             <div className="md:col-start-5 md:col-span-8">
-                                <span className="inline-block">Michle</span>
+                                <span className="inline-block">{firstName}</span>
                             </div>
                         </li>
                         <li className="text-lg text-contentColor dark:text-contentColor-dark leading-1.67 grid grid-cols-1 md:grid-cols-12 gap-x-30px mt-15px">
@@ -31,7 +35,7 @@ export default function Profile() {
                                 <span className="inline-block">Last Name</span>
                             </div>
                             <div className="md:col-start-5 md:col-span-8">
-                                <span className="inline-block">Obema</span>
+                                <span className="inline-block">{lastName}</span>
                             </div>
                         </li>
                         <li className="text-lg text-contentColor dark:text-contentColor-dark leading-1.67 grid grid-cols-1 md:grid-cols-12 gap-x-30px mt-15px">
@@ -39,7 +43,7 @@ export default function Profile() {
                                 <span className="inline-block">Username</span>
                             </div>
                             <div className="md:col-start-5 md:col-span-8">
-                                <span className="inline-block"> obema007</span>
+                                <span className="inline-block">{username}</span>
                             </div>
                         </li>
                         <li className="text-lg text-contentColor dark:text-contentColor-dark leading-1.67 grid grid-cols-1 md:grid-cols-12 gap-x-30px mt-15px">
@@ -47,7 +51,7 @@ export default function Profile() {
                                 <span className="inline-block">Email</span>
                             </div>
                             <div className="md:col-start-5 md:col-span-8">
-                                <span className="inline-block"> obema@example.com</span>
+                                <span className="inline-block">{email}</span>
                             </div>
                         </li>
                         <li className="text-lg text-contentColor dark:text-contentColor-dark leading-1.67 grid grid-cols-1 md:grid-cols-12 gap-x-30px mt-15px">
@@ -55,28 +59,35 @@ export default function Profile() {
                                 <span className="inline-block">Phone Number</span>
                             </div>
                             <div className="md:col-start-5 md:col-span-8">
-                                <span className="inline-block">+55 669 4456 25987</span>
+                                <span className="inline-block">{user?.phoneNumber ? (`${user.phoneNumber}`) : (
+                                    <Link to="/dashboard/settings">
+                                        <button className="text-blue-500 underline">
+                                            Add Phone Number
+                                        </button>
+                                    </Link>)}
+                                </span>
                             </div>
                         </li>
-                        <li className="text-lg text-contentColor dark:text-contentColor-dark leading-1.67 grid grid-cols-1 md:grid-cols-12 gap-x-30px mt-15px">
+                        {/* <li className="text-lg text-contentColor dark:text-contentColor-dark leading-1.67 grid grid-cols-1 md:grid-cols-12 gap-x-30px mt-15px">
                             <div className="md:col-start-1 md:col-span-4">
                                 <span className="inline-block">Expert</span>
                             </div>
                             <div className="md:col-start-5 md:col-span-8">
                                 <span className="inline-block">Graphics Design</span>
                             </div>
-                        </li>
+                        </li> */}
                         <li className="text-lg text-contentColor dark:text-contentColor-dark leading-1.67 grid grid-cols-1 md:grid-cols-12 gap-x-30px mt-15px">
                             <div className="md:col-start-1 md:col-span-4">
                                 <span className="inline-block">Biography</span>
                             </div>
                             <div className="md:col-start-5 md:col-span-8">
-                                <span className="inline-block">
-                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores
-                                    veniam, delectus accusamus nesciunt laborum repellat laboriosam,
-                                    deserunt possimus itaque iusto perferendis voluptatum quaerat
-                                    cupiditate vitae. Esse aut illum perferendis nulla, corporis
-                                    impedit quasi alias est!
+                                <span className="inline-block">{user?.biography ? (`${user.biography}`) : (
+                                    <Link to="/dashboard/settings">
+                                        <button className="text-blue-500 underline">
+                                            Add Biography
+                                        </button>
+                                    </Link>)
+                                }
                                 </span>
                             </div>
                         </li>

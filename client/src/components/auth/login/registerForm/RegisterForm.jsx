@@ -1,10 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import useForm from "../../../../hooks/useForm";
-import { useAuthRegister } from "../../../../hooks/useAuth";
 import { useContext } from "react";
 import AuthContext from "../../../../context/authContext";
 import { Toaster, toast } from "react-hot-toast";
 import { register } from "../../../../dataService/authService";
+import { getErrorMessage } from "../../../../utils/errorParser";
 
 export default function RegisterForm({ setIsLogin }) {
     const { user, setUser } = useContext(AuthContext);
@@ -13,13 +13,11 @@ export default function RegisterForm({ setIsLogin }) {
     let initialValues = {
         firstName: "",
         lastName: "",
-        username: "",
+        userName: "",
         email: "",
         password: "",
         rePassword: "",
     };
-
-   
 
     const submitHandler = async (values) => {
         try{
@@ -28,8 +26,9 @@ export default function RegisterForm({ setIsLogin }) {
             setUser(newUser);
             navigate("/dashboard");
         }catch(err){
-            console.log(err);
-            toast.error(err.message);
+            const errorMessage = getErrorMessage(err);
+            console.log(errorMessage);
+            toast.error(errorMessage);
         }
        
     }
@@ -93,8 +92,8 @@ export default function RegisterForm({ setIsLogin }) {
                                 Username
                             </label>
                             <input
-                                name="username"
-                                value={values.username}
+                                name="userName"
+                                value={values.userName}
                                 onChange={onChange}
                                 type="text"
                                 placeholder="Username"

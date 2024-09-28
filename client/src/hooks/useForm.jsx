@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { validateLoginForm, validateRegisterForm } from "../utils/validateForm";
+import { validateLoginForm, validateProfileSettingsForm, validateRegisterForm } from "../utils/validateForm";
 
 
 
@@ -27,13 +27,16 @@ export default function useForm(initialValues, submitHandler, formType) {
             case "login":
                  validationErrors = validateLoginForm(values);
                 break;
+            case "profile":
+                validationErrors = validateProfileSettingsForm(values);
             default:
                 break;
         }
+        setErrors(validationErrors);
        
         if(Object.keys(validationErrors).length > 0) {
             console.log("Validation errors", validationErrors);
-            return setErrors(validationErrors);
+            return;
         }
         setLoading(true);
         await submitHandler(values);

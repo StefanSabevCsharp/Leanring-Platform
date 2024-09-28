@@ -37,8 +37,11 @@ router.post("/register", async (req, res) => {
             email: savedUser.email,
             firstName: savedUser.firstName,
             lastName: savedUser.lastName,
+            userName: savedUser.username,
+            createdAt: savedUser.createdAt,
             role: savedUser.role,
         }
+        // const { password, ...payload } = savedUser._doc;
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "72h" });
         console.log("Setting cookie with token:", token);
         res.cookie("authToken", token, {
@@ -74,11 +77,13 @@ router.post("/login", async (req, res) => {
             email: searchedUser.email,
             firstName: searchedUser.firstName,
             lastName: searchedUser.lastName,
+            userName: searchedUser.username,
+            createdAt: searchedUser.createdAt,
             role: searchedUser.role,
         }
+        // const { password, ...payload } = searchedUser._doc;
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "72h" });
-        console.log("key is: ", process.env.JWT_SECRET);
-        console.log("Setting cookie with token:", token);
+        
 
         res.cookie("authToken", token, {
             httpOnly: true,

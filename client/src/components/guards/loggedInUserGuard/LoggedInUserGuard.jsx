@@ -6,7 +6,6 @@ import { Navigate } from "react-router-dom";
 
 const LoggedInUserGuard = ({children}) => {
     const {user} = useContext(AuthContext);
-    console.log(user)
 
     if(!user){
         return children

@@ -14,7 +14,7 @@ export default function Wishlist() {
                 <div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-30px">
                         {[1,2,3,4,5].map((number) => (
-                            <div className="group">
+                            <div key={number} className="group">
                             <div className="tab-content-wrapper" data-aos="fade-up">
                                 <div className="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark">
                                     {/* card image */}

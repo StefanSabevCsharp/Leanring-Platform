@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import AuthContext from "../../../context/authContext";
 
 export default function TopElement() {
+  const {user} = useContext(AuthContext);
   return (
     <>
       <section>
@@ -16,7 +19,7 @@ export default function TopElement() {
               </div>
               <div className="text-whiteColor font-bold text-center sm:text-start">
                 <h5 className="text-xl leading-1.2 mb-5px">Hello</h5>
-                <h2 className="text-2xl leading-1.24">Michle Obema</h2>
+                <h2 className="text-2xl leading-1.24">{`${user.firstName} ${user.lastName} `}</h2>
               </div>
               
             </div>

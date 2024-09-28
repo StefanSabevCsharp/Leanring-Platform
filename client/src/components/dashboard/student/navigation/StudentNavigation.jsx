@@ -1,11 +1,14 @@
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import AuthContext from "../../../../context/authContext";
 
-export default function StudentNavigation() {
+export default function StudentNavigation({user}) {
+    // const {user} = useContext(AuthContext);
     return (
         <div className="p-30px pt-5 lg:p-5 2xl:p-30px 2xl:pt-5 rounded-lg2 shadow-accordion dark:shadow-accordion-dark bg-whiteColor dark:bg-whiteColor-dark">
             {/* greeting */}
             <h5 className="text-sm leading-1 font-semibold uppercase text-contentColor dark:text-contentColor-dark bg-lightGrey5 dark:bg-whiteColor-dark p-10px pb-7px mt-5 mb-10px">
-                WELCOME, DOND TOND
+            {user.username}
             </h5>
             <ul>
 

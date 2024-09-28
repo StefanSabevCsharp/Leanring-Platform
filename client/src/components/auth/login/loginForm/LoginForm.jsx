@@ -27,7 +27,8 @@ export default function LoginForm({ setIsLogin }) {
             navigate("/dashboard");
         } catch (err) {
             console.log(err);
-            toast.error(err.message);
+            // toast.error(err.message);
+            toast.error("Invalid email or password");
         }
     }
 
@@ -56,7 +57,7 @@ export default function LoginForm({ setIsLogin }) {
                 <form onSubmit={onSubmit} className="pt-25px" data-aos="fade-up">
                     <div className="mb-25px">
                         <label className="text-contentColor dark:text-contentColor-dark mb-10px block">
-                            Username
+                            Email
                         </label>
                         <input
                             name="email"

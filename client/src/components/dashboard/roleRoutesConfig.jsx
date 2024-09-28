@@ -7,12 +7,12 @@ import Wishlist from "./student/wishlist/Wishlist";
 
 const roleRoutesConfig = {
     student: [
-      {path:"/" , element: <StudentDashboard />},
-      {path:"/profile" , element: <Profile />},
-      {path:"/my-courses" , element: <MyCourses />},
-      {path:"/wishlist" , element: <Wishlist />},
-      {path:"/reviews" , element: <Reviews />},
-      {path:"/settings" , element: <Settings />}
+      {path:"/" , element: (user) => <StudentDashboard user={user}/>},
+      {path:"/profile" , element: (user) => <Profile user={user} />},
+      {path:"/my-courses" , element: (user) => <MyCourses user={user} />},
+      {path:"/wishlist" , element:  (user) =><Wishlist user={user}/>},
+      {path:"/reviews" , element: (user) => <Reviews user={user}/>},
+      {path:"/settings" , element: (user) => <Settings user={user}/>}
     ],
     instructor: [
 

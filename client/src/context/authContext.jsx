@@ -5,22 +5,22 @@ const AuthContext = createContext();
 
 
 export function AuthProvider({ children }) {
-    const [isLogged, setIsLogged] = useState(false);
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [role, setRole] = useState(null);
 
     useEffect(() => {
-        async function checkUserAuth() {
+        const checkUserAuth = async () => {
+            setLoading(true); 
             try {
                 const authenticatedUser = await getUserFromCookie();
-                if (authenticatedUser) {
-                    setUser(authenticatedUser);
-                }
+                setUser(authenticatedUser || null);
             } catch (err) {
                 console.error('Authentication failed:', err);
+            } finally {
+                setLoading(false);
             }
-        }
+        };
 
         checkUserAuth();
     }, []);
@@ -32,14 +32,10 @@ export function AuthProvider({ children }) {
     };
 
     const initialState = {
-        isLogged,
-        setIsLogged,
         user,
         setUser,
-        loading,
-        setLoading,
         role,
-        setRole,
+        loading,
         logout,
     };
 
