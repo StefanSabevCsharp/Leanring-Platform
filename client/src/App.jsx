@@ -17,50 +17,56 @@ import { useContext, useEffect } from "react"
 import AuthContext from "./context/authContext"
 import Dashboard from "./components/dashboard/DashBoard"
 import SetUserRole from "./utils/setUserRole"
+import ProtectedRoute from "./components/guards/protectedRoute/ProtectedRoute"
+import LoggedInUserGuard from "./components/guards/loggedInUserGuard/LoggedInUserGuard"
+import Logout from "./components/auth/logout/Logout"
 
 
 function App() {
-  const {user} = useContext(AuthContext)
-  SetUserRole();
+  const { user } = useContext(AuthContext)
   console.log(user)
-
-//   useEffect(() => {
-//     if (!user) {
-//         checkAuth()  // Call API to check if JWT in cookie is valid
-//             .then(validUser => setUser(validUser))
-//             .catch(err => console.log("Not authenticated:", err));
-//     }
-// }, [user]);
-  
   return (
-   
-      <>
-        <ThemeController />
-        <Header />
-        <main className="bg-transparent">
-          <Routes>
-            <Route path="/" element={
-              <>
-                <Banner />
-                <Brand />
-                <About />
-                <Popular />
-                <Courses />
-                {!user && <RegistrationSection />}
-                
-                <Pricing />
-                <AboutInstructor />
-                <News />
-              </>} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/courses" element={<CoursesPage />} />
-            <Route path="/dashboard" element={<Dashboard />} />
 
-          </Routes>
-        </main>
-        <Footer />
-      </>
-      
+    <>
+      {/* <ThemeController /> */}
+      <Header />
+      <main className="bg-transparent">
+        <Routes>
+          <Route path="/" element={
+            <>
+              <Banner />
+              <Brand />
+              <About />
+              <Popular />
+              <Courses />
+              {!user && <RegistrationSection />}
+
+              <Pricing />
+              <AboutInstructor />
+              <News />
+            </>} />
+          <Route path="/login" element={
+            <LoggedInUserGuard>
+              <Login />
+            </LoggedInUserGuard>
+            } />
+            <Route path="/logout" element={
+            <ProtectedRoute>
+              <Logout />
+            </ProtectedRoute>
+          } />
+          <Route path="/courses" element={<CoursesPage />} />
+          <Route path="/dashboard/*" element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          } />
+
+        </Routes>
+      </main>
+      <Footer />
+    </>
+
   )
 }
 
