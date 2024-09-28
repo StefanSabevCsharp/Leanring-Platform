@@ -94,6 +94,11 @@ router.post("/login", async (req, res) => {
     }
 });
 
+router.get("/logout" , (req,res) => {
+    res.clearCookie("authToken");
+    res.status(200).json({message: "Logged out successfully"});
+})
+
 router.get("/checkAuth", authenticateToken, (req, res) => {
     try {
         const user = req.user; 
