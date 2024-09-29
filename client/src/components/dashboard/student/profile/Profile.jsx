@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import dataParser from "../../../../utils/dataParser";
 
 export default function Profile({ user }) {
-    const { firstName, lastName, username, email, createdAt } = user;
+    const { firstName, lastName, userName, email, createdAt } = user;
     return (
         <div className="lg:col-start-4 lg:col-span-9">
             {/* profile details */}
@@ -43,7 +43,7 @@ export default function Profile({ user }) {
                                 <span className="inline-block">Username</span>
                             </div>
                             <div className="md:col-start-5 md:col-span-8">
-                                <span className="inline-block">{username}</span>
+                                <span className="inline-block">{userName}</span>
                             </div>
                         </li>
                         <li className="text-lg text-contentColor dark:text-contentColor-dark leading-1.67 grid grid-cols-1 md:grid-cols-12 gap-x-30px mt-15px">
@@ -81,7 +81,7 @@ export default function Profile({ user }) {
                                 <span className="inline-block">Biography</span>
                             </div>
                             <div className="md:col-start-5 md:col-span-8">
-                                <span className="inline-block">{user?.biography ? (`${user.biography}`) : (
+                                <span className="inline-block">{user?.bio ? (`${user.bio}`) : (
                                     <Link to="/dashboard/settings">
                                         <button className="text-blue-500 underline">
                                             Add Biography

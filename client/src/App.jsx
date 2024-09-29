@@ -8,7 +8,6 @@ import Footer from "./components/footer/Footer"
 import Header from "./components/header/Header"
 import News from "./components/news/News"
 import Popular from "./components/popular/Popular"
-import Pricing from "./components/pricing/Pricing"
 import RegistrationSection from "./components/registrationSection/RegistrationSection"
 import ThemeController from "./components/themeController/ThemeController"
 import Login from "./components/auth/login/Login"
@@ -41,7 +40,6 @@ function App() {
               <Courses />
               {!user && <RegistrationSection />}
 
-              <Pricing />
               <AboutInstructor />
               <News />
             </>} />

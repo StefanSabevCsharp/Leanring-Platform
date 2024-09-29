@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function AboutInstructor() {
   return (
     <section className="bg-lightGrey10 dark:dark:bg-lightGrey10-dark relative">
@@ -35,14 +37,7 @@ export default function AboutInstructor() {
             Construction is a general term meaning the art and science to form
             systems organizations and comes from Latin Construction is
           </p>
-          <div>
-            <a
-              className="text-size-15 text-whiteColor bg-secondaryColor px-25px py-10px border border-secondaryColor hover:text-secondaryColor hover:bg-whiteColor inline-block rounded dark:hover:text-whiteColor dark:hover:bg-secondaryColor"
-              href="#"
-            >
-              Explore More <i className="icofont-long-arrow-right" />
-            </a>
-          </div>
+           
         </div>
       </div>
       <div data-aos="fade-up">

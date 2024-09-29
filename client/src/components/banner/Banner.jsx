@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Banner() {
     return (
         <section>
@@ -18,18 +20,18 @@ export default function Banner() {
                             Lorem Ipsum has been
                         </p>
                         <div>
-                            <a
-                                href="course.html"
+                            <Link
+                                to="/courses"
                                 className="text-sm md:text-size-15 font-semibold text-darkdeep2 bg-whiteColor border border-whiteColor px-5 md:px-30px py-3 md:py-4 hover:text-whiteColor hover:bg-darkblack rounded inline-block mr-6px md:mr-30px shadow-hero-action dark:bg-whiteColor-dark dark:hover:bg-whiteColor dark:text-whiteColor dark:hover:text-whiteColor-dark dark:border-none"
                             >
                                 View Courses
-                            </a>
-                            <a
-                                href="#"
+                            </Link>
+                            <Link
+                                to="/about"
                                 className="text-sm md:text-size-15 font-semibold text-whiteColor py-3 md:py-4 hover:text-secondaryColor inline-block"
                             >
                                 Find out more <i className="icofont-long-arrow-right" />
-                            </a>
+                            </Link>
                         </div>
                     </div>
                     {/* banner right */}

@@ -240,8 +240,7 @@ export default function Footer() {
         </div>
         <div className="lg:col-start-4 lg:col-span-6">
           <p className="text-whiteColor">
-            Copyright © <span className="text-primaryColor">2024 </span> by
-            edurock. All Rights Reserved.
+            Copyright © <span className="text-primaryColor">2024 </span> Learny. All Rights Reserved.
           </p>
         </div>
         <div className="lg:col-start-10 lg:col-span-3">
