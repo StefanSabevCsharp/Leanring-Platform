@@ -56,3 +56,14 @@ export const getUserFromCookie = async () => {
         return null;
     }
 };
+
+export const updateUserPassword = async (values) => {
+    try{
+        const response = await axios.put(`${import.meta.env.VITE_EXPRESS_API}/auth/updatePassword/${values._id}`, values, { withCredentials: true });
+        return response.data;
+    }catch(err){
+        console.error("Error in get password function", err);
+        const errorMessage = getErrorMessage(err);
+        throw new Error(errorMessage);
+    }
+}
