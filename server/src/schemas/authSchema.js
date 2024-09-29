@@ -12,7 +12,7 @@ const authSchema = new Schema({
         type: String,
         required: true
     },
-    username: {
+    userName: {
         type: String,
         required: true,
         minLength: 3, 
@@ -32,7 +32,18 @@ const authSchema = new Schema({
         required: true,
         enum: ["student", "instructor", "admin"],
         default: "student"
+    },
+    phoneNumber: {
+        type: String
+    },
+    bio: {
+        type: String
+    },
+    courses: {
+        type: [Schema.Types.ObjectId],
+        ref: "Course"
     }
-});
+
+}, {timestamps: true});
 
 module.exports = model("User", authSchema);

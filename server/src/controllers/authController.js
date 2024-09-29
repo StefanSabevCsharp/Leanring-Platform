@@ -4,10 +4,11 @@ const jwt = require("jsonwebtoken");
 const User = require("../schemas/authSchema");
 const { getErrorMessage } = require("../utils/errorParser");
 const authenticateToken = require("../middlewares/authMiddleware");
+const { removePasswordUtil } = require("../utils/removePassword");
 
 router.post("/register", async (req, res) => {
     console.log(req.body);
-    const { firstName, lastName, username, email, password } = req.body;
+    const { firstName, lastName, userName, email, password } = req.body;
 
     try {
 
@@ -15,7 +16,7 @@ router.post("/register", async (req, res) => {
         const existingUser = await User.findOne({
             $or: [
                 { email: email },
-                { username: username }
+                { userName: userName }
             ]
         });
 
@@ -25,7 +26,7 @@ router.post("/register", async (req, res) => {
         const newUser = new User({
             firstName,
             lastName,
-            username,
+            userName,
             email,
             password: hash,
             role: "student",
@@ -33,11 +34,11 @@ router.post("/register", async (req, res) => {
 
         const savedUser = await newUser.save();
         const payload = {
-            id: savedUser._id,
+            _id: savedUser._id,
             email: savedUser.email,
             firstName: savedUser.firstName,
             lastName: savedUser.lastName,
-            userName: savedUser.username,
+            userName: savedUser.userName,
             createdAt: savedUser.createdAt,
             role: savedUser.role,
         }
@@ -50,8 +51,8 @@ router.post("/register", async (req, res) => {
         });
 
         console.log(`savedUser: ${savedUser}`);
+        res.status(201).json(removePasswordUtil(savedUser));
 
-        res.status(201).json(savedUser);
     } catch (err) {
         const errorMessage = getErrorMessage(err);
         return res.status(400).json({ message: errorMessage });
@@ -73,17 +74,17 @@ router.post("/login", async (req, res) => {
             return res.status(400).json("Invalid password");
         }
         const payload = {
-            id: searchedUser._id,
+            _id: searchedUser._id,
             email: searchedUser.email,
             firstName: searchedUser.firstName,
             lastName: searchedUser.lastName,
-            userName: searchedUser.username,
+            userName: searchedUser.userName,
             createdAt: searchedUser.createdAt,
             role: searchedUser.role,
         }
         // const { password, ...payload } = searchedUser._doc;
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "72h" });
-        
+
 
         res.cookie("authToken", token, {
             httpOnly: true,
@@ -91,7 +92,8 @@ router.post("/login", async (req, res) => {
         });
 
         console.log(`searched user: ${searchedUser}`);
-        res.status(200).json(searchedUser);
+
+        res.status(200).json(removePasswordUtil(searchedUser));
 
     } catch (err) {
         const errorMessage = getErrorMessage(err);
@@ -99,14 +101,79 @@ router.post("/login", async (req, res) => {
     }
 });
 
-router.get("/logout" , (req,res) => {
+router.get("/logout", (req, res) => {
     res.clearCookie("authToken");
-    res.status(200).json({message: "Logged out successfully"});
+    res.status(200).json({ message: "Logged out successfully" });
 })
+
+router.put("/updateProfile", authenticateToken, async (req, res) => {
+
+    const userIdFromToken = req.user._id;
+
+    const { firstName, lastName, userName, email, phoneNumber, bio } = req.body;
+
+    try {
+        const currentUser = await User.findById(userIdFromToken);
+        
+
+        // Check if the username or email is actually changing
+        const usernameChanged = userName !== currentUser.userName;
+        const emailChanged = email !== currentUser.email;
+
+        if (usernameChanged) {
+            const existingUsername = await User.findOne({ userName: userName });
+            if (existingUsername && existingUsername._id.toString() !== userIdFromToken) {
+                return res.status(400).json({ message: "Username already exists" });
+            }
+        }
+
+        if (emailChanged) {
+            const existingEmail = await User.findOne({ email: email });
+            if (existingEmail && existingEmail._id.toString() !== userIdFromToken) {
+                return res.status(400).json({ message: "Email already exists" });
+            }
+        }
+
+
+        const updatedUser = await User.findByIdAndUpdate(userIdFromToken, {
+            firstName,
+            lastName,
+            userName,
+            email,
+            phoneNumber,
+            bio,
+        }, { new: true });
+
+        const payload = {
+            _id: updatedUser._id,
+            email: updatedUser.email,
+            firstName: updatedUser.firstName,
+            lastName: updatedUser.lastName,
+            userName: updatedUser.userName,
+            phoneNumber: updatedUser.phoneNumber,
+            createdAt: updatedUser.createdAt,
+            bio: updatedUser.bio,
+        };
+        console.log(`updatedUser: ${updatedUser}`);
+
+        const newToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '72h' });
+
+        res.cookie("authToken", newToken, {
+            httpOnly: true,
+            path: "/",
+        });
+        res.status(200).json(removePasswordUtil(updatedUser));
+
+    } catch (err) {
+        const errorMessage = getErrorMessage(err);
+        return res.status(400).json({ message: errorMessage });
+    }
+});
+
 
 router.get("/checkAuth", authenticateToken, (req, res) => {
     try {
-        const user = req.user; 
+        const user = req.user;
         res.status(200).json(user);
     } catch (err) {
         res.status(500).json({ message: "Internal server error" });

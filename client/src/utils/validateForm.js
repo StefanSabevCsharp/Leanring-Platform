@@ -3,8 +3,9 @@ import isEmail from "validator/lib/isEmail";
 
 
 const validateRegisterForm = (values) => {
+    console.log(values);
     let errors = {};
-    const { firstName, lastName, email, username, password, rePassword } = values;
+    const { firstName, lastName, email, userName, password, rePassword } = values;
 
     if (!isLength(firstName, { min: 3, max: 30 })) {
         errors.firstName = "First name must be between 3 and 30 characters";
@@ -12,7 +13,7 @@ const validateRegisterForm = (values) => {
     if (!isLength(lastName, { min: 3, max: 30 })) {
         errors.lastName = "Last name must be between 3 and 30 characters";
     }
-    if (!isLength(username, { min: 3, max: 30 })) {
+    if (!isLength(userName, { min: 3, max: 30 })) {
         errors.username = "Username must be between 3 and 30 characters";
     }
     if (!isEmail(email)) {
