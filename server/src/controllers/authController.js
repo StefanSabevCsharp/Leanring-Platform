@@ -114,7 +114,7 @@ router.put("/updateProfile", authenticateToken, async (req, res) => {
 
     try {
         const currentUser = await User.findById(userIdFromToken);
-        
+
 
         // Check if the username or email is actually changing
         const usernameChanged = userName !== currentUser.userName;
@@ -177,6 +177,50 @@ router.get("/checkAuth", authenticateToken, (req, res) => {
         res.status(200).json(user);
     } catch (err) {
         res.status(500).json({ message: "Internal server error" });
+    }
+});
+
+router.put("/updatePassword/:userId", authenticateToken, async (req, res) => {
+
+    const userId = req.params.userId;
+    console.log("userId: ", userId);
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        const {currentPassword, newPassword, retypePassword} = req.body;
+        const isPasswordValid = await bcrypt.compare(currentPassword, user.password);
+        if (!isPasswordValid) {
+            return res.status(400).json({ message: "Invalid password" });
+        }
+        if (newPassword !== retypePassword) {
+            return res.status(400).json({ message: "Passwords do not match" });
+        }
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(newPassword, salt);
+        const updatedUser = await User.findByIdAndUpdate(userId, { password: hash }, { new: true });
+        const payload = {
+            _id: updatedUser._id,
+            email: updatedUser.email,
+            firstName: updatedUser.firstName,
+            lastName: updatedUser.lastName,
+            userName: updatedUser.userName,
+            phoneNumber: updatedUser.phoneNumber,
+            createdAt: updatedUser.createdAt,
+            bio: updatedUser.bio,
+        };
+        const newToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '72h' });
+        res.cookie("authToken", newToken, {
+            httpOnly: true,
+            path: "/",
+        });
+        res.status(200).json(removePasswordUtil(updatedUser));
+
+
+    } catch (err) {
+        const errorMessage = getErrorMessage(err);
+        return res.status(400).json({ message: errorMessage });
     }
 });
 
