@@ -2,6 +2,7 @@ import { isLength, isMobilePhone } from "validator";
 import isEmail from "validator/lib/isEmail";
 
 
+
 const validateRegisterForm = (values) => {
     console.log(values);
     let errors = {};
@@ -67,9 +68,29 @@ const validateProfileSettingsForm = (values) => {
     return errors;
 
 }
+const validateChangePasswordForm = async (values) => {
+    
+    const { currentPassword, newPassword, retypePassword, _id } = values;
+    let errors = {};
+
+    if (!currentPassword) {
+        errors.currentPassword = "Current password is required";
+    }
+    if (!newPassword) {
+        errors.newPassword = "New password is required";
+    } else if (newPassword.length < 5) {
+        errors.newPassword = "New password must be at least 5 characters";
+    }
+    if (newPassword !== retypePassword) {
+        errors.retypePassword = "Passwords do not match";
+    }
+
+    return errors;
+}
 
 export {
     validateRegisterForm,
     validateLoginForm,
-    validateProfileSettingsForm
+    validateProfileSettingsForm,
+    validateChangePasswordForm
 }

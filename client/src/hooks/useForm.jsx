@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { validateLoginForm, validateProfileSettingsForm, validateRegisterForm } from "../utils/validateForm";
+import { validateLoginForm, validateProfileSettingsForm, validateRegisterForm,validateChangePasswordForm } from "../utils/validateForm";
 
 
 
@@ -29,6 +29,10 @@ export default function useForm(initialValues, submitHandler, formType) {
                 break;
             case "profile":
                 validationErrors = validateProfileSettingsForm(values);
+                break;
+                case "changePassword":
+                validationErrors = validateChangePasswordForm(values);
+                    break;
             default:
                 break;
         }
