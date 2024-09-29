@@ -19,16 +19,31 @@ export const login = async (values) => {
         return response.data;
     } catch (err) {
         console.error(`Error in login function: ${err}`);
-        throw err;
+        const errorMessage = getErrorMessage(err);
+        throw new Error(errorMessage);
     }
 }
 
 export const logoutUser = async () => {
     try{
         const response = await axios.get(`${import.meta.env.VITE_EXPRESS_API}/auth/logout`, { withCredentials: true });
+        console.log(response);
     }catch(err){
         console.error("Error in logout function", err);
         //todo : handle error
+        const errorMessage = getErrorMessage(err);
+        throw new Error(errorMessage);
+    }
+}
+
+export const updateUserProfile = async (values) => {
+    try{
+        const response = await axios.put(`${import.meta.env.VITE_EXPRESS_API}/auth/updateProfile`, values, { withCredentials: true });
+        return response.data;
+    }catch(err){
+        console.error("Error in update profile function", err);
+        const errorMessage = getErrorMessage(err);
+        throw new Error(errorMessage);
     }
 }
 
