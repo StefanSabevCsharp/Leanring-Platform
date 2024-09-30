@@ -26,10 +26,10 @@ export default function TopElement() {
             
             <div>
               <Link
-                to="/courses"
+                to="/create-course"
                 className="text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor rounded group text-nowrap flex gap-1 items-center"
               >
-                Join New Course
+               Create course DEMO
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width={24}
