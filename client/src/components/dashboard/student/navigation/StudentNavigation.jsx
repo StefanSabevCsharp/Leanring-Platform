@@ -8,7 +8,7 @@ export default function StudentNavigation({user}) {
         <div className="p-30px pt-5 lg:p-5 2xl:p-30px 2xl:pt-5 rounded-lg2 shadow-accordion dark:shadow-accordion-dark bg-whiteColor dark:bg-whiteColor-dark">
             {/* greeting */}
             <h5 className="text-sm leading-1 font-semibold uppercase text-contentColor dark:text-contentColor-dark bg-lightGrey5 dark:bg-whiteColor-dark p-10px pb-7px mt-5 mb-10px">
-            {user.username}
+            {user.userName}
             </h5>
             <ul>
 
@@ -248,6 +248,33 @@ export default function StudentNavigation({user}) {
                             <circle cx={12} cy={7} r={4} />
                         </svg>
                         Settings
+                    </NavLink>
+                </li>
+                <li className="py-10px border-b border-borderColor dark:border-borderColor-dark">
+                    <NavLink
+                        to="/become-instructor"
+                        className={({ isActive }) =>
+                            isActive
+                                ? "text-primaryColor leading-1.8 flex gap-3 text-nowrap"
+                                : "text-contentColor dark:text-contentColor-dark hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"
+                        }
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width={16}
+                            height={24}
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="feather feather-user"
+                        >
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                            <circle cx={12} cy={7} r={4} />
+                        </svg>
+                        Become an Instructor
                     </NavLink>
                 </li>
                 <li className="py-10px border-b border-borderColor dark:border-borderColor-dark">

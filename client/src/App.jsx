@@ -14,11 +14,14 @@ import Login from "./components/auth/login/Login"
 import CoursesPage from "./components/courses/coursesPage/CoursesPage"
 import { useContext, useEffect } from "react"
 import AuthContext from "./context/authContext"
-import Dashboard from "./components/dashboard/DashBoard"
+import Dashboard from "./components/dashboard/Dashboard"
 import SetUserRole from "./utils/setUserRole"
 import ProtectedRoute from "./components/guards/protectedRoute/ProtectedRoute"
 import LoggedInUserGuard from "./components/guards/loggedInUserGuard/LoggedInUserGuard"
 import Logout from "./components/auth/logout/Logout"
+import { ThemeProvider } from "./context/themeContext"
+import CreateCourse from "./components/createCourse/CreateCourse"
+import BecomeInstructor from "./components/becomeInstructor/BecomeInstructor"
 
 
 function App() {
@@ -27,42 +30,50 @@ function App() {
   return (
 
     <>
-      {/* <ThemeController /> */}
-      <Header />
-      <main className="bg-transparent">
-        <Routes>
-          <Route path="/" element={
-            <>
-              <Banner />
-              <Brand />
-              <About />
-              <Popular />
-              <Courses />
-              {!user && <RegistrationSection />}
+      <ThemeProvider>
+        <ThemeController />
+        <Header />
+        <main className="bg-transparent">
+          <Routes>
+            <Route path="/" element={
+              <>
+                <Banner />
+                <Brand />
+                <About />
+                <Popular />
+                <Courses />
+                {!user && <RegistrationSection />}
 
-              <AboutInstructor />
-              <News />
-            </>} />
-          <Route path="/login" element={
-            <LoggedInUserGuard>
-              <Login />
-            </LoggedInUserGuard>
+                <AboutInstructor />
+                <News />
+              </>} />
+            <Route path="/login" element={
+              <LoggedInUserGuard>
+                <Login />
+              </LoggedInUserGuard>
             } />
             <Route path="/logout" element={
-            <ProtectedRoute>
-              <Logout />
-            </ProtectedRoute>
-          } />
-          <Route path="/courses" element={<CoursesPage />} />
-          <Route path="/dashboard/*" element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          } />
+              <ProtectedRoute>
+                <Logout />
+              </ProtectedRoute>
+            } />
+            <Route path="/create-course" element={
+             
+                <CreateCourse />
+              
+            } />
+            <Route path="/become-instructor" element={<BecomeInstructor />} />
+            <Route path="/courses" element={<CoursesPage />} />
+            <Route path="/dashboard/*" element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } />
 
-        </Routes>
-      </main>
-      <Footer />
+          </Routes>
+        </main>
+        <Footer />
+      </ThemeProvider>
     </>
 
   )
