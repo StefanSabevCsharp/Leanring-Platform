@@ -66,7 +66,9 @@ export const updateUserPassword = async (values) => {
         const errorMessage = getErrorMessage(err);
         throw new Error(errorMessage);
     }
-}export const checkIsPasswordValid = async (password) => {
+}
+
+export const checkIsPasswordValid = async (password) => {
     try {
         const response = await axios.post(`${import.meta.env.VITE_EXPRESS_API}/auth/checkPassword`, { password }, { withCredentials: true });
         return response.data;
@@ -77,3 +79,18 @@ export const updateUserPassword = async (values) => {
         throw new Error(errorMessage);
     }
 }
+
+export const updateUserToBecomeInstructor = async (_id) => {
+    try {
+        const response = await axios.put(
+            `${import.meta.env.VITE_EXPRESS_API}/auth/updateToInstructor/${_id}`, 
+            {},
+            { withCredentials: true } 
+        );
+        return response.data;
+    } catch (err) {
+        console.error("Error in update to instructor function", err);
+        const errorMessage = getErrorMessage(err);
+        throw new Error(errorMessage);
+    }
+};
