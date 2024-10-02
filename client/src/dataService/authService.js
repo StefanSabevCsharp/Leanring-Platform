@@ -25,10 +25,10 @@ export const login = async (values) => {
 }
 
 export const logoutUser = async () => {
-    try{
+    try {
         const response = await axios.get(`${import.meta.env.VITE_EXPRESS_API}/auth/logout`, { withCredentials: true });
         console.log(response);
-    }catch(err){
+    } catch (err) {
         console.error("Error in logout function", err);
         //todo : handle error
         const errorMessage = getErrorMessage(err);
@@ -37,10 +37,10 @@ export const logoutUser = async () => {
 }
 
 export const updateUserProfile = async (values) => {
-    try{
+    try {
         const response = await axios.put(`${import.meta.env.VITE_EXPRESS_API}/auth/updateProfile`, values, { withCredentials: true });
         return response.data;
-    }catch(err){
+    } catch (err) {
         console.error("Error in update profile function", err);
         const errorMessage = getErrorMessage(err);
         throw new Error(errorMessage);
@@ -58,11 +58,21 @@ export const getUserFromCookie = async () => {
 };
 
 export const updateUserPassword = async (values) => {
-    try{
+    try {
         const response = await axios.put(`${import.meta.env.VITE_EXPRESS_API}/auth/updatePassword/${values._id}`, values, { withCredentials: true });
         return response.data;
-    }catch(err){
+    } catch (err) {
         console.error("Error in get password function", err);
+        const errorMessage = getErrorMessage(err);
+        throw new Error(errorMessage);
+    }
+}export const checkIsPasswordValid = async (password) => {
+    try {
+        const response = await axios.post(`${import.meta.env.VITE_EXPRESS_API}/auth/checkPassword`, { password }, { withCredentials: true });
+        return response.data;
+
+    } catch (err) {
+        console.error("Error in check password function", err);
         const errorMessage = getErrorMessage(err);
         throw new Error(errorMessage);
     }
