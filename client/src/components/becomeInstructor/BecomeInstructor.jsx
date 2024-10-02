@@ -1,10 +1,63 @@
 import BecomeInstructorBanner from "./becomeInstructorBanner/BecomeInstructorBanner";
+import AuthContext from "../../context/authContext"
+import useForm from "../../hooks/useForm";
+import { useContext } from "react";
+import { Toaster, toast } from "react-hot-toast";
+import { checkIsPasswordValid, updateUserToBecomeInstructor } from "../../dataService/authService";
+import { useNavigate } from "react-router-dom";
 
 
 export default function BecomeInstructor() {
+    const { user, setUser } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const initialState = {
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+    }
+
+    const submitHandler = async ({ firstName, lastName, email, password }) => {
+
+        if (firstName != user.firstName || lastName != user.lastName || email != user.email) {
+            return toast.error("Your details do not match our records. Please try again.");
+        }
+
+        try {
+            const responce = await checkIsPasswordValid(password);
+            console.log(responce);
+            if (responce.message === "Password is valid") {
+                toast.success("Updating info...");
+            }
+        }catch(err){
+            console.log(err);
+            return toast.error("Invalid password");
+        }
+        
+        try{
+            const newUserData = await updateUserToBecomeInstructor(user._id);
+            console.log(newUserData);
+            if(newUserData.role === "instructor"){
+                setUser(newUserData);
+               toast.success("Info updated successfully");
+                navigate("/dashboard");
+            }
+        }catch(err){
+            console.log(err);
+            return toast.error("Error updating info");
+        }
+        
+        
+
+    }
+
+    const [values, onChange, onSubmit] = useForm(initialState, submitHandler);
+
     return (
         <>
             <BecomeInstructorBanner />
+            <Toaster />
             <section>
                 <div className="container pt-100px pb-100px" data-aos="fade-up">
                     <h3 className="text-size-32 font-bold text-blackColor dark:text-blackColor-dark leading-1.2 pb-15px border-b border-borderColor dark:border-borderColor-dark mb-10">
@@ -147,7 +200,7 @@ export default function BecomeInstructor() {
                             <h2 className="text-xl font-bold mb-6 text-center text-contentColor dark:text-contentColor-dark">
                                 Please Confirm Your Details to Apply as an Instructor
                             </h2>
-                            <form
+                            <form onSubmit={onSubmit}
                                 className="p-10px md:p-10 lg:p-5 2xl:p-10 mb-50px bg-darkdeep3 dark:bg-darkdeep3-dark text-sm text-blackColor dark:text-blackColor-dark leading-1.8"
                                 data-aos="fade-up"
                             >
@@ -155,6 +208,9 @@ export default function BecomeInstructor() {
                                     <div>
                                         <label className="mb-3 block font-semibold">First Name</label>
                                         <input
+                                            name="firstName"
+                                            value={values.firstName}
+                                            onChange={onChange}
                                             type="text"
                                             placeholder="John"
                                             className="w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no"
@@ -163,6 +219,9 @@ export default function BecomeInstructor() {
                                     <div>
                                         <label className="mb-3 block font-semibold">Last Name</label>
                                         <input
+                                            name="lastName"
+                                            value={values.lastName}
+                                            onChange={onChange}
                                             type="text"
                                             placeholder="Due"
                                             className="w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no"
@@ -171,8 +230,22 @@ export default function BecomeInstructor() {
                                     <div>
                                         <label className="mb-3 block font-semibold">Email</label>
                                         <input
+                                            name="email"
+                                            value={values.email}
+                                            onChange={onChange}
                                             type="email"
                                             placeholder="Email"
+                                            className="w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="mb-3 block font-semibold">Password</label>
+                                        <input
+                                            name="password"
+                                            value={values.password}
+                                            onChange={onChange}
+                                            type="password"
+                                            placeholder="password"
                                             className="w-full py-10px px-5 text-sm focus:outline-none text-contentColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border-2 border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 leading-23px rounded-md font-no"
                                         />
                                     </div>
