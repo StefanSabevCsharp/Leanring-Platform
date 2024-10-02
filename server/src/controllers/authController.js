@@ -254,4 +254,23 @@ router.post("/checkPassword", authenticateToken, async (req, res) => {
     res.status(200).json({ message: "Password is valid" });
 })
 
+router.put("/updateToInstructor/:_id", authenticateToken, async (req, res) => {
+
+    const userId = req.params._id;
+    //TODO: ne idva zaqvkata do tuka
+    try {
+        const updatedUser = await User.findByIdAndUpdate(userId, { role: "instructor" }, { new: true });
+        console.log(`updatedUser: ${updatedUser}`);
+        const newToken = createNewToken(updatedUser);
+        res.cookie("authToken", newToken, {
+            httpOnly: true,
+            path: "/",
+        });
+        res.status(200).json(removePasswordUtil(updatedUser));
+    } catch (err) {
+        const errorMessage = getErrorMessage(err);
+        return res.status(400).json({ message: errorMessage });
+    }
+});
+
 module.exports = router;
