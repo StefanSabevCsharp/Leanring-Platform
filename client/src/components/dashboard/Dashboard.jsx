@@ -10,6 +10,7 @@ import Wishlist from "./student/wishlist/Wishlist";
 import Reviews from "./student/reviews/Reviews";
 import Settings from "./student/settings/Settings";
 import roleRoutesConfig from "./roleRoutesConfig";
+import InstructorNavigation from "./instructor/navigation/InstructorNavigation";
 
 
 export default function Dashboard() {
@@ -25,7 +26,7 @@ export default function Dashboard() {
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-30px pt-30px pb-100px">
                         <div className="lg:col-start-1 lg:col-span-3">
                             {currentRole === "student" && <StudentNavigation user={user} />}
-                            {/* {role === "instructor" && <InstructorNavigation />} */}
+                            {currentRole === "instructor" && <InstructorNavigation  user={user}/>}
                         </div>
                         {/* dashboard content */}
                         <Routes>
