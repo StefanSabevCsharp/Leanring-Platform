@@ -88,6 +88,7 @@ const validateChangePasswordForm = async (values) => {
     return errors;
 }
 
+
 export {
     validateRegisterForm,
     validateLoginForm,

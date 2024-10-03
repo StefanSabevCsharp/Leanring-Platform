@@ -19,7 +19,7 @@ export default function Profile({ user }) {
                                 <span className="inline-block">Registration Date</span>
                             </div>
                             <div className="md:col-start-5 md:col-span-8">
-                                <span className="inline-block">{dataParser(user.createdAt)}</span>
+                                <span className="inline-block">{dataParser(createdAt)}</span>
                             </div>
                         </li>
                         <li className="text-lg text-contentColor dark:text-contentColor-dark leading-1.67 grid grid-cols-1 md:grid-cols-12 gap-x-30px mt-15px">

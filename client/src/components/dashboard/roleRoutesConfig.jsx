@@ -15,6 +15,12 @@ const roleRoutesConfig = {
       {path:"/settings" , element: (user) => <Settings user={user}/>}
     ],
     instructor: [
+      {path:"/" , element: (user) => <StudentDashboard user={user}/>},
+      {path:"/profile" , element: (user) => <Profile user={user} />},
+      {path:"/wishlist" , element:  (user) => <Wishlist user={user}/>},
+      {path:"/reviews" , element: (user) => <Reviews user={user}/>},
+      {path:"/settings" , element: (user) => <Settings user={user}/>},
+      {path:"/instructor-course" , element: (user) => <h1>/instructor-course</h1>},
 
     ],
 }

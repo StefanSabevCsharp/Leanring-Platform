@@ -231,7 +231,7 @@ export default function Footer() {
       </div>
     </section>
     {/* footer copyright  */}
-    <div>
+    {/* <div>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-30px pt-10 items-center">
         <div className="lg:col-start-1 lg:col-span-3">
           <a href="index.html">
@@ -288,7 +288,7 @@ export default function Footer() {
           </ul>
         </div>
       </div>
-    </div>
+    </div> */}
   </div>
 </footer>
 
