@@ -12,16 +12,16 @@ import RegistrationSection from "./components/registrationSection/RegistrationSe
 import ThemeController from "./components/themeController/ThemeController"
 import Login from "./components/auth/login/Login"
 import CoursesPage from "./components/courses/coursesPage/CoursesPage"
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 import AuthContext from "./context/authContext"
 import Dashboard from "./components/dashboard/Dashboard"
-import SetUserRole from "./utils/setUserRole"
 import ProtectedRoute from "./components/guards/protectedRoute/ProtectedRoute"
 import LoggedInUserGuard from "./components/guards/loggedInUserGuard/LoggedInUserGuard"
 import Logout from "./components/auth/logout/Logout"
 import { ThemeProvider } from "./context/themeContext"
 import CreateCourse from "./components/createCourse/CreateCourse"
 import BecomeInstructor from "./components/becomeInstructor/BecomeInstructor"
+import CourseDetails from "./components/courses/courseDetails/CourseDetails"
 
 
 function App() {
@@ -58,18 +58,22 @@ function App() {
               </ProtectedRoute>
             } />
             <Route path="/create-course" element={
-             
-                <CreateCourse />
-              
+
+              <CreateCourse />
+
             } />
-            <Route path="/become-instructor" element={<BecomeInstructor />} />
+            <Route path="/become-instructor" element={
+
+              <BecomeInstructor />
+
+              } />
             <Route path="/courses" element={<CoursesPage />} />
             <Route path="/dashboard/*" element={
               <ProtectedRoute>
                 <Dashboard />
               </ProtectedRoute>
             } />
-
+            <Route path="/courses/:_Id" element={<CourseDetails />} />
           </Routes>
         </main>
         <Footer />

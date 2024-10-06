@@ -11,11 +11,11 @@ export default function CreateCourse() {
     const [firstFormData, setFirstFormData] = useState({});
     const [secondFormData, setSecondFormData] = useState({});
     const [thirdFormData, setThirdFormData] = useState({});
-    
-    
+
+
 
     const openLiElement = (liPosition) => {
-        if(activeLi === liPosition) {
+        if (activeLi === liPosition) {
             setActiveLi(0);
             return;
         }
@@ -32,6 +32,7 @@ export default function CreateCourse() {
     return (
         <>
             <CreateCourseBanner />
+            
             <div>
                 <div className="container pt-100px pb-100px" data-aos="fade-up">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-30px gap-y-5">
@@ -39,7 +40,7 @@ export default function CreateCourse() {
                         <div data-aos="fade-up" className="lg:col-start-1 lg:col-span-8">
                             <ul className="accordion-container curriculum create-course">
                                 {/* accordion */}
-                                <li  className={activeLi == 1 ? stylesLiActive : stylesLi}>
+                                <li className={activeLi == 1 ? stylesLiActive : stylesLi}>
                                     <div className="bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark rounded-t-md">
                                         {/* controller */}
                                         <div className="py-5 px-30px">
@@ -67,15 +68,15 @@ export default function CreateCourse() {
                                         </div>
                                     </div>
                                 </li>
-                               
+
                                 {/* accordion */}
-                                <li  className={activeLi == 2 ? stylesLiActive : stylesLi}>
+                                {/* <li  className={activeLi == 2 ? stylesLiActive : stylesLi}>
                                     <div className="bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark ">
-                                        {/* controller */}
+                                       
                                         <div className="py-5 px-30px">
                                             <div onClick={() => openLiElement(2)} className="cursor-pointer accordion-controller flex justify-between items-center text-lg text-headingColor font-semibold w-full dark:text-headingColor-dark font-hind leading-27px">
                                                 <div>
-                                                    <span>Course Intro Video</span>
+                                                    <span>Course Image Url</span>
                                                 </div>
                                                 <svg
                                                     className="transition-all duration-500 rotate-0"
@@ -91,16 +92,15 @@ export default function CreateCourse() {
                                                 </svg>
                                             </div>
                                         </div>
-                                        {/* content */}
                                         <div className={activeLi == 2 ? openStyle : closedStyle}>
                                             <SecondForm />
                                         </div>
                                     </div>
-                                </li>
+                                </li> */}
                                 {/* accordion */}
-                                <li  className={activeLi == 3 ? stylesLiActive : stylesLi}>
+                                {/* <li  className={activeLi == 3 ? stylesLiActive : stylesLi}>
                                     <div className="bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark">
-                                        {/* controller */}
+                                        
                                         <div className="py-5 px-30px">
                                             <div onClick={() => openLiElement(3)} className="cursor-pointer accordion-controller flex justify-between items-center text-lg text-headingColor font-semibold w-full dark:text-headingColor-dark font-hind leading-27px">
                                                 <div>
@@ -120,16 +120,15 @@ export default function CreateCourse() {
                                                 </svg>
                                             </div>
                                         </div>
-                                        {/* content */}
                                         <div className={activeLi == 3 ? openStyle : closedStyle}>
                                            <ThirdForm />
                                         </div>
                                     </div>
-                                </li>
+                                </li> */}
                                 {/* accordion */}
-                                <li className={activeLi == 4 ? stylesLiActive : stylesLi}>
+                                {/* <li className={activeLi == 4 ? stylesLiActive : stylesLi}>
                                     <div className="bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark">
-                                        {/* controller */}
+                                        
                                         <div onClick={() => openLiElement(4)}  className="py-5 px-30px">
                                             <div className="cursor-pointer accordion-controller flex justify-between items-center text-lg text-headingColor font-semibold w-full dark:text-headingColor-dark font-hind leading-27px">
                                                 <div>
@@ -149,16 +148,15 @@ export default function CreateCourse() {
                                                 </svg>
                                             </div>
                                         </div>
-                                        {/* content */}
                                         <div className={activeLi == 4 ? openStyle : closedStyle}>
                                             <FourthForm />
                                         </div>
                                     </div>
-                                </li>
+                                </li> */}
                                 {/* accordion */}
-                                
+
                             </ul>
-                            <div className="mt-10 leading-1.8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-x-30px gap-y-5">
+                            {/* <div className="mt-10 leading-1.8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-x-30px gap-y-5">
                                 <div data-aos="fade-up" className="lg:col-start-1 lg:col-span-4">
                                     <a
                                         href="#"
@@ -175,7 +173,7 @@ export default function CreateCourse() {
                                         Create Course
                                     </a>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                         {/* create course right*/}
                         <PageRight />

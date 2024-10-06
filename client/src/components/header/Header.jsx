@@ -7,47 +7,47 @@ export default function Header() {
     <header>
       {/* header top start */}
       <div className={`bg-blackColor2 ${theme === 'dark' ? 'dark:bg-lightGrey10-dark text-whiteColor' : 'bg-white text-blackColor'} hidden lg:block`}>
-  <div className="container 3xl:container2-lg 4xl:container mx-auto text-size-12 xl:text-sm py-5px xl:py-9px">
-    <div className="flex justify-between items-center">
-      <div>
-        <p>Call Us: ......... - Mail Us: ........</p>
-      </div>
-      <div className="flex gap-37px items-center">
-        <div>
-          <p>
-            <i className="icofont-location-pin text-primaryColor text-size-15 mr-5px" />
-            <span>684 West College St. Sun City, USA</span>
-          </p>
+        <div className="container 3xl:container2-lg 4xl:container mx-auto text-size-12 xl:text-sm py-5px xl:py-9px">
+          <div className="flex justify-between items-center">
+            <div>
+              <p>Call Us: ......... - Mail Us: ........</p>
+            </div>
+            <div className="flex gap-37px items-center">
+              <div>
+                <p>
+                  <i className="icofont-location-pin text-primaryColor text-size-15 mr-5px" />
+                  <span>684 West College St. Sun City, USA</span>
+                </p>
+              </div>
+              <div>
+                {/* header social list */}
+                <ul className="flex gap-13px text-size-15">
+                  <li>
+                    <a className="hover:text-primaryColor" href="#">
+                      <i className="icofont-facebook" />
+                    </a>
+                  </li>
+                  <li>
+                    <a className="hover:text-primaryColor" href="#">
+                      <i className="icofont-twitter" />
+                    </a>
+                  </li>
+                  <li>
+                    <a className="hover:text-primaryColor" href="#">
+                      <i className="icofont-instagram" />
+                    </a>
+                  </li>
+                  <li>
+                    <a className="hover:text-primaryColor" href="#">
+                      <i className="icofont-youtube-play" />
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
-        <div>
-          {/* header social list */}
-          <ul className="flex gap-13px text-size-15">
-            <li>
-              <a className="hover:text-primaryColor" href="#">
-                <i className="icofont-facebook" />
-              </a>
-            </li>
-            <li>
-              <a className="hover:text-primaryColor" href="#">
-                <i className="icofont-twitter" />
-              </a>
-            </li>
-            <li>
-              <a className="hover:text-primaryColor" href="#">
-                <i className="icofont-instagram" />
-              </a>
-            </li>
-            <li>
-              <a className="hover:text-primaryColor" href="#">
-                <i className="icofont-youtube-play" />
-              </a>
-            </li>
-          </ul>
-        </div>
       </div>
-    </div>
-  </div>
-</div>
 
       {/* header top end */}
       {/* navbar start */}

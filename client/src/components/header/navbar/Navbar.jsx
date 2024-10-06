@@ -8,6 +8,8 @@ export default function Navbar() {
 
   const { user } = useContext(AuthContext);
 
+  
+
 
   return (
     <div className="transition-all duration-500 sticky-header z-medium dark:bg-whiteColor-dark">
@@ -18,7 +20,7 @@ export default function Navbar() {
             <div className="lg:col-start-1 lg:col-span-2">
               <Link to="/" className="block">
                 <img
-                  src="assets/images/logo/logo_1.png"
+                  src="/assets/images/logo/logo_1.png"
                   alt="Logo"
                   className="w-logo-sm lg:w-auto py-2"
                 />
