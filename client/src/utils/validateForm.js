@@ -1,4 +1,4 @@
-import { isLength, isMobilePhone } from "validator";
+import { isLength, isMobilePhone, isIn, isURL,isNumeric,matches } from "validator";
 import isEmail from "validator/lib/isEmail";
 
 
@@ -50,26 +50,26 @@ const validateProfileSettingsForm = (values) => {
     console.log(values);
     let errors = {};
     const { firstName, lastName, userName, phoneNumber, bio } = values;
-    if(!isLength(firstName, { min: 3, max: 30 })) {
+    if (!isLength(firstName, { min: 3, max: 30 })) {
         errors.firstName = "First name must be between 3 and 30 characters";
     }
-    if(!isLength(lastName, { min: 3, max: 30 })) {
+    if (!isLength(lastName, { min: 3, max: 30 })) {
         errors.lastName = "Last name must be between 3 and 30 characters";
     }
-    if(!isLength(userName, { min: 3, max: 30 })) {
+    if (!isLength(userName, { min: 3, max: 30 })) {
         errors.userName = "Username must be between 3 and 30 characters";
     }
-    if(phoneNumber != "" && !isMobilePhone(phoneNumber)) {
+    if (phoneNumber != "" && !isMobilePhone(phoneNumber)) {
         errors.phoneNumber = "Invalid phone number";
     }
-    if(!isLength(bio, { min: 0, max: 1000 })) {
+    if (!isLength(bio, { min: 0, max: 1000 })) {
         errors.bio = "Bio must be between 3 and 1000 characters";
     }
     return errors;
 
 }
 const validateChangePasswordForm = async (values) => {
-    
+
     const { currentPassword, newPassword, retypePassword, _id } = values;
     let errors = {};
 
@@ -88,10 +88,83 @@ const validateChangePasswordForm = async (values) => {
     return errors;
 }
 
+const validateCreateCourseForm = (values) => {
+
+    //TODO: ADD more strict validations !!!
+
+    const { aboutCourse, category, courseImageUrl, courseTitle, description, discountedPrice, freeRegularPrice, language, startDate } = values;
+    const allowedCategories = [
+        "Web Design",
+        "Graphic",
+        "English",
+        "Spoken English",
+        "Art Painting",
+        "App Development",
+        "Web Application",
+        "Php Development",
+        
+    ];
+    
+
+    const validateImage = (url) => {
+        const validImageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg', '.webp'];
+
+        if(isURL(url) && validImageExtensions.some(ext => url.toLowerCase().endsWith(ext))){
+            return true;
+        }
+        return false;
+    }
+    const validateStartDate = (date) => {
+
+        const datePattern = /^(0[1-9]|[12][0-9]|3[01])[./](0[1-9]|1[0-2])[./]\d{2}$/;
+    
+        return matches(date, datePattern);
+    };
+
+    let errors = {};
+    if (!isLength(courseTitle, { min: 3, max: 100 })) {
+        errors.courseTitle = "Course title must be between 3 and 100 characters";
+    }
+    if (!isLength(aboutCourse, { min: 10, max: 1000 })) {
+        errors.aboutCourse = "About course must be between 3 and 100 characters";
+    }
+    if (!isLength(description, { min: 10, max: 1000 })) {
+        errors.description = "Description must be between 3 and 100 characters";
+    }
+    if (!isLength(language, { min: 3, max: 30 })) {
+        errors.language = "Language must be between 3 and 30 characters";
+    }
+    if(!isIn(category, allowedCategories)){
+        errors.category = "Invalid category";
+    }
+    
+    if(!validateImage(courseImageUrl)){
+        errors.courseImageUrl = "Invalid image url";
+    }
+    const parsedDiscountedPrice = parseFloat(discountedPrice);
+    const parsedFreeRegularPrice = parseFloat(freeRegularPrice);
+
+    if(!validateStartDate(startDate)){
+        errors.startDate = "Invalid date format. Please use dd.mm.yy or dd/mm/yy.";
+    }
+    if (isNaN(parsedDiscountedPrice) || parsedDiscountedPrice < 0) {
+        errors.discountedPrice = "Invalid discounted price";
+    }
+    if (isNaN(parsedFreeRegularPrice) || parsedFreeRegularPrice < 0) {
+        errors.freeRegularPrice = "Invalid regular price";
+    }
+    if (parsedFreeRegularPrice < parsedDiscountedPrice) {
+        errors.discountedPrice = "Discounted price must be less than regular price";
+    }
+    return errors;
+
+}
+
 
 export {
     validateRegisterForm,
     validateLoginForm,
     validateProfileSettingsForm,
-    validateChangePasswordForm
+    validateChangePasswordForm,
+    validateCreateCourseForm
 }
