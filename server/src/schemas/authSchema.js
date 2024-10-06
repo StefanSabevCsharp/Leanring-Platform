@@ -42,6 +42,39 @@ const authSchema = new Schema({
     courses: {
         type: [Schema.Types.ObjectId],
         ref: "Course"
+    },
+    wishlist: {
+        type: [Schema.Types.ObjectId],
+        ref: "Course"
+    },
+    createdCourses: {
+        type: [Schema.Types.ObjectId],
+        ref: "Course"
+    },
+    soldCourses: {
+        type: [Schema.Types.ObjectId],
+        ref: "Course",
+        default: []
+    },
+    totalEarnings: {
+        type: Number,
+        default: 0,
+
+    },
+    reviews: {
+        type: [Schema.Types.ObjectId],
+        ref: "Review",
+        default: []
+    },
+    comments: {
+        type: [Schema.Types.ObjectId],
+        ref: "Comment",
+        default: []
+    },
+    createdCourses: {
+        type: [Schema.Types.ObjectId],
+        ref: "Course",
+        default: []
     }
 
 }, {timestamps: true});

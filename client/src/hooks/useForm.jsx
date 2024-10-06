@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { validateLoginForm, validateProfileSettingsForm, validateRegisterForm, validateChangePasswordForm } from "../utils/validateForm";
+import { validateLoginForm, validateProfileSettingsForm, validateRegisterForm, validateChangePasswordForm, validateCreateCourseForm } from "../utils/validateForm";
 
 
 
@@ -33,7 +33,10 @@ export default function useForm(initialValues, submitHandler, formType) {
             case "changePassword":
                 validationErrors = validateChangePasswordForm(values);
                 break;
-              
+            case "firstForm":
+                validationErrors = validateCreateCourseForm(values);
+                break;
+
             default:
                 break;
         }
