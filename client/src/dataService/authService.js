@@ -15,7 +15,6 @@ export const register = async (data) => {
 export const login = async (values) => {
     try {
         const response = await axios.post(`${import.meta.env.VITE_EXPRESS_API}/auth/login`, values, { withCredentials: true });
-        console.log(response);
         return response.data;
     } catch (err) {
         console.error(`Error in login function: ${err}`);
@@ -94,3 +93,14 @@ export const updateUserToBecomeInstructor = async (_id) => {
         throw new Error(errorMessage);
     }
 };
+
+export const getFullUserData = async (_id) => {
+    try {
+        const response = await axios.get(`${import.meta.env.VITE_EXPRESS_API}/auth/getFullUserData/${_id}`, { withCredentials: true });
+        return response.data;
+    } catch (err) {
+        console.error("Error in get full user data function", err);
+        const errorMessage = getErrorMessage(err);
+        throw new Error(errorMessage);
+    }
+}
