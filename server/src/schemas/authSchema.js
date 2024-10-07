@@ -71,9 +71,9 @@ const authSchema = new Schema({
         ref: "Comment",
         default: []
     },
-    createdCourses: {
+    signedUpStudents:{
         type: [Schema.Types.ObjectId],
-        ref: "Course",
+        ref: "User",
         default: []
     }
 
