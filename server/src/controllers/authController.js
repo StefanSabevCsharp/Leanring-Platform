@@ -273,4 +273,22 @@ router.put("/updateToInstructor/:_id", authenticateToken, async (req, res) => {
     }
 });
 
+router.get("/getFullUserData/:_id", authenticateToken, async (req, res) => {
+
+    const userId = req.params._id;
+
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        const { password, ...userData } = user._doc;
+        res.status(200).json(userData);
+        
+    } catch (err) {
+        const errorMessage = getErrorMessage(err);
+        return res.status(400).json({ message: errorMessage });
+    }
+});
+
 module.exports = router;
