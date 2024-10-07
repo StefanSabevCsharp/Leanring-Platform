@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import StudentDashboard from "./student/dashboard/Dashboard";
 import StudentNavigation from "./student/navigation/StudentNavigation";
 import TopElement from "./topElement/TopElement";
@@ -11,12 +11,28 @@ import Reviews from "./student/reviews/Reviews";
 import Settings from "./student/settings/Settings";
 import roleRoutesConfig from "./roleRoutesConfig";
 import InstructorNavigation from "./instructor/navigation/InstructorNavigation";
+import { getFullUserData } from "../../dataService/authService";
 
 
 export default function Dashboard() {
-    const { user } = useContext(AuthContext);
+    const { user, setUser } = useContext(AuthContext);
     const currentRole = user?.role || "student";
     const routes = roleRoutesConfig[currentRole];
+    const [fullUserData, setFullUserData] = useState(null);
+
+    const userId = user._id;
+    try{
+       const getUserData = async () => {
+        const response = await getFullUserData(userId);
+        console.log(response);
+        // setFullUserData(response);
+        // setUser(response);
+       }
+       getUserData();
+
+    }catch(err){
+        console.log(err);
+    }
 
     return (
         <>
