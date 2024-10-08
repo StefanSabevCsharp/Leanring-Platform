@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import StudentDashboard from "./student/dashboard/Dashboard";
 import StudentNavigation from "./student/navigation/StudentNavigation";
 import TopElement from "./topElement/TopElement";
@@ -12,27 +12,25 @@ import Settings from "./student/settings/Settings";
 import roleRoutesConfig from "./roleRoutesConfig";
 import InstructorNavigation from "./instructor/navigation/InstructorNavigation";
 import { getFullUserData } from "../../dataService/authService";
+import { DataContext } from "../../context/dataContext";
 
 
 export default function Dashboard() {
     const { user, setUser } = useContext(AuthContext);
+    const { userData, loading} = useContext(DataContext);
     const currentRole = user?.role || "student";
     const routes = roleRoutesConfig[currentRole];
-    const [fullUserData, setFullUserData] = useState(null);
+    console.log(userData);
 
-    const userId = user._id;
-    try{
-       const getUserData = async () => {
-        const response = await getFullUserData(userId);
-        console.log(response);
-        // setFullUserData(response);
-        // setUser(response);
-       }
-       getUserData();
-
-    }catch(err){
-        console.log(err);
+    if(loading) {
+        //TODO: Add a loading spinner
+        return (
+            <div className="loading-container">
+                <p>Loading your dashboard...</p>
+            </div>
+        );
     }
+    
 
     return (
         <>
@@ -41,8 +39,8 @@ export default function Dashboard() {
                 <div className="container-fluid-2">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-30px pt-30px pb-100px">
                         <div className="lg:col-start-1 lg:col-span-3">
-                            {currentRole === "student" && <StudentNavigation user={user} />}
-                            {currentRole === "instructor" && <InstructorNavigation  user={user}/>}
+                            {currentRole === "student" && <StudentNavigation user={userData} />}
+                            {currentRole === "instructor" && <InstructorNavigation  user={userData}/>}
                         </div>
                         {/* dashboard content */}
                         <Routes>
