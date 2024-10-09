@@ -1,7 +1,27 @@
+import { useEffect, useImperativeHandle, useState } from "react";
 import CourseCard from "../../../courseCard/CourseCard";
+import { getCreatedCourses } from "../../../../dataService/courseService";
 
-export default function CreatedCourses() {
+export default function CreatedCourses({ user }) {
     //TODO : render real created courses
+
+    const [createdCourses, setCreatedCourses] = useState([]);
+    const { _id } = user;
+
+    useEffect(() => {
+        const getCourses = async () => {
+            try {
+                const response = await getCreatedCourses(_id);
+                console.log(response);
+                setCreatedCourses(response.createdCourses);
+
+            } catch (error) {
+                //TODO: handle error
+                console.error("Error in get created courses function", error);
+            }
+        };
+        getCourses();
+    }, []);
     return (
         <div className="lg:col-start-4 lg:col-span-9">
             {/* courses area */}
@@ -29,7 +49,7 @@ export default function CreatedCourses() {
                             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-30px">
                                 {/* card 2 */}
 
-                                {[1, 2, 3, 4, 5, 6].map((item) => (<CourseCard key={item} />))}
+                                {createdCourses.map((course) => (<CourseCard key={course._id} courseInfo={course} />))}
                             </div>
                         </div>
 
