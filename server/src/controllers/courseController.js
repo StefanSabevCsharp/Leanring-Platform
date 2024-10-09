@@ -16,7 +16,8 @@ router.post("/create", authenticateToken,async (req, res) => {
     try{
         const newCourse = new Course({
             ...courseData,
-            instructor: userId
+            instructor: userId,
+            creator: req.user.fistName + " " + req.user.lastName
         });
         const savedCourse = await newCourse.save();
         
@@ -36,4 +37,20 @@ router.post("/create", authenticateToken,async (req, res) => {
 
 });
 
+router.get("/created/:userId", authenticateToken, async (req, res) => {
+    const { userId } = req.params;
+    if (!userId) {
+        return res.status(400).json({ message: "User ID is required." });
+    }
+    try{
+        const createdCourses = await User.findById(userId).populate("createdCourses");
+        console.log(createdCourses);
+        return res.status(200).json({ createdCourses: createdCourses.createdCourses });
+
+    } catch(error) {
+        console.error("Error in get created courses function", error);
+        const errorMessage = getErrorMessage(error);
+        throw new Error(errorMessage);
+    }
+});
 module.exports = router;
