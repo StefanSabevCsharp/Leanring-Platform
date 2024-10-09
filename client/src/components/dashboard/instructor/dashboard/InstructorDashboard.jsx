@@ -1,4 +1,5 @@
-export default function InstructorDashboard() {
+export default function InstructorDashboard({ user }) {
+    console.log(user)
     return (
         <div className="lg:col-start-4 lg:col-span-9">
             {/* counter */}
@@ -17,7 +18,7 @@ export default function InstructorDashboard() {
                             </div>
                             <div>
                                 <p className="text-size-34 leading-[1.1] text-blackColor font-bold font-hind dark:text-blackColor-dark">
-                                    <span> 27</span>
+                                    <span> {user.createdCourses.length}</span>
                                     
                                 </p>
                                 <p className="text-blackColor font-medium leading-[18px] dark:text-blackColor-dark">
@@ -33,7 +34,7 @@ export default function InstructorDashboard() {
                             </div>
                             <div>
                                 <p className="text-size-34 leading-[1.1] text-blackColor font-bold font-hind dark:text-blackColor-dark">
-                                    <span >8</span>
+                                    <span >{user.soldCourses.length}</span>
                                 </p>
                                 <p className="text-blackColor font-medium leading-[18px] dark:text-blackColor-dark">
                                     Sold Courses
@@ -48,8 +49,7 @@ export default function InstructorDashboard() {
                             </div>
                             <div>
                                 <p className="text-size-34 leading-[1.1] text-blackColor font-bold font-hind dark:text-blackColor-dark">
-                                    <span data-countup-number={30}>30</span>
-                                    <span>,000+</span>
+                                    <span>{user.totalEarnings }</span>
                                 </p>
                                 <p className="text-blackColor font-medium leading-[18px] dark:text-blackColor-dark">
                                     Total Earning
@@ -59,7 +59,7 @@ export default function InstructorDashboard() {
                     </div>
                 </div>
             </div>
-            <div className="p-10px md:px-10 md:py-50px mb-30px bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark rounded-5 max-h-137.5 overflow-auto">
+            {/* <div className="p-10px md:px-10 md:py-50px mb-30px bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark rounded-5 max-h-137.5 overflow-auto">
                 <div className="mb-6 pb-5 border-b-2 border-borderColor dark:border-borderColor-dark flex items-center justify-between gap-2 flex-wrap">
                     <h2 className="text-2xl font-bold text-blackColor dark:text-blackColor-dark">
                         Total Feedbacks
@@ -204,7 +204,7 @@ export default function InstructorDashboard() {
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> */}
         </div>
 
     );

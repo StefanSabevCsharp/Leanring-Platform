@@ -45,7 +45,7 @@ export default function Dashboard() {
                         {/* dashboard content */}
                         <Routes>
                             {routes.map((route, index) => (
-                                <Route key={index} path={route.path} element={route.element(user)} />
+                                <Route key={index} path={route.path} element={route.element(userData)} />
                             ))}
                         </Routes>
                     </div>

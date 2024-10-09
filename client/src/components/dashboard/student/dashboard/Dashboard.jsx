@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
-export default function StudentDashboard() {
+export default function StudentDashboard({ user }) {
+    //TODO: implement completed courses
     return (
         <div className="lg:col-start-4 lg:col-span-9">
             {/* counter */}
@@ -20,16 +21,16 @@ export default function StudentDashboard() {
                             </div>
                             <div>
                                 <p className="text-size-34 leading-[1.1] text-blackColor font-bold font-hind dark:text-blackColor-dark">
-                                    <span data-countup-number={8}>8</span>
+                                    <span data-countup-number={8}>{user.courses.length}</span>
                                     <span>+</span>
                                 </p>
                                 <p className="text-blackColor font-medium leading-[18px] dark:text-blackColor-dark">
-                                    Active Courses
+                                    Bought Courses
                                 </p>
                             </div>
                         </div>
                     </div>
-                    <div className="p-5 md:px-10 md:py-50px bg-lightGrey5 dark:bg-whiteColor-dark rounded-lg2 shadow-accordion-dark">
+                    {/* <div className="p-5 md:px-10 md:py-50px bg-lightGrey5 dark:bg-whiteColor-dark rounded-lg2 shadow-accordion-dark">
                         <div className="flex gap-4">
                             <div>
                                 <img src="../../assets/images/counter/counter__3.png" alt="" />
@@ -43,10 +44,10 @@ export default function StudentDashboard() {
                                 </p>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
-            <div className="p-10px md:px-10 md:py-50px mb-30px bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark rounded-5 max-h-137.5 overflow-auto">
+            {/* <div className="p-10px md:px-10 md:py-50px mb-30px bg-whiteColor dark:bg-whiteColor-dark shadow-accordion dark:shadow-accordion-dark rounded-5 max-h-137.5 overflow-auto">
                 <div className="mb-6 pb-5 border-b-2 border-borderColor dark:border-borderColor-dark flex items-center justify-between gap-2 flex-wrap">
                     <h2 className="text-2xl font-bold text-blackColor dark:text-blackColor-dark">
                         Feedbacks
@@ -182,7 +183,7 @@ export default function StudentDashboard() {
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> */}
          
         </div>
 

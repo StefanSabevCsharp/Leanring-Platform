@@ -1,4 +1,6 @@
-export default function CourseCard() {
+
+export default function CourseCard({ courseInfo }) {
+  console.log(courseInfo);
   return (
     <div className="group">
       <div className="tab-content-wrapper" data-aos="fade-up">
@@ -18,7 +20,7 @@ export default function CourseCard() {
             <div className="absolute left-0 top-1 flex justify-between w-full items-center px-2">
               <div>
                 <p className="text-xs text-whiteColor px-4 py-[3px] bg-blue rounded font-semibold">
-                  Mechanical
+                  {courseInfo?.category}
                 </p>
               </div>
               <a
@@ -32,23 +34,14 @@ export default function CourseCard() {
           {/* card content */}
           <div>
             <div className="grid grid-cols-2 mb-15px">
-              <div className="flex items-center">
-                <div>
-                  <i className="icofont-book-alt pr-5px text-primaryColor text-lg" />
-                </div>
-                <div>
-                  <span className="text-sm text-black dark:text-blackColor-dark">
-                    29 Lesson
-                  </span>
-                </div>
-              </div>
+
               <div className="flex items-center">
                 <div>
                   <i className="icofont-clock-time pr-5px text-primaryColor text-lg" />
                 </div>
                 <div>
                   <span className="text-sm text-black dark:text-blackColor-dark">
-                    2 hr 10 min
+                   Begins: {courseInfo?.startDate}
                   </span>
                 </div>
               </div>
@@ -57,19 +50,19 @@ export default function CourseCard() {
               href="../../course-details.html"
               className="text-lg font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor"
             >
-              Nidnies course to under stand about softwere
+              {courseInfo?.courseTitle}
             </a>
             {/* price */}
             <div className="text-lg font-semibold text-primaryColor font-inter mb-4">
-              $32.00
+              ${courseInfo?.discountedPrice}
               <del className="text-sm text-lightGrey4 font-semibold">
-                / $67.00
+                / ${courseInfo?.freeRegularPrice}
               </del>
-              <span className="ml-6">
+              {/* <span className="ml-6">
                 <del className="text-base font-semibold text-greencolor">
                   Free
                 </del>
-              </span>
+              </span> */}
             </div>
             {/* author and rating*/}
             <div className="grid grid-cols-1 md:grid-cols-2 pt-15px border-t border-borderColor">
@@ -83,7 +76,7 @@ export default function CourseCard() {
                     src="../../assets/images/grid/grid_small_2.jpg"
                     alt=""
                   />
-                  Rinis Jhon
+                  {courseInfo?.creator}
                 </a>
               </div>
               <div className="text-start md:text-end">

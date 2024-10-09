@@ -60,6 +60,9 @@ const courseSchema = new Schema({
         type: [Schema.Types.ObjectId],
         ref: "Comment",
         default: []
+    },
+    creator:{
+        type: String
     }
     
 },{timestamps: true});
