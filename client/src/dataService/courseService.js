@@ -28,3 +28,16 @@ export const getCreatedCourses = async (userId) => {
     }
 
 }
+
+export const getCourseById = async (courseId) => {
+    
+        try{
+            const response = await axios.get(`${import.meta.env.VITE_EXPRESS_API}/courses/${courseId}`, { withCredentials: true });
+            return response.data;
+    
+        }catch(error){
+            console.error("Error in get course by id function", error);
+            const errorMessage = getErrorMessage(error);
+            throw new Error(errorMessage);
+        }
+}
