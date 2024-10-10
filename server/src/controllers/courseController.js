@@ -53,4 +53,25 @@ router.get("/created/:userId", authenticateToken, async (req, res) => {
         throw new Error(errorMessage);
     }
 });
+
+router.get("/:courseId", authenticateToken, async (req, res) => {
+    const { courseId } = req.params;
+
+    if(!courseId){
+        return res.status(400).json({ message: "Course ID is required." });
+    }
+    //TODO: populate reviews and comments
+    const course = await Course.findById(courseId)
+    .populate("instructor")
+    // .populate("reviews")
+    // .populate("comments");
+
+    console.log(course);
+
+    if(!course){
+        return res.status(404).json({ message: "Course not found." });
+    }
+    return res.status(200).json({ course });
+});
+
 module.exports = router;
