@@ -8,7 +8,7 @@ const { removePasswordUtil } = require("../utils/removePassword");
 const { createNewToken } = require("../utils/sendNewToken");
 
 router.post("/register", async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const { firstName, lastName, userName, email, password } = req.body;
 
     try {
@@ -21,7 +21,7 @@ router.post("/register", async (req, res) => {
         if (existingUser) {
             return res.status(400).json({ message: "Username or email already exists" });
         }
-        console.log("Existing user: ", existingUser);
+        // console.log("Existing user: ", existingUser);
 
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(password, salt);
@@ -37,10 +37,10 @@ router.post("/register", async (req, res) => {
         });
 
 
-        console.log(`newUser: ${newUser}`);
+        // console.log(`newUser: ${newUser}`);
 
         const savedUser = await newUser.save();
-        console.log(`savedUser: ${savedUser}`);
+        // console.log(`savedUser: ${savedUser}`);
 
         // const payload = {
         //     _id: savedUser._id,
@@ -54,13 +54,13 @@ router.post("/register", async (req, res) => {
 
         // const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "72h" });
         const token = createNewToken(savedUser);
-        console.log("Setting cookie with token:", token);
+        // console.log("Setting cookie with token:", token);
         res.cookie("authToken", token, {
             httpOnly: true,
             path: "/",
         });
 
-        console.log(`savedUser: ${savedUser}`);
+        // console.log(`savedUser: ${savedUser}`);
         res.status(201).json(removePasswordUtil(savedUser));
 
     } catch (err) {
@@ -71,7 +71,7 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
     const { email, password } = req.body;
-    console.log("Login request received with email:", email, "and password ", password);
+    // console.log("Login request received with email:", email, "and password ", password);
     try {
         const searchedUser = await User.findOne({ email: email });
         if (!searchedUser) {
@@ -79,7 +79,7 @@ router.post("/login", async (req, res) => {
         }
         // const isPasswordValid = bcrypt.compareSync(password, searchedUser.password);
         const isPasswordValid = await bcrypt.compare(password, searchedUser.password);
-        console.log(`isPasswordValid: ${isPasswordValid}`);
+        // console.log(`isPasswordValid: ${isPasswordValid}`);
         if (!isPasswordValid) {
             return res.status(400).json("Invalid password");
         }
@@ -103,7 +103,7 @@ router.post("/login", async (req, res) => {
             path: "/",
         });
 
-        console.log(`searched user: ${searchedUser}`);
+        // console.log(`searched user: ${searchedUser}`);
 
         res.status(200).json(removePasswordUtil(searchedUser));
 
@@ -196,7 +196,7 @@ router.get("/checkAuth", authenticateToken, (req, res) => {
 router.put("/updatePassword/:userId", authenticateToken, async (req, res) => {
 
     const userId = req.params.userId;
-    console.log("userId: ", userId);
+    // console.log("userId: ", userId);
     try {
         const user = await User.findById(userId);
         if (!user) {
@@ -260,7 +260,7 @@ router.put("/updateToInstructor/:_id", authenticateToken, async (req, res) => {
     //TODO: ne idva zaqvkata do tuka
     try {
         const updatedUser = await User.findByIdAndUpdate(userId, { role: "instructor" }, { new: true });
-        console.log(`updatedUser: ${updatedUser}`);
+        // console.log(`updatedUser: ${updatedUser}`);
         const newToken = createNewToken(updatedUser);
         res.cookie("authToken", newToken, {
             httpOnly: true,

@@ -1,4 +1,4 @@
-export default function EnrollerCoursesCard() {
+export default function EnrolledCoursesCard() {
     return (
         <div className="group">
             <div className="tab-content-wrapper" data-aos="fade-up">

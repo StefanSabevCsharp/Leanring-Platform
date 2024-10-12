@@ -77,7 +77,7 @@ function App() {
                 </ProtectedRoute>
               } />
               <Route path="/courses/:_Id" element={<CourseDetails />} />
-              <Route path="/instructor-details" element={<InstructorDetails />} />
+              <Route path="/users/:_Id" element={<InstructorDetails />} />
             </Routes>
           </main>
           <Footer />

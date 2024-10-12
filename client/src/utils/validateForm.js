@@ -1,4 +1,4 @@
-import { isLength, isMobilePhone, isIn, isURL,isNumeric,matches } from "validator";
+import { isLength, isMobilePhone, isIn, isURL, isNumeric, matches } from "validator";
 import isEmail from "validator/lib/isEmail";
 
 
@@ -102,14 +102,14 @@ const validateCreateCourseForm = (values) => {
         "App Development",
         "Web Application",
         "Php Development",
-        
+
     ];
-    
+
 
     const validateImage = (url) => {
         const validImageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg', '.webp'];
 
-        if(isURL(url) && validImageExtensions.some(ext => url.toLowerCase().endsWith(ext))){
+        if (isURL(url) && validImageExtensions.some(ext => url.toLowerCase().endsWith(ext))) {
             return true;
         }
         return false;
@@ -117,7 +117,7 @@ const validateCreateCourseForm = (values) => {
     const validateStartDate = (date) => {
 
         const datePattern = /^(0[1-9]|[12][0-9]|3[01])[./](0[1-9]|1[0-2])[./]\d{2}$/;
-    
+
         return matches(date, datePattern);
     };
 
@@ -134,17 +134,17 @@ const validateCreateCourseForm = (values) => {
     if (!isLength(language, { min: 3, max: 30 })) {
         errors.language = "Language must be between 3 and 30 characters";
     }
-    if(!isIn(category, allowedCategories)){
+    if (!isIn(category, allowedCategories)) {
         errors.category = "Invalid category";
     }
-    
-    if(!validateImage(courseImageUrl)){
+
+    if (!validateImage(courseImageUrl)) {
         errors.courseImageUrl = "Invalid image url";
     }
     const parsedDiscountedPrice = parseFloat(discountedPrice);
     const parsedFreeRegularPrice = parseFloat(freeRegularPrice);
 
-    if(!validateStartDate(startDate)){
+    if (!validateStartDate(startDate)) {
         errors.startDate = "Invalid date format. Please use dd.mm.yy or dd/mm/yy.";
     }
     if (isNaN(parsedDiscountedPrice) || parsedDiscountedPrice < 0) {
@@ -160,11 +160,23 @@ const validateCreateCourseForm = (values) => {
 
 }
 
+const validateCommentForm = (values) => {
+    let errors = {};
+    const { text } = values;
+
+    if (!isLength(text, { min: 2, max: 1000 })) {
+        errors.text = "Text must be between 2 and 1000 characters";
+    }
+    return errors;
+
+}
+
 
 export {
     validateRegisterForm,
     validateLoginForm,
     validateProfileSettingsForm,
     validateChangePasswordForm,
-    validateCreateCourseForm
+    validateCreateCourseForm,
+    validateCommentForm
 }

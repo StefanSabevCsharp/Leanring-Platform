@@ -1,5 +1,8 @@
+import { Link } from "react-router-dom";
 
 export default function CourseCard({ courseInfo }) {
+
+  //TODO: fix reviews and fix link to instructor profile
   console.log(courseInfo);
   return (
     <div className="group">
@@ -7,8 +10,8 @@ export default function CourseCard({ courseInfo }) {
         <div className="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark">
           {/* card image */}
           <div className="relative mb-4">
-            <a
-              href="../../course-details.html"
+            <Link
+              to={`/courses/${courseInfo?._id}`}
               className="w-full overflow-hidden rounded"
             >
               <img
@@ -16,7 +19,7 @@ export default function CourseCard({ courseInfo }) {
                 alt=""
                 className="w-full transition-all duration-300 group-hover:scale-110"
               />
-            </a>
+            </Link>
             <div className="absolute left-0 top-1 flex justify-between w-full items-center px-2">
               <div>
                 <p className="text-xs text-whiteColor px-4 py-[3px] bg-blue rounded font-semibold">
@@ -46,12 +49,12 @@ export default function CourseCard({ courseInfo }) {
                 </div>
               </div>
             </div>
-            <a
-              href="../../course-details.html"
+            <Link
+              to={`/courses/${courseInfo?._id}`}
               className="text-lg font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor"
             >
               {courseInfo?.courseTitle}
-            </a>
+            </Link>
             {/* price */}
             <div className="text-lg font-semibold text-primaryColor font-inter mb-4">
               ${courseInfo?.discountedPrice}
@@ -67,8 +70,8 @@ export default function CourseCard({ courseInfo }) {
             {/* author and rating*/}
             <div className="grid grid-cols-1 md:grid-cols-2 pt-15px border-t border-borderColor">
               <div>
-                <a
-                  href="instructor-details.html"
+                <Link
+                  to="/instructor-profile"
                   className="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"
                 >
                   <img
@@ -77,7 +80,7 @@ export default function CourseCard({ courseInfo }) {
                     alt=""
                   />
                   {courseInfo?.creator}
-                </a>
+                </Link>
               </div>
               <div className="text-start md:text-end">
                 <i className="icofont-star text-size-15 text-yellow" />

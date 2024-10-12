@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { validateLoginForm, validateProfileSettingsForm, validateRegisterForm, validateChangePasswordForm, validateCreateCourseForm } from "../utils/validateForm";
+import { validateLoginForm, validateProfileSettingsForm, validateRegisterForm, validateChangePasswordForm, validateCreateCourseForm, validateCommentForm } from "../utils/validateForm";
 
 
 
@@ -19,6 +19,7 @@ export default function useForm(initialValues, submitHandler, formType) {
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        console.log("Form submitted", values);
         let validationErrors = "";
         switch (formType) {
             case "register":
@@ -35,6 +36,9 @@ export default function useForm(initialValues, submitHandler, formType) {
                 break;
             case "firstForm":
                 validationErrors = validateCreateCourseForm(values);
+                break;
+                case "comment":
+                validationErrors = validateCommentForm(values);
                 break;
 
             default:

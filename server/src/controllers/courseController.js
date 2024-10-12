@@ -6,9 +6,9 @@ const { getErrorMessage } = require("../utils/errorParser");
 const router = require("express").Router();
 
 router.post("/create", authenticateToken,async (req, res) => {
-    console.log("create course");
+    // console.log("create course");
     const { courseData, userId } = req.body;
-    console.log(courseData);
+    // console.log(courseData);
     if (!courseData || !userId) {
         return res.status(400).json({ message: "Course data and user ID are required." });
     }
@@ -44,7 +44,7 @@ router.get("/created/:userId", authenticateToken, async (req, res) => {
     }
     try{
         const createdCourses = await User.findById(userId).populate("createdCourses");
-        console.log(createdCourses);
+        // console.log(createdCourses);
         return res.status(200).json({ createdCourses: createdCourses.createdCourses });
 
     } catch(error) {
@@ -54,7 +54,7 @@ router.get("/created/:userId", authenticateToken, async (req, res) => {
     }
 });
 
-router.get("/:courseId", authenticateToken, async (req, res) => {
+router.get("/:courseId", async (req, res) => {
     const { courseId } = req.params;
 
     if(!courseId){
@@ -66,7 +66,7 @@ router.get("/:courseId", authenticateToken, async (req, res) => {
     // .populate("reviews")
     // .populate("comments");
 
-    console.log(course);
+    // console.log(course);
 
     if(!course){
         return res.status(404).json({ message: "Course not found." });

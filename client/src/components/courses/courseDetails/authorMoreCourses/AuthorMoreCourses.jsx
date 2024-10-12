@@ -16,13 +16,13 @@ export default function AuthorMoreCourses({ courseId }) {
                         <div className="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark">
                             {/* card image */}
                             <div className="relative mb-4 overflow-hidden">
-                                <a href="course.html" className="w-full">
+                                <Link to={`/courses/${course._id}`} className="w-full">
                                     <img
-                                        src="assets/images/grid/grid_1.png"
+                                        src="/assets/images/grid/grid_1.png"
                                         alt=""
                                         className="w-full transition-all duration-300 group-hover:scale-110"
                                     />
-                                </a>
+                                </Link>
                                 <div className="absolute left-0 top-1 flex justify-between w-full items-center px-2">
                                     <div>
                                         <p className="text-xs text-whiteColor px-4 py-[3px] bg-secondaryColor rounded font-semibold">
@@ -69,8 +69,8 @@ export default function AuthorMoreCourses({ courseId }) {
                                 {/* author and rating*/}
                                 <div className="grid grid-cols-1 md:grid-cols-2 pt-15px border-t border-borderColor">
                                     <div>
-                                        <a
-                                            href="instructor-details.html"
+                                        <Link
+                                            to={`/users/${course.instructor._id}`}
                                             className="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"
                                         >
                                             <img
@@ -79,7 +79,7 @@ export default function AuthorMoreCourses({ courseId }) {
                                                 alt=""
                                             />
                                             <span className="flex">{course.creator}</span>
-                                        </a>
+                                        </Link>
                                     </div>
                                     <div className="text-start md:text-end">
                                         <i className="icofont-star text-size-15 text-yellow" />
