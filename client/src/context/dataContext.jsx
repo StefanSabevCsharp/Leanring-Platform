@@ -9,6 +9,7 @@ export const DataContext = createContext();
 export function DataProvider({ children }) {
     const [loading, setLoading] = useState(true);
     const [userData, setUserData] = useState(null);
+    const [refresh, setRefresh] = useState(false);
     const { user } = useContext(AuthContext);
     //TODO: probably add refresh toglle to refresh the data
 
@@ -33,6 +34,10 @@ export function DataProvider({ children }) {
         }
     }, [user])
 
+    const refreshData = () => {
+        setRefresh(!refresh);
+    }
+
     const setNewData = (data) => {
         setUserData(data);
     }
@@ -40,7 +45,8 @@ export function DataProvider({ children }) {
     const initialState = {
         userData,
         setNewData,
-        loading
+        loading,
+        refreshData
     }
 
     return (
