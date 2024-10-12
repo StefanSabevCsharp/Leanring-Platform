@@ -1,10 +1,10 @@
 import { useState } from "react";
-import CreateCourseBanner from "./createCourseBanner/CreateCourseBanner";
 import PageRight from "./pageRight/PageRight";
 import FirstForm from "./firstForm/FirstForm";
 import SecondForm from "./secondForm/SecondForm";
 import ThirdForm from "./thirdForm/ThirdForm";
 import FourthForm from "./fourthForm/FourthForm";
+import AbstractBanner from "../abstractBanner/AbstractBanner";
 
 export default function CreateCourse() {
     const [activeLi, setActiveLi] = useState(1);
@@ -31,8 +31,8 @@ export default function CreateCourse() {
 
     return (
         <>
-            <CreateCourseBanner />
             
+            <AbstractBanner name="Create Course" path="Home" page="Create Course" />
             <div>
                 <div className="container pt-100px pb-100px" data-aos="fade-up">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-30px gap-y-5">

@@ -18,11 +18,10 @@ export default function LoginForm({ setIsLogin }) {
 
 
     const submitHandler = async (values) => {
-        console.log("Submitted Login", values);
         //TODO: Add API call to login user
         try {
             const newUser = await login(values);
-            console.log(newUser);
+          
             setUser(newUser);
             navigate("/dashboard");
         } catch (err) {

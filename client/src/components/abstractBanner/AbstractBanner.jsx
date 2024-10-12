@@ -1,4 +1,4 @@
-export default function CoursesBanner() {
+export default function AbstractBanner({name,path,page}) {
     return (
         <section>
             {/* banner section */}
@@ -29,7 +29,7 @@ export default function CoursesBanner() {
                 <div className="container">
                     <div className="text-center">
                         <h1 className="text-3xl md:text-size-40 2xl:text-size-55 font-bold text-blackColor dark:text-blackColor-dark mb-7 md:mb-6 pt-3">
-                            Courses List
+                            {name}
                         </h1>
                         <ul className="flex gap-1 justify-center">
                             <li>
@@ -37,12 +37,12 @@ export default function CoursesBanner() {
                                     href="index.html"
                                     className="text-lg text-blackColor2 dark:text-blackColor2-dark"
                                 >
-                                    Home <i className="icofont-simple-right" />
+                                    {path} <i className="icofont-simple-right" />
                                 </a>
                             </li>
                             <li>
                                 <span className="text-lg text-blackColor2 dark:text-blackColor2-dark">
-                                    Courses List
+                                    {page}
                                 </span>
                             </li>
                         </ul>
@@ -50,5 +50,6 @@ export default function CoursesBanner() {
                 </div>
             </div>
         </section>
+
     );
 }

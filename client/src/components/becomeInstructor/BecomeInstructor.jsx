@@ -1,10 +1,11 @@
-import BecomeInstructorBanner from "./becomeInstructorBanner/BecomeInstructorBanner";
+
 import AuthContext from "../../context/authContext"
 import useForm from "../../hooks/useForm";
 import { useContext } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { checkIsPasswordValid, updateUserToBecomeInstructor } from "../../dataService/authService";
 import { useNavigate } from "react-router-dom";
+import AbstractBanner from "../abstractBanner/AbstractBanner";
 
 
 export default function BecomeInstructor() {
@@ -56,7 +57,7 @@ export default function BecomeInstructor() {
 
     return (
         <>
-            <BecomeInstructorBanner />
+            <AbstractBanner name="Become an Instructor" path="Home" page="Become an Instructor" />
             <Toaster />
             <section>
                 <div className="container pt-100px pb-100px" data-aos="fade-up">

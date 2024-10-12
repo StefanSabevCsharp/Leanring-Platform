@@ -1,5 +1,5 @@
 import { useState } from "react";
-import CoursesBanner from "./coursesBanner/coursesBanner";
+import AbstractBanner from "../../abstractBanner/AbstractBanner";
 
 export default function CoursesPage() {
     const [isActive, setIsActive] = useState(false);
@@ -7,7 +7,7 @@ export default function CoursesPage() {
     return (
         <>
             {/* banner section */}
-            <CoursesBanner />
+            <AbstractBanner name="Courses List" path="Home" page="Courses List" />
             {/* courses section */}
             <div>
                 <div className="container tab py-10 md:py-50px lg:py-60px 2xl:py-100px">
