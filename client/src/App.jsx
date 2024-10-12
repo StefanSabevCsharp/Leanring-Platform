@@ -22,6 +22,8 @@ import { ThemeProvider } from "./context/themeContext"
 import CreateCourse from "./components/createCourse/CreateCourse"
 import BecomeInstructor from "./components/becomeInstructor/BecomeInstructor"
 import CourseDetails from "./components/courses/courseDetails/CourseDetails"
+import { DataProvider } from "./context/dataContext"
+import InstructorDetails from "./components/instuctorDetails/InstructorDetails"
 
 
 function App() {
@@ -30,54 +32,57 @@ function App() {
   return (
 
     <>
-      <ThemeProvider>
-        <ThemeController />
-        <Header />
-        <main className="bg-transparent">
-          <Routes>
-            <Route path="/" element={
-              <>
-                <Banner />
-                <Brand />
-                <About />
-                <Popular />
-                <Courses />
-                {!user && <RegistrationSection />}
+      <DataProvider>
+        <ThemeProvider>
+          <ThemeController />
+          <Header />
+          <main className="bg-transparent">
+            <Routes>
+              <Route path="/" element={
+                <>
+                  <Banner />
+                  <Brand />
+                  <About />
+                  <Popular />
+                  <Courses />
+                  {!user && <RegistrationSection />}
 
-                <AboutInstructor />
-                <News />
-              </>} />
-            <Route path="/login" element={
-              <LoggedInUserGuard>
-                <Login />
-              </LoggedInUserGuard>
-            } />
-            <Route path="/logout" element={
-              <ProtectedRoute>
-                <Logout />
-              </ProtectedRoute>
-            } />
-            <Route path="/create-course" element={
+                  <AboutInstructor />
+                  <News />
+                </>} />
+              <Route path="/login" element={
+                <LoggedInUserGuard>
+                  <Login />
+                </LoggedInUserGuard>
+              } />
+              <Route path="/logout" element={
+                <ProtectedRoute>
+                  <Logout />
+                </ProtectedRoute>
+              } />
+              <Route path="/create-course" element={
 
-              <CreateCourse />
-
-            } />
-            <Route path="/become-instructor" element={
-
-              <BecomeInstructor />
+                <CreateCourse />
 
               } />
-            <Route path="/courses" element={<CoursesPage />} />
-            <Route path="/dashboard/*" element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            } />
-            <Route path="/courses/:_Id" element={<CourseDetails />} />
-          </Routes>
-        </main>
-        <Footer />
-      </ThemeProvider>
+              <Route path="/become-instructor" element={
+
+                <BecomeInstructor />
+
+              } />
+              <Route path="/courses" element={<CoursesPage />} />
+              <Route path="/dashboard/*" element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              } />
+              <Route path="/courses/:_Id" element={<CourseDetails />} />
+              <Route path="/instructor-details" element={<InstructorDetails />} />
+            </Routes>
+          </main>
+          <Footer />
+        </ThemeProvider>
+      </DataProvider>
     </>
 
   )
