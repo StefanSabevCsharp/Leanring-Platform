@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { formatDate } from "../../utils/formatDate";
+import upperCase from "../../utils/upperCase";
 
 export default function CourseComment({comment}) {
+
     return (
         <li className="flex gap-30px mb-10" data-aos="fade-up">
             <div className="flex-shrink-0">
@@ -16,8 +18,8 @@ export default function CourseComment({comment}) {
             <div className="flex-grow">
                 <div className="flex justify-between items-center">
                     <div>
-                        <h4>
-                               {comment.name}
+                        <h4 className="text-lg font-semibold text-blackColor hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor leading-25px">
+                               {upperCase(comment.creator)}
                            
                         </h4>
                         <p className="text-xs font-medium text-contentColor dark:text-contentColor-dark leading-29px uppercase mb-5px">
@@ -43,7 +45,7 @@ export default function CourseComment({comment}) {
                     </div>
                 </div>
                 <p className="text-sm text-contentColor dark:text-contentColor-dark leading-23px mb-15px">
-                    {comment.text}
+                    {comment?.text}
                 </p>
             </div>
         </li>
