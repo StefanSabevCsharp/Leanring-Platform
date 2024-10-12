@@ -4,45 +4,49 @@ import Spinner from "../../spinner/Spinner";
 import { formatDate } from "../../../utils/formatDate";
 import { princeDiscount } from "../../../utils/priceDiscout";
 import AuthorMoreCourses from "./authorMoreCourses/AuthorMoreCourses";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../../context/authContext";
 import useForm from "../../../hooks/useForm";
 import { createComment } from "../../../dataService/commentService";
+import { DataContext } from "../../../context/dataContext";
+import Comments from "./comments/Comments";
+import FormAddComment from "./formAddComment/FormAddComment";
+import Reviews from "./reviews/Reviews";
 
 export default function CourseDetails() {
-
-    const { user } = useContext(AuthContext);
-    const [activeTab, setActiveTab] = useState(1);
     const params = useParams();
     const courseId = params._Id;
+
+    const [activeTab, setActiveTab] = useState(1);
+    const [course, loading] = useGetCourse(courseId);
+    const [comments, setComments] = useState([]);
+    const [reviews, setReviews] = useState([]);
+    const { user } = useContext(AuthContext);
     //TODO : use reviews and comments from course when server populates everything
     //TODO: add enrolled prop in user to display here
 
-    const [course, loading] = useGetCourse(courseId);
-    
+
+    useEffect(() => {
+        if(course && course.comments){
+            setComments(course.comments);
+        }
+        if(course && course.reviews){
+            setReviews(course.reviews);
+        }
+    }, [course]);
+
     const noActiveTabStyle = "is-checked relative p-10px md:px-25px md:py-15px lg:py-3 2xl:py-15px 2xl:px-45px text-blackColor bg-whiteColor hover:bg-primaryColor hover:text-whiteColor shadow-overview-button dark:bg-whiteColor-dark dark:text-blackColor-dark dark:hover:bg-primaryColor dark:hover:text-whiteColor flex items-center";
     const activeTabStyle = noActiveTabStyle + " active";
 
-    const submitHandler = (comment) => {
-      const { text } = comment;
-        try{
-            const response = createComment(text, courseId, user._id);
-            //comments.add(comment);
-            console.log(response);
-
-        }catch(error){
-            //TODO: add error handling
-            console.log("Error in submitHandler", error);
-        }
-    }
-    const initialValues = {  text: "" };
-    const  [values, onChange, onSubmit] = useForm(initialValues, submitHandler, "comment");
+    
+    
 
     if (loading) {
         return <Spinner />
     }
     if (!loading && course) {
-        const { _id, courseTitle, courseImageUrl, startDate, language, aboutCourse, category, comments, courseStatus, createdAt, creator, description, discountedPrice, freeRegularPrice, instructor, reviews, sold, updatedAt } = course;
+
+        const { _id, courseTitle, courseImageUrl, startDate, language, aboutCourse, category,  courseStatus, createdAt, creator, description, discountedPrice, freeRegularPrice, instructor, sold, updatedAt } = course;
         const createdCourses = instructor.createdCourses;
         const otherCourses = createdCourses.filter(id => id !== _id);
         const isOwner = user?._id === instructor._id;
@@ -52,7 +56,7 @@ export default function CourseDetails() {
                 <div className="container py-10 md:py-50px lg:py-60px 2xl:py-100px">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-30px">
                         <div className="lg:col-start-1 lg:col-span-8 space-y-[35px]">
-                            
+
                             <div data-aos="fade-up">
                                 {/* course thumbnail */}
                                 <div className="overflow-hidden relative mb-5">
@@ -279,301 +283,7 @@ export default function CourseDetails() {
                                             </div>
                                             {/* reviews  */}
                                             <div className={activeTab == 2 ? "" : "hidden"}>
-                                                <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-x-30px gap-y-5">
-                                                    <div className="lg:col-start-1 lg:col-span-4 px-10px py-30px bg-whiteColor dark:bg-whiteColor-dark shadow-review text-center">
-                                                        <p className="text-7xl font-extrabold text-blackColor dark:text-blackColor-dark leading-90px">
-                                                            5.0
-                                                        </p>
-                                                        <div className="text-secondaryColor">
-                                                            <i className="icofont-star" />
-                                                            <i className="icofont-star" />
-                                                            <i className="icofont-star" />
-                                                            <i className="icofont-star" />
-                                                            <i className="icofont-star" />
-                                                        </div>
-                                                        <p className="text-blackColor dark:text-blackColor-dark leading-26px font-medium">
-                                                            (17 Reviews)
-                                                        </p>
-                                                    </div>
-                                                    {/* progress bar */}
-                                                    <div className="lg:col-start-5 lg:col-span-8 px-15px">
-                                                        <ul className="flex flex-col gap-y-3">
-                                                            <li className="flex items-center text-blackColor dark:text-blackColor-dark">
-                                                                <div>
-                                                                    <span>5</span>
-                                                                    <span>
-                                                                        <i className="icofont-star text-secondaryColor" />
-                                                                    </span>
-                                                                </div>
-                                                                <div className="flex-grow relative mx-10px md:mr-10 lg:mr-10px">
-                                                                    <span className="h-10px w-full bg-borderColor dark:bg-borderColor-dark rounded-full block" />
-                                                                    <span className="absolute left-0 top-0 h-10px w-full bg-secondaryColor rounded-full" />
-                                                                </div>
-                                                                <div>
-                                                                    <span>10</span>
-                                                                </div>
-                                                            </li>
-                                                            <li className="flex items-center text-blackColor dark:text-blackColor-dark">
-                                                                <div>
-                                                                    <span>4</span>
-                                                                    <span>
-                                                                        <i className="icofont-star text-secondaryColor" />
-                                                                    </span>
-                                                                </div>
-                                                                <div className="flex-grow relative mx-10px md:mr-10 lg:mr-10px">
-                                                                    <span className="h-10px w-full bg-borderColor dark:bg-borderColor-dark rounded-full block" />
-                                                                    <span className="absolute left-0 top-0 h-10px w-4/5 bg-secondaryColor rounded-full" />
-                                                                </div>
-                                                                <div>
-                                                                    <span>5</span>
-                                                                </div>
-                                                            </li>
-                                                            <li className="flex items-center text-blackColor dark:text-blackColor-dark">
-                                                                <div>
-                                                                    <span>3</span>
-                                                                    <span>
-                                                                        <i className="icofont-star text-secondaryColor" />
-                                                                    </span>
-                                                                </div>
-                                                                <div className="flex-grow relative mx-10px md:mr-10 lg:mr-10px">
-                                                                    <span className="h-10px w-full bg-borderColor dark:bg-borderColor-dark rounded-full block" />
-                                                                    <span className="absolute left-0 top-0 h-10px w-60% bg-secondaryColor rounded-full" />
-                                                                </div>
-                                                                <div>
-                                                                    <span>3</span>
-                                                                </div>
-                                                            </li>
-                                                            <li className="flex items-center text-blackColor dark:text-blackColor-dark">
-                                                                <div>
-                                                                    <span>2</span>
-                                                                    <span>
-                                                                        <i className="icofont-star text-secondaryColor" />
-                                                                    </span>
-                                                                </div>
-                                                                <div className="flex-grow relative mx-10px md:mr-10 lg:mr-10px">
-                                                                    <span className="h-10px w-full bg-borderColor dark:bg-borderColor-dark rounded-full block" />
-                                                                    <span className="absolute left-0 top-0 h-10px w-30% bg-secondaryColor rounded-full" />
-                                                                </div>
-                                                                <div>
-                                                                    <span>2</span>
-                                                                </div>
-                                                            </li>
-                                                            <li className="flex items-center text-blackColor dark:text-blackColor-dark">
-                                                                <div>
-                                                                    <span>1</span>
-                                                                    <span>
-                                                                        <i className="icofont-star text-secondaryColor" />
-                                                                    </span>
-                                                                </div>
-                                                                <div className="flex-grow relative mx-10px md:mr-10 lg:mr-10px">
-                                                                    <span className="h-10px w-full bg-borderColor dark:bg-borderColor-dark rounded-full block" />
-                                                                    <span className="absolute left-0 top-0 h-10px w-10% bg-secondaryColor rounded-full" />
-                                                                </div>
-                                                                <div>
-                                                                    <span>1</span>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                {/* client reviews */}
-                                                <div className="mt-60px mb-10">
-                                                    <h4 className="text-lg text-blackColor dark:text-blackColor-dark font-bold pl-2 before:w-0.5 relative before:h-[21px] before:bg-secondaryColor before:absolute before:bottom-[5px] before:left-0 leading-1.2 mb-25px">
-                                                        Customer Reviews
-                                                    </h4>
-                                                    <ul>
-                                                        <li className="flex gap-30px pt-35px border-t border-borderColor2 dark:border-borderColor2-dark">
-                                                            <div className="flex-shrink-0">
-                                                                <div>
-                                                                    <img
-                                                                        src="assets/images/teacher/teacher__2.png"
-                                                                        alt=""
-                                                                        className="w-25 h-25 rounded-full"
-                                                                    />
-                                                                </div>
-                                                            </div>
-                                                            <div className="flex-grow">
-                                                                <div className="flex justify-between">
-                                                                    <div>
-                                                                        <h4>
-                                                                            <a
-                                                                                href="#"
-                                                                                className="text-lg font-semibold text-blackColor hover:text-secondaryColor dark:text-blackColor-dark dark:hover:text-condaryColor leading-1.2"
-                                                                            >
-                                                                                Adam Smit
-                                                                            </a>
-                                                                        </h4>
-                                                                        <div className="text-secondaryColor leading-1.8">
-                                                                            <i className="icofont-star" />
-                                                                            <i className="icofont-star" />
-                                                                            <i className="icofont-star" />
-                                                                            <i className="icofont-star" />
-                                                                            <i className="icofont-star" />
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="author__icon">
-                                                                        <p className="text-sm font-bold text-blackColor dark:text-blackColor-dark leading-9 px-25px mb-5px border-2 border-borderColor2 dark:border-borderColo2-dark hover:border-secondaryColor dark:hover:border-secondaryColor rounded-full transition-all duration-300">
-                                                                            September 2, 2024
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                                <p className="text-sm text-contentColor dark:text-contentColor-dark leading-23px mb-15px">
-                                                                    Lorem ipsum dolor sit amet, consectetur adipisicing
-                                                                    elit. Doloribus, omnis fugit corporis iste magnam
-                                                                    ratione.
-                                                                </p>
-                                                            </div>
-                                                        </li>
-                                                        <li className="flex gap-30px pt-35px border-t border-borderColor2 dark:border-borderColor2-dark">
-                                                            <div className="flex-shrink-0">
-                                                                <div>
-                                                                    <img
-                                                                        src="assets/images/teacher/teacher__1.png"
-                                                                        alt=""
-                                                                        className="w-25 h-25 rounded-full"
-                                                                    />
-                                                                </div>
-                                                            </div>
-                                                            <div className="flex-grow">
-                                                                <div className="flex justify-between">
-                                                                    <div>
-                                                                        <h4>
-                                                                            <a
-                                                                                href="#"
-                                                                                className="text-lg font-semibold text-blackColor hover:text-secondaryColor dark:text-blackColor-dark dark:hover:text-condaryColor leading-1.2"
-                                                                            >
-                                                                                Adam Smit
-                                                                            </a>
-                                                                        </h4>
-                                                                        <div className="text-secondaryColor leading-1.8">
-                                                                            <i className="icofont-star" />
-                                                                            <i className="icofont-star" />
-                                                                            <i className="icofont-star" />
-                                                                            <i className="icofont-star" />
-                                                                            <i className="icofont-star" />
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="author__icon">
-                                                                        <p className="text-sm font-bold text-blackColor dark:text-blackColor-dark leading-9 px-25px mb-5px border-2 border-borderColor2 dark:border-borderColo2-dark hover:border-secondaryColor dark:hover:border-secondaryColor rounded-full transition-all duration-300">
-                                                                            September 2, 2024
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                                <p className="text-sm text-contentColor dark:text-contentColor-dark leading-23px mb-15px">
-                                                                    Lorem ipsum dolor sit amet, consectetur adipisicing
-                                                                    elit. Doloribus, omnis fugit corporis iste magnam
-                                                                    ratione.
-                                                                </p>
-                                                            </div>
-                                                        </li>
-                                                        <li className="flex gap-30px pt-35px border-t border-borderColor2 dark:border-borderColor2-dark">
-                                                            <div className="flex-shrink-0">
-                                                                <div>
-                                                                    <img
-                                                                        src="assets/images/teacher/teacher__3.png"
-                                                                        alt=""
-                                                                        className="w-25 h-25 rounded-full"
-                                                                    />
-                                                                </div>
-                                                            </div>
-                                                            <div className="flex-grow">
-                                                                <div className="flex justify-between">
-                                                                    <div>
-                                                                        <h4>
-                                                                            <a
-                                                                                href="#"
-                                                                                className="text-lg font-semibold text-blackColor hover:text-secondaryColor dark:text-blackColor-dark dark:hover:text-condaryColor leading-1.2"
-                                                                            >
-                                                                                Adam Smit
-                                                                            </a>
-                                                                        </h4>
-                                                                        <div className="text-secondaryColor leading-1.8">
-                                                                            <i className="icofont-star" />
-                                                                            <i className="icofont-star" />
-                                                                            <i className="icofont-star" />
-                                                                            <i className="icofont-star" />
-                                                                            <i className="icofont-star" />
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="author__icon">
-                                                                        <p className="text-sm font-bold text-blackColor dark:text-blackColor-dark leading-9 px-25px mb-5px border-2 border-borderColor2 dark:border-borderColo2-dark hover:border-secondaryColor dark:hover:border-secondaryColor rounded-full transition-all duration-300">
-                                                                            September 2, 2024
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                                <p className="text-sm text-contentColor dark:text-contentColor-dark leading-23px mb-15px">
-                                                                    Lorem ipsum dolor sit amet, consectetur adipisicing
-                                                                    elit. Doloribus, omnis fugit corporis iste magnam
-                                                                    ratione.
-                                                                </p>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                {/* add reviews */}
-                                                <div className="p-5 md:p-50px mb-50px bg-lightGrey12 dark:bg-transparent dark:shadow-brand-dark">
-                                                    <h4
-                                                        className="text-2xl font-bold text-blackColor dark:text-blackColor-dark mb-15px !leading-1.2"
-                                                        data-aos="fade-up"
-                                                    >
-                                                        Add a Review
-                                                    </h4>
-                                                    <div className="flex gap-15px items-center mb-30px">
-                                                        <h6 className="font-bold text-blackColor dark:text-blackColor-dark !leading-[19.2px]">
-                                                            Your Ratings:
-                                                        </h6>
-                                                        <div className="text-secondaryColor leading-1.8">
-                                                            <i className="icofont-star hover:text-primaryColor" />
-                                                            <i className="icofont-star hover:text-primaryColor" />
-                                                            <i className="icofont-star hover:text-primaryColor" />
-                                                            <i className="icofont-star hover:text-primaryColor" />
-                                                            <i className="icofont-star hover:text-primaryColor" />
-                                                        </div>
-                                                    </div>
-                                                    <form className="pt-5" data-aos="fade-up">
-                                                        <textarea
-                                                            placeholder="Type you comments...."
-                                                            className="w-full p-5 mb-8 bg-transparent text-sm text-blackColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border border-transparent dark:border-borderColor2-dark placeholder:text-placeholder k"
-                                                            cols={30}
-                                                            rows={6}
-                                                            defaultValue={""}
-                                                        />
-                                                        <div className="grid grid-cols-1 mb-10 gap-10">
-                                                            <input
-                                                                type="text"
-                                                                placeholder="Type your name...."
-                                                                className="w-full pl-5 bg-transparent text-sm focus:outline-none text-blackColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border border-transparent dark:border-borderColor2-dark placeholder:text-placeholder placeholder:opacity-80 h-15 leading-15 font-medium rounded"
-                                                            />
-                                                            <input
-                                                                type="email"
-                                                                placeholder="Type your email...."
-                                                                className="w-full pl-5 bg-transparent text-sm focus:outline-none text-blackColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark border border-transparent dark:border-borderColor2-dark placeholder:text-placeholder placeholder:opacity-80 h-15 leading-15 font-medium rounded"
-                                                            />
-                                                        </div>
-                                                        <div className="grid grid-cols-1 mb-10 gap-10">
-                                                            <input
-                                                                type="text"
-                                                                placeholder="Type your website...."
-                                                                className="w-full pl-5 bg-transparent text-sm focus:outline-none text-blackColor dark:text-contentColor-dark bg-whiteColor dark:bg-whiteColor-dark placeholder:text-placeholder border border-transparent dark:border-borderColor2-dark placeholder:opacity-80 h-15 leading-15 font-medium rounded"
-                                                            />
-                                                        </div>
-                                                        <div>
-                                                            <input type="checkbox" />
-                                                            <span className="text-size-15 text-darkBlue dark:text-darkBlue-dark">
-                                                                Save my name, email, and website in this browser for
-                                                                the next time I comment.
-                                                            </span>
-                                                        </div>
-                                                        <div className="mt-30px">
-                                                            <button
-                                                                type="submit"
-                                                                className="text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark"
-                                                            >
-                                                                Submit
-                                                            </button>
-                                                        </div>
-                                                    </form>
-                                                </div>
+                                               <Reviews reviews={reviews} setReviews={setReviews} courseId={courseId} user={user} />
                                             </div>
                                             <div className={activeTab == 3 ? "" : "hidden"}>
                                                 <div
@@ -758,207 +468,11 @@ export default function CourseDetails() {
                                         </div>
                                     </div>
                                     {/* previous comment area */}
-                                    <div className="pt-50px pb-15px border-y border-borderColor2 dark:border-borderColor2-dark">
-                                        <h4
-                                            className="text-size-26 font-bold text-blackColor dark:text-blackColor-dark mb-30px !leading-30px"
-                                            data-aos="fade-up"
-                                        >
-                                            (04) Comment
-                                        </h4>
-                                        <ul>
-                                         
-                                            <li
-                                                className="flex gap-30px mb-10 lg:pl-100px"
-                                                data-aos="fade-up"
-                                            >
-                                                <div className="flex-shrink-0">
-                                                    <div>
-                                                        <img
-                                                            src="assets/images/blog-details/blog-details__2.png"
-                                                            alt=""
-                                                            className="w-20 h-20 rounded-full"
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="flex-grow">
-                                                    <div className="flex justify-between items-center">
-                                                        <div>
-                                                            <h4>
-                                                                <a
-                                                                    href="#"
-                                                                    className="text-lg font-semibold text-blackColor hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor leading-25px"
-                                                                >
-                                                                    Rohan De Spond
-                                                                </a>
-                                                            </h4>
-                                                            <p className="text-xs font-medium text-contentColor dark:text-contentColor-dark leading-29px uppercase mb-5px">
-                                                                25 JANUARY 2024
-                                                            </p>
-                                                        </div>
-                                                        <div className="author__icon">
-                                                            <button className="group">
-                                                                <svg
-                                                                    width={26}
-                                                                    height={19}
-                                                                    viewBox="0 0 26 19"
-                                                                    fill="none"
-                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                >
-                                                                    <path
-                                                                        className="group-hover:fill-primaryColor dark:fill-blackColor-dark dark:group-hover:fill-primaryColor block"
-                                                                        d="M5.91943 10.2031L12.1694 16.4531C13.3413 17.625 15.3726 16.8047 15.3726 15.125V12.3516C19.9819 12.5469 20.0991 13.5625 19.4351 15.8672C18.9272 17.5469 20.8413 18.9141 22.2866 17.9375C24.2788 16.5703 25.3726 14.8516 25.3726 12.3516C25.3726 6.76562 20.3726 5.67188 15.3726 5.47656V2.66406C15.3726 0.984375 13.3413 0.164062 12.1694 1.33594L5.91943 7.58594C5.17725 8.28906 5.17725 9.5 5.91943 10.2031ZM7.24756 8.875L13.4976 2.625V7.3125C18.1851 7.3125 23.4976 7.58594 23.4976 12.3516C23.4976 14.5391 22.3647 15.6328 21.2319 16.375C22.8335 11.0625 18.8491 10.4375 13.4976 10.4375V15.125L7.24756 8.875ZM0.919434 7.58594C0.177246 8.28906 0.177246 9.5 0.919434 10.2031L7.16943 16.4531C7.95068 17.2734 9.12256 17.1562 9.82568 16.4531L2.24756 8.875L9.82568 1.33594C9.12256 0.632812 7.95068 0.515625 7.16943 1.33594L0.919434 7.58594Z"
-                                                                        fill="#121416"
-                                                                    />
-                                                                </svg>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <p className="text-sm text-contentColor dark:text-contentColor-dark leading-23px mb-15px">
-                                                        There are many variations of passages of Lorem Ipsum
-                                                        available, but the majority have. There are many
-                                                        variations of passages of Lorem Ipsum available, but the
-                                                        majority have
-                                                    </p>
-                                                </div>
-                                            </li>
-                                            <li className="flex gap-30px mb-10" data-aos="fade-up">
-                                                <div className="flex-shrink-0">
-                                                    <div>
-                                                        <img
-                                                            src="assets/images/blog-details/blog-details__3.png"
-                                                            alt=""
-                                                            className="w-20 h-20 rounded-full"
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="flex-grow">
-                                                    <div className="flex justify-between items-center">
-                                                        <div>
-                                                            <h4>
-                                                                <a
-                                                                    href="#"
-                                                                    className="text-lg font-semibold text-blackColor hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor leading-25px"
-                                                                >
-                                                                    Rohan De Spond
-                                                                </a>
-                                                            </h4>
-                                                            <p className="text-xs font-medium text-contentColor dark:text-contentColor-dark leading-29px uppercase mb-5px">
-                                                                25 JANUARY 2024
-                                                            </p>
-                                                        </div>
-                                                        <div className="author__icon">
-                                                            <button className="group">
-                                                                <svg
-                                                                    width={26}
-                                                                    height={19}
-                                                                    viewBox="0 0 26 19"
-                                                                    fill="none"
-                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                >
-                                                                    <path
-                                                                        className="group-hover:fill-primaryColor dark:fill-blackColor-dark dark:group-hover:fill-primaryColor block"
-                                                                        d="M5.91943 10.2031L12.1694 16.4531C13.3413 17.625 15.3726 16.8047 15.3726 15.125V12.3516C19.9819 12.5469 20.0991 13.5625 19.4351 15.8672C18.9272 17.5469 20.8413 18.9141 22.2866 17.9375C24.2788 16.5703 25.3726 14.8516 25.3726 12.3516C25.3726 6.76562 20.3726 5.67188 15.3726 5.47656V2.66406C15.3726 0.984375 13.3413 0.164062 12.1694 1.33594L5.91943 7.58594C5.17725 8.28906 5.17725 9.5 5.91943 10.2031ZM7.24756 8.875L13.4976 2.625V7.3125C18.1851 7.3125 23.4976 7.58594 23.4976 12.3516C23.4976 14.5391 22.3647 15.6328 21.2319 16.375C22.8335 11.0625 18.8491 10.4375 13.4976 10.4375V15.125L7.24756 8.875ZM0.919434 7.58594C0.177246 8.28906 0.177246 9.5 0.919434 10.2031L7.16943 16.4531C7.95068 17.2734 9.12256 17.1562 9.82568 16.4531L2.24756 8.875L9.82568 1.33594C9.12256 0.632812 7.95068 0.515625 7.16943 1.33594L0.919434 7.58594Z"
-                                                                        fill="#121416"
-                                                                    />
-                                                                </svg>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <p className="text-sm text-contentColor dark:text-contentColor-dark leading-23px mb-15px">
-                                                        There are many variations of passages of Lorem Ipsum
-                                                        available, but the majority have. There are many
-                                                        variations of passages of Lorem Ipsum available, but the
-                                                        majority have
-                                                    </p>
-                                                </div>
-                                            </li>
-                                            <li
-                                                className="flex gap-30px mb-10 lg:pl-100px"
-                                                data-aos="fade-up"
-                                            >
-                                                <div className="flex-shrink-0">
-                                                    <div>
-                                                        <img
-                                                            src="assets/images/blog-details/blog-details__4.png"
-                                                            alt=""
-                                                            className="w-20 h-20 rounded-full"
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="flex-grow">
-                                                    <div className="flex justify-between items-center">
-                                                        <div>
-                                                            <h4>
-                                                                <a
-                                                                    href="#"
-                                                                    className="text-lg font-semibold text-blackColor hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor leading-25px"
-                                                                >
-                                                                    Rohan De Spond
-                                                                </a>
-                                                            </h4>
-                                                            <p className="text-xs font-medium text-contentColor dark:text-contentColor-dark leading-29px uppercase mb-5px">
-                                                                25 JANUARY 2024
-                                                            </p>
-                                                        </div>
-                                                        <div className="author__icon">
-                                                            <button className="group">
-                                                                <svg
-                                                                    width={26}
-                                                                    height={19}
-                                                                    viewBox="0 0 26 19"
-                                                                    fill="none"
-                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                >
-                                                                    <path
-                                                                        className="group-hover:fill-primaryColor dark:fill-blackColor-dark dark:group-hover:fill-primaryColor block"
-                                                                        d="M5.91943 10.2031L12.1694 16.4531C13.3413 17.625 15.3726 16.8047 15.3726 15.125V12.3516C19.9819 12.5469 20.0991 13.5625 19.4351 15.8672C18.9272 17.5469 20.8413 18.9141 22.2866 17.9375C24.2788 16.5703 25.3726 14.8516 25.3726 12.3516C25.3726 6.76562 20.3726 5.67188 15.3726 5.47656V2.66406C15.3726 0.984375 13.3413 0.164062 12.1694 1.33594L5.91943 7.58594C5.17725 8.28906 5.17725 9.5 5.91943 10.2031ZM7.24756 8.875L13.4976 2.625V7.3125C18.1851 7.3125 23.4976 7.58594 23.4976 12.3516C23.4976 14.5391 22.3647 15.6328 21.2319 16.375C22.8335 11.0625 18.8491 10.4375 13.4976 10.4375V15.125L7.24756 8.875ZM0.919434 7.58594C0.177246 8.28906 0.177246 9.5 0.919434 10.2031L7.16943 16.4531C7.95068 17.2734 9.12256 17.1562 9.82568 16.4531L2.24756 8.875L9.82568 1.33594C9.12256 0.632812 7.95068 0.515625 7.16943 1.33594L0.919434 7.58594Z"
-                                                                        fill="#121416"
-                                                                    />
-                                                                </svg>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <p className="text-sm text-contentColor dark:text-contentColor-dark leading-23px mb-15px">
-                                                        There are many variations of passages of Lorem Ipsum
-                                                        available, but the majority have. There are many
-                                                        variations of passages of Lorem Ipsum available, but the
-                                                        majority have
-                                                    </p>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                   <Comments comments={comments} />
                                     {/* write comment area */}
-                                    {user && (<div className="pt-50px">
-                                        <h4
-                                            className="text-size-26 font-bold text-blackColor dark:text-blackColor-dark mb-30px !leading-30px"
-                                            data-aos="fade-up"
-                                        >
-                                            Write your comment
-                                        </h4>
-                                        <form onSubmit={onSubmit} className="pt-5" data-aos="fade-up">
-                                          
-                                            <textarea
-                                                name="text"
-                                                value={values.text}
-                                                onChange={onChange}
-                                                className="w-full p-5 mb-2 bg-transparent text-sm text-contentColor dark:text-contentColor-dark border border-borderColor2 dark:border-borderColor2-dark rounded"
-                                                data-aos="fade-up"
-                                                cols={30}
-                                                rows={8}
-                                                placeholder="Enter your comment*"
-                                            />
-                                           
-                                            <div className="mt-30px text-center" data-aos="fade-up">
-                                                <button type="submit"
-                                                    className="text-size-15 text-whiteColor bg-primaryColor px-70px py-13px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark"
-                                                >
-                                                    Post a Comment
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </div>) }
-                                    
+                                    {user && (
+                                        <FormAddComment courseId={courseId} user={user} comments={comments} setComments={setComments} />)}
+
                                 </div>
                             </div>
                         </div>
@@ -1028,7 +542,7 @@ export default function CourseDetails() {
                                             </>)
                                             :
                                             (<>
-                                            <button
+                                                <button
                                                     type="submit"
                                                     className="w-full text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border mb-10px leading-1.8 border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark"
                                                 >
@@ -1038,7 +552,7 @@ export default function CourseDetails() {
                                                     type="submit"
                                                     className="w-full text-size-15 text-whiteColor bg-secondaryColor px-25px py-10px mb-10px leading-1.8 border border-secondaryColor hover:text-secondaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-secondaryColor dark:hover:bg-whiteColor-dark"
                                                 >
-                                                   Delete
+                                                    Delete
                                                 </button>
                                             </>)}
 
@@ -1060,17 +574,17 @@ export default function CourseDetails() {
                                                 {startDate}
                                             </p>
                                         </li>
-                                        
+
                                         <li className="flex items-center justify-between py-10px border-b border-borderColor dark:border-borderColor-dark">
                                             <p className="text-sm font-medium text-contentColor dark:text-contentColor-dark leading-1.8">
                                                 Enrolled
                                             </p>
                                             <p className="text-xs text-contentColor dark:text-contentColor-dark px-10px py-6px bg-borderColor dark:bg-borderColor-dark rounded-full leading-13px">
-                                               TO DO
+                                                TO DO
                                             </p>
                                         </li>
-                                        
-                                        
+
+
                                         <li className="flex items-center justify-between py-10px border-b border-borderColor dark:border-borderColor-dark">
                                             <p className="text-sm font-medium text-contentColor dark:text-contentColor-dark leading-1.8">
                                                 Category
@@ -1079,7 +593,7 @@ export default function CourseDetails() {
                                                 {category}
                                             </p>
                                         </li>
-                                        
+
                                         <li className="flex items-center justify-between py-10px border-b border-borderColor dark:border-borderColor-dark">
                                             <p className="text-sm font-medium text-contentColor dark:text-contentColor-dark leading-1.8">
                                                 Certificate
@@ -1089,7 +603,7 @@ export default function CourseDetails() {
                                             </p>
                                         </li>
                                     </ul>
-                                    
+
                                 </div>
                                 {/* social area */}
                                 {/* <div
