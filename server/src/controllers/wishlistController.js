@@ -55,4 +55,20 @@ router.post("/remove", authenticateToken, async (req, res) => {
     }
 });
 
+router.get("/:userId", authenticateToken, async (req, res) => {
+    const { userId } = req.params;
+    if (!userId) {
+        return res.status(400).json({ message: "User ID is required." });
+    }
+    try {
+        const user = await User.findById(userId).populate("wishlist"); 
+       return res.status(200).json(user.wishlist);
+    } catch (error) {
+        console.error("Error in get wishlist function", error);
+        const errorMessage = getErrorMessage(error);
+        throw new Error(errorMessage);
+    }
+});
+
+
 module.exports = router;
