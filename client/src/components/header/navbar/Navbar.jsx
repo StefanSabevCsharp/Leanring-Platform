@@ -1,16 +1,14 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../../../context/authContext";
 
 
 
-export default function Navbar() {
+export default function Navbar({setShowMobileMenu}) {
 
   const { user } = useContext(AuthContext);
-
   
-
-
+  
   return (
     <div className="transition-all duration-500 sticky-header z-medium dark:bg-whiteColor-dark">
       <nav>
@@ -58,7 +56,8 @@ export default function Navbar() {
                   </Link>
 
                 </li>
-                {user && (<li className="nav-item group relative">
+                {user && (
+                  <li className="nav-item group relative">
                   <Link
                     to="/dashboard"
                     className="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor"
@@ -97,9 +96,13 @@ export default function Navbar() {
                       </Link>
                     </li>
                     <li className="block lg:hidden">
-                      <button className="open-mobile-menu text-3xl text-darkdeep1 hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">
-                        <i className="icofont-navigation-menu" />
-                      </button>
+                    <button
+                      className="open-mobile-menu text-3xl text-darkdeep1 hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
+                      onClick={() => setShowMobileMenu((prev) => !prev)}
+                      // Step 3: Add onClick handler
+                    >
+                      <i className="icofont-navigation-menu" />
+                    </button>
                     </li>
                   </ul>
                 </div>
@@ -230,9 +233,13 @@ export default function Navbar() {
                       </li>
 
                       <li className="block lg:hidden">
-                        <button className="open-mobile-menu text-3xl text-darkdeep1 hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor">
-                          <i className="icofont-navigation-menu" />
-                        </button>
+                      <button
+                      className="open-mobile-menu text-3xl text-darkdeep1 hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
+                      onClick={() => setShowMobileMenu((prev) => !prev)}
+                      // Step 3: Add onClick handler
+                    >
+                      <i className="icofont-navigation-menu" />
+                    </button>
                       </li>
                     </ul>
                   </div>

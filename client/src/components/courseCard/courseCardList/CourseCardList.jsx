@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import upperCase from "../../../utils/upperCase";
 import { calculateStarsToShow } from "../../../utils/calculateStarsToShow";
 import WishlistButton from "../../dashboard/student/wishlist/wishlistButton/WishlistButton";
+import { useContext } from "react";
+import AuthContext from "../../../context/authContext";
 
 export default function CourseCardList({ courseInfo }) {
-
+    const { user } = useContext(AuthContext);
     const stars = calculateStarsToShow(courseInfo);
 
     return (
@@ -26,7 +28,7 @@ export default function CourseCardList({ courseInfo }) {
                                     {courseInfo.category}
                                 </p>
                             </div>
-                            {<WishlistButton courseId={courseInfo._id} />}
+                            {user && <WishlistButton courseId={courseInfo._id} />}
                         </div>
                     </div>
                     {/* card content */}

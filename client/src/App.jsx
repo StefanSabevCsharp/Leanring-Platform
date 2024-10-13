@@ -45,7 +45,6 @@ function App() {
                   <About />
                   <Popular />
                   <Courses />
-                  {!user && <RegistrationSection />}
 
                   <AboutInstructor />
                   <News />

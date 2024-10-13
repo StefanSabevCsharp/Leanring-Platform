@@ -3,12 +3,10 @@ import { calculateStarsToShow } from "../../utils/calculateStarsToShow";
 import upperCase from "../../utils/upperCase";
 import { useContext } from "react";
 import AuthContext from "../../context/authContext";
-import { DataContext } from "../../context/dataContext";
-import { useState } from "react";
-import { addToWishlist, removeFromWishlist } from "../dashboard/student/wishlist/handleWishlist";
 import WishlistButton from "../dashboard/student/wishlist/wishlistButton/WishlistButton";
 
 export default function CourseCard({ courseInfo }) {
+  const { user } = useContext(AuthContext);
   const stars = calculateStarsToShow(courseInfo);
   
   
@@ -35,7 +33,8 @@ export default function CourseCard({ courseInfo }) {
                   {courseInfo?.category}
                 </p>
               </div>
-              {<WishlistButton courseId={courseInfo?._id} />}
+
+              {user && <WishlistButton courseId={courseInfo?._id} />}
             </div>
           </div>
           {/* card content */}
