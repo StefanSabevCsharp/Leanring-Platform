@@ -27,3 +27,14 @@ export const removeCourseFromWishlist = async (courseId, userId) => {
     }
 }
 
+export const getWishListCourses = async (userId) => {
+    try{
+        const response = await axios.get(`${import.meta.env.VITE_EXPRESS_API}/wishlist/${userId}`, { withCredentials: true });
+        return response.data;
+
+    }catch(error){
+        const errorMessage = getErrorMessage(error);
+        console.log(errorMessage);
+        return new Error(errorMessage);
+    }
+};
