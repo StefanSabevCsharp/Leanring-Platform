@@ -1,15 +1,24 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import ReviewForm from "./reviewForm/ReviewForm";
 import SingleReview from "./singleReview/SingleReview";
 import AuthContext from "../../../../context/authContext";
+import Pagination from "../../../pagination/Pagination";
 
 export default function Reviews({reviews, setReviews, courseId, user}) {
+  const [page, setPage] = useState(1);
+  const reviewsPerPage = 5;
+  const indexOfLastReview = page * reviewsPerPage;
+  const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
+  const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
+  const totalPages = Math.ceil(reviews.length / reviewsPerPage);
   console.log(reviews);
   const calculateAvarageRating = () => {
+    if(reviews.length === 0) return 0;
     const totalRating = reviews.reduce((acc, review) => acc + review.stars, 0);
     return totalRating / reviews.length;
   }  
   const getReviewsCountByStars = (star) => {
+
     return reviews.filter((review) => review.stars === star).length;
   };
   const getStarPercentage = (star) => {
@@ -66,7 +75,8 @@ export default function Reviews({reviews, setReviews, courseId, user}) {
           Customer Reviews
         </h4>
         <ul>
-          {reviews.map((review) => (<SingleReview key={review._id} review={review} />))}
+          {currentReviews.map((review) => (<SingleReview key={review._id} review={review} />))}
+          <Pagination setPage={setPage} totalPages={totalPages} page={page} />
         </ul>
       </div>
       {/* add reviews */}
