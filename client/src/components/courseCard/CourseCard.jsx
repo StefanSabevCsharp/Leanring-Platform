@@ -1,9 +1,53 @@
 import { Link } from "react-router-dom";
+import { calculateStarsToShow } from "../../utils/calculateStarsToShow";
+import upperCase from "../../utils/upperCase";
+import { useContext } from "react";
+import AuthContext from "../../context/authContext";
+import { addCourseToWishList, removeCourseFromWishlist } from "../../dataService/wishlistService";
+import { DataContext } from "../../context/dataContext";
+import { useState } from "react";
 
 export default function CourseCard({ courseInfo }) {
+  const { user } = useContext(AuthContext);
+  const { userData } = useContext(DataContext);
+  const [isAddingToWishlist, setIsAddingToWishlist] = useState(false);
+  const [isRemovingFromWishlist, setIsRemovingFromWishlist] = useState(false);
+  const isInWishlist = userData?.wishlist?.includes(courseInfo._id);
+  const stars = calculateStarsToShow(courseInfo);
+  
+  const handleWishlistClick = async () => {
+    if (!user) {
+      return;
+    }
+    console.log("Wishlist clicked");
+    const { _id } = courseInfo;
+    const { _id: userId } = user;
 
-  //TODO: fix reviews and fix link to instructor profile
-  console.log(courseInfo);
+    if (!isInWishlist) {
+      try {
+        setIsAddingToWishlist(true);
+        const response = await addCourseToWishList(_id, userId)
+        userData.wishlist.push(_id);
+      } catch (err) {
+        console.error("Error adding to wishlist:", err);
+      } finally {
+        setIsAddingToWishlist(false);
+      }
+    }else{
+      try {
+        setIsRemovingFromWishlist(true);
+        const response = await removeCourseFromWishlist(_id, userId)
+        userData.wishlist = userData.wishlist.filter((id) => id !== _id);
+      } catch (err) {
+        console.error("Error adding to wishlist:", err);
+      } finally {
+        setIsRemovingFromWishlist(false);
+      }
+    }
+
+  };
+
+
   return (
     <div className="group">
       <div className="tab-content-wrapper" data-aos="fade-up">
@@ -26,12 +70,17 @@ export default function CourseCard({ courseInfo }) {
                   {courseInfo?.category}
                 </p>
               </div>
-              <a
-                className="text-white bg-black bg-opacity-15 rounded hover:bg-primaryColor"
-                href="#"
+              <button
+                onClick={handleWishlistClick}
+                className={`rounded-lg px-3 py-1 transition-all duration-300 ${!isInWishlist
+                  ? 'bg-opacity-15 text-gray-400 border border-gray-400 hover:bg-gray-100' // Style when not in wishlist
+                  : 'bg-primaryColor text-white' // Optional: Keep button style when in wishlist
+                  }`}
               >
-                <i className="icofont-heart-alt text-base py-1 px-2" />
-              </a>
+                <i className={`icofont-heart-alt text-base ${isInWishlist ? 'text-red-500' : 'text-gray-400'}`} /> {/* Change heart color to red when in wishlist */}
+              </button>
+
+
             </div>
           </div>
           {/* card content */}
@@ -44,7 +93,7 @@ export default function CourseCard({ courseInfo }) {
                 </div>
                 <div>
                   <span className="text-sm text-black dark:text-blackColor-dark">
-                   Begins: {courseInfo?.startDate}
+                    Begins: {courseInfo?.startDate}
                   </span>
                 </div>
               </div>
@@ -71,7 +120,7 @@ export default function CourseCard({ courseInfo }) {
             <div className="grid grid-cols-1 md:grid-cols-2 pt-15px border-t border-borderColor">
               <div>
                 <Link
-                  to="/instructor-profile"
+                  to={`/users/${courseInfo?.instructor._id}`}
                   className="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"
                 >
                   <img
@@ -79,16 +128,21 @@ export default function CourseCard({ courseInfo }) {
                     src="../../assets/images/grid/grid_small_2.jpg"
                     alt=""
                   />
-                  {courseInfo?.creator}
+                  {upperCase(courseInfo.creator)}
                 </Link>
               </div>
               <div className="text-start md:text-end">
-                <i className="icofont-star text-size-15 text-yellow" />
-                <i className="icofont-star text-size-15 text-yellow" />
-                <i className="icofont-star text-size-15 text-yellow" />
-                <i className="icofont-star text-size-15 text-yellow" />
-                <i className="icofont-star text-size-15 text-yellow" />
-                <span className="text-xs text-lightGrey6">(44)</span>
+                {stars === 0 ? (
+                  [...Array(5)].map((_, index) => (
+                    <i key={index} className="icofont-star text-size-15 text-yellow" />
+                  ))
+                ) : (
+
+                  [...Array(stars)].map((_, index) => (
+                    <i key={index} className="icofont-star text-size-15 text-yellow" />
+                  ))
+                )}
+                <span className="text-xs text-lightGrey6">({courseInfo?.reviews.length})</span>
               </div>
             </div>
           </div>
