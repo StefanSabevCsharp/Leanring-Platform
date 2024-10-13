@@ -12,6 +12,7 @@ import { DataContext } from "../../../context/dataContext";
 import Comments from "./comments/Comments";
 import FormAddComment from "./formAddComment/FormAddComment";
 import Reviews from "./reviews/Reviews";
+import upperCase from "../../../utils/upperCase";
 
 export default function CourseDetails() {
     const params = useParams();
@@ -302,12 +303,12 @@ export default function CourseDetails() {
                                                         {/* author name */}
                                                         <div className="mb-3">
                                                             <h3 className="mb-7px">
-                                                                <a
-                                                                    href="instructor-details.html"
+                                                                <Link
+                                                                    to={`/users/${instructor._id}`}
                                                                     className="text-xl font-bold text-blackColor2 dark:text-blackColor2-dark hover:text-primaryColor dark:hover:text-primaryColor"
                                                                 >
-                                                                    {instructor.firstName} {instructor.lastName}
-                                                                </a>
+                                                                    {upperCase(instructor.firstName)} {upperCase(instructor.lastName)}
+                                                                </Link>
                                                             </h3>
                                                             <p className="text-xs text-contentColor2 dark:text-contentColor2-dark">
                                                                 {instructor.role.charAt(0).toUpperCase() + instructor.role.slice(1)}
