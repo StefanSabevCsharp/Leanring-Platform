@@ -29,4 +29,30 @@ router.post("/add", authenticateToken, async (req, res) => {
     }
 });
 
+router.post("/remove", authenticateToken, async (req, res) => {
+    const { courseId, userId } = req.body;
+    console.log(courseId, userId);
+    if (!courseId || !userId) {
+        return res.status(400).json({ message: "Course ID and User ID are required." });
+    }
+    try {
+        const user = await User.findByIdAndUpdate(
+            userId,
+            { $pull: { wishlist: courseId } },
+            { new: true, runValidators: true }
+        );
+        if (!user) {
+            return res.status(404).json({ message: "User not found." });
+        }
+        return res.status(200).json({ message: "Course removed from wishlist successfully.", user });
+
+
+
+    } catch (error) {
+        console.error("Error in remove course from wishlist function", error);
+        const errorMessage = getErrorMessage(error);
+        throw new Error(errorMessage);
+    }
+});
+
 module.exports = router;
