@@ -107,6 +107,8 @@ export default function CoursesPage() {
                             )}
                         </div>
 
+                        {/* Pagination */}
+                        <Pagination page={page} totalPages={totalPages} setPage={setPage} />
                     </div>
                 </div>
             </>
