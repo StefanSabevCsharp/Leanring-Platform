@@ -10,7 +10,6 @@ export default function useGetWishlist(userId) {
         const fetchWishlist = async () => {
             try {
                 const response = await getWishListCourses(userId);
-                console.log(response);
                 setWishlist(response);
             } catch (error) {
                 setError(error);

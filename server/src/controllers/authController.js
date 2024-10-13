@@ -273,8 +273,8 @@ router.put("/updateToInstructor/:_id", authenticateToken, async (req, res) => {
     }
 });
 
-router.get("/getFullUserData/:_id", authenticateToken, async (req, res) => {
-
+router.get("/getFullUserData/:_id", async (req, res) => {
+    //TODO: not sure if have to add authenticateToken middleware here
     const userId = req.params._id;
 
     try {
@@ -290,5 +290,7 @@ router.get("/getFullUserData/:_id", authenticateToken, async (req, res) => {
         return res.status(400).json({ message: errorMessage });
     }
 });
+
+
 
 module.exports = router;

@@ -6,11 +6,8 @@ import Spinner from "../../../spinner/Spinner";
 export default function Wishlist({ user }) {
 
     const [wishlist, loading, error] = useGetWishlist(user._id);
-    console.log(wishlist);
     //TODO: handle error
-    if (loading) {
-        return <Spinner />
-    }
+    
     if (!loading && wishlist) {
         const updatedWishlist = wishlist.map(course => ({
             ...course,

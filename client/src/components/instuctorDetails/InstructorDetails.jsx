@@ -114,7 +114,7 @@ export default function InstructorDetails() {
                                         <div className="swiper other-courses">
                                             <div className="swiper-wrapper">
                                                 {/* card 1 */}
-                                                {userData.createdCourses.map((courseId) => (<AuthorMoreCourses courseId={courseId} />))}
+                                                {userData.createdCourses.map((courseId) => (<AuthorMoreCourses courseId={courseId} key={courseId} />))}
                                             </div>
                                         </div>
                                     </div>

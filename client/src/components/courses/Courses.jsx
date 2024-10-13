@@ -6,12 +6,8 @@ export default function Courses() {
   //TODO : get latest 6 courses from the server to render them down
   const [courses, loading] = useGetAllCourses(6);
 
-  if (loading) {
-    return <Spinner />
-  }
 
   if (!loading && courses) {
-    console.log(courses);
     return (
       <section>
         <div className="pt-50px pb-10 md:pt-70px md:pb-50px lg:pt-20 2xl:pt-100px 2xl:pb-70px bg-whiteColor dark:bg-whiteColor-dark">

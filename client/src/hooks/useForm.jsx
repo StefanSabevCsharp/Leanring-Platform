@@ -19,7 +19,6 @@ export default function useForm(initialValues, submitHandler, formType) {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        console.log("Form submitted", values);
         let validationErrors = "";
         switch (formType) {
             case "register":

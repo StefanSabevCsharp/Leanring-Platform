@@ -24,10 +24,6 @@ export default function CoursesPage() {
         }
     }, [courses, perPage]);
 
-    if (loading) {
-        return <Spinner />;
-    }
-
     if (error) {
         toast.error(error.message);
     }

@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import upperCase from "../../../utils/upperCase";
 import { calculateStarsToShow } from "../../../utils/calculateStarsToShow";
+import WishlistButton from "../../dashboard/student/wishlist/wishlistButton/WishlistButton";
 
 export default function CourseCardList({ courseInfo }) {
+
     const stars = calculateStarsToShow(courseInfo);
-   
-    //TODO:link to category page
+
     return (
         <div className="w-full group grid-item rounded">
             <div className="tab-content-wrapper" data-aos="fade-up">
@@ -25,12 +26,7 @@ export default function CourseCardList({ courseInfo }) {
                                     {courseInfo.category}
                                 </p>
                             </div>
-                            <Link
-                                className="text-white bg-black bg-opacity-15 rounded hover:bg-primaryColor"
-                                to={`/categories/${courseInfo.category}`}
-                            >
-                                <i className="icofont-heart-alt text-base py-1 px-2" />
-                            </Link>
+                            {<WishlistButton courseId={courseInfo._id} />}
                         </div>
                     </div>
                     {/* card content */}

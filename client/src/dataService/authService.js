@@ -104,3 +104,4 @@ export const getFullUserData = async (_id) => {
         throw new Error(errorMessage);
     }
 }
+

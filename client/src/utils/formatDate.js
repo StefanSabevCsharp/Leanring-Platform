@@ -7,4 +7,4 @@ export function formatDate(dateString) {
         month: 'short',
         year: 'numeric'
     }).format(date);
-}
+} 

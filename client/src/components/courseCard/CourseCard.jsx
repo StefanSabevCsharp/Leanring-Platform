@@ -3,50 +3,15 @@ import { calculateStarsToShow } from "../../utils/calculateStarsToShow";
 import upperCase from "../../utils/upperCase";
 import { useContext } from "react";
 import AuthContext from "../../context/authContext";
-import { addCourseToWishList, removeCourseFromWishlist } from "../../dataService/wishlistService";
 import { DataContext } from "../../context/dataContext";
 import { useState } from "react";
+import { addToWishlist, removeFromWishlist } from "../dashboard/student/wishlist/handleWishlist";
+import WishlistButton from "../dashboard/student/wishlist/wishlistButton/WishlistButton";
 
 export default function CourseCard({ courseInfo }) {
-  const { user } = useContext(AuthContext);
-  const { userData } = useContext(DataContext);
-  const [isAddingToWishlist, setIsAddingToWishlist] = useState(false);
-  const [isRemovingFromWishlist, setIsRemovingFromWishlist] = useState(false);
-  const isInWishlist = userData?.wishlist?.includes(courseInfo._id);
   const stars = calculateStarsToShow(courseInfo);
   
-  const handleWishlistClick = async () => {
-    if (!user) {
-      return;
-    }
-    console.log("Wishlist clicked");
-    const { _id } = courseInfo;
-    const { _id: userId } = user;
-
-    if (!isInWishlist) {
-      try {
-        setIsAddingToWishlist(true);
-        const response = await addCourseToWishList(_id, userId)
-        userData.wishlist.push(_id);
-      } catch (err) {
-        console.error("Error adding to wishlist:", err);
-      } finally {
-        setIsAddingToWishlist(false);
-      }
-    }else{
-      try {
-        setIsRemovingFromWishlist(true);
-        const response = await removeCourseFromWishlist(_id, userId)
-        userData.wishlist = userData.wishlist.filter((id) => id !== _id);
-      } catch (err) {
-        console.error("Error adding to wishlist:", err);
-      } finally {
-        setIsRemovingFromWishlist(false);
-      }
-    }
-
-  };
-
+  
 
   return (
     <div className="group">
@@ -70,17 +35,7 @@ export default function CourseCard({ courseInfo }) {
                   {courseInfo?.category}
                 </p>
               </div>
-              <button
-                onClick={handleWishlistClick}
-                className={`rounded-lg px-3 py-1 transition-all duration-300 ${!isInWishlist
-                  ? 'bg-opacity-15 text-gray-400 border border-gray-400 hover:bg-gray-100' // Style when not in wishlist
-                  : 'bg-primaryColor text-white' // Optional: Keep button style when in wishlist
-                  }`}
-              >
-                <i className={`icofont-heart-alt text-base ${isInWishlist ? 'text-red-500' : 'text-gray-400'}`} /> {/* Change heart color to red when in wishlist */}
-              </button>
-
-
+              {<WishlistButton courseId={courseInfo?._id} />}
             </div>
           </div>
           {/* card content */}
