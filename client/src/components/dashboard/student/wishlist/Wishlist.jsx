@@ -1,7 +1,22 @@
+import { useState } from "react";
 import CourseCard from "../../../courseCard/CourseCard";
+import useGetWishlist from "../../../../hooks/useGetWishlist";
+import Spinner from "../../../spinner/Spinner";
 
 export default function Wishlist({ user }) {
-    
+
+    const [wishlist, loading, error] = useGetWishlist(user._id);
+    console.log(wishlist);
+    //TODO: handle error
+    if (loading) {
+        return <Spinner />
+    }
+    if (!loading && wishlist) {
+        const updatedWishlist = wishlist.map(course => ({
+            ...course,
+            instructor: { _id: course.instructor }
+        }));
+
     return (
         <div className="lg:col-start-4 lg:col-span-9">
             {/* courses area */}
@@ -14,16 +29,19 @@ export default function Wishlist({ user }) {
                 </div>
                 <div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-30px">
-                        
-                      {user.wishlist.length == 0 ? 
-                      (<h2 className="text-2xl font-bold text-blackColor dark:text-blackColor-dark">There are no courses in wishlist</h2>) 
-                      : 
-                      user.wishlist.map((course) => 
-                      (<CourseCard courseInfo={course} />))}
+
+
+                        {wishlist.length == 0 ?
+                            (<h2 className="text-2xl font-bold text-blackColor dark:text-blackColor-dark">There are no courses in wishlist</h2>)
+                            :
+                            updatedWishlist.map((course) => (<CourseCard key={course._id} courseInfo={course} />))}
                     </div>
                 </div>
             </div>
         </div>
 
     );
+}
+
+
 }
