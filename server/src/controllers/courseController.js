@@ -43,8 +43,12 @@ router.get("/created/:userId", authenticateToken, async (req, res) => {
         return res.status(400).json({ message: "User ID is required." });
     }
     try{
-        const createdCourses = await User.findById(userId).populate("createdCourses");
-        // console.log(createdCourses);
+        const createdCourses = await User.findById(userId).populate({
+            path: 'createdCourses',
+            populate: {
+                path: 'reviews'
+            }
+        });;
         return res.status(200).json({ createdCourses: createdCourses.createdCourses });
 
     } catch(error) {
@@ -63,8 +67,8 @@ router.get("/:courseId", async (req, res) => {
     //TODO: populate reviews and comments
     const course = await Course.findById(courseId)
     .populate("instructor")
-    // .populate("reviews")
-    // .populate("comments");
+    .populate("comments")
+    .populate("reviews");
 
     // console.log(course);
 
@@ -72,6 +76,21 @@ router.get("/:courseId", async (req, res) => {
         return res.status(404).json({ message: "Course not found." });
     }
     return res.status(200).json({ course });
+});
+
+router.get("/", async (req, res) => {
+    try{
+        const limit = parseInt(req.query.limit) || 0;
+        
+        const courses = await Course.find().populate("instructor").populate("reviews").limit(limit);
+         
+        return res.status(200).json(courses);
+
+    }catch(error){
+        console.error("Error in get all courses function", error);
+        const errorMessage = getErrorMessage(error);
+        throw new Error(errorMessage);
+    }
 });
 
 module.exports = router;
