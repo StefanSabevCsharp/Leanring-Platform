@@ -71,5 +71,38 @@ router.get("/personal/:userId", authenticateToken, async (req, res) => {
     }
 });
 
+router.delete("/delete/:reviewId", authenticateToken, async (req, res) => {
+    const reviewId = req.params.reviewId;
+    if (!reviewId) {
+        return res.status(400).json({ message: "Review ID is required." });
+    }
+    try {
+        const review = await Review.findById(reviewId);
+        if (!review) {
+            return res.status(404).json({ message: "Review not found" });
+        }
+
+        const course = await Course.findById(review.course);
+        const user = await User.findById(review.user);
+        if (!course || !user) {
+            return res.status(400).json({ message: "Course or user not found!" });
+        }
+
+        course.reviews = course.reviews.filter(item => item.toString() !== reviewId);
+        user.reviews = user.reviews.filter(item => item.toString() !== reviewId);
+        await Promise.all([course.save(), user.save(), review.deleteOne()]);
+        return res.status(200).json({ message: "Review deleted successfully" });
+        // await Promise.all([course.save(), user.save(), review.delete()]);
+
+        // return res.status(200).json({ message: "Review deleted successfully" });
+    } catch (error) {
+        console.error("Error in delete review function", error);
+        const errorMessage = getErrorMessage(error);
+        return res.status(500).json({ message: errorMessage });
+    }
+});
+
+  
+
 
 module.exports = router;
