@@ -30,4 +30,15 @@ export const getPersonalReviews = async (userId) => {
 
 }
 
+export const deleteReview = async (reviewId) => {
+    
+        try{
+            const response = await axios.delete(`${import.meta.env.VITE_EXPRESS_API}/reviews/delete/${reviewId}`, { withCredentials: true });
+            return response.data;
+    
+        }catch(error){
+            console.error("Error in delete review function", error);
+            const errorMessage = getErrorMessage(error);
+            throw new Error(errorMessage);
+        }
 };
