@@ -45,5 +45,31 @@ router.post("/create", authenticateToken, async (req, res) => {
     }
 });
 
+router.get("/personal/:userId", authenticateToken, async (req, res) => {
+    const userId = req.params.userId;
+    if(!userId){
+        return res.status(400).json({ message: "User ID is required." });
+    }
+    try{
+        const user = await User.findById(userId).populate({
+            path: 'reviews',
+            populate: { 
+                path: 'course', 
+                select: ["courseTitle", "reviews"]
+            }
+        });
+
+        if(!user){
+            return res.status(400).json({ message: "User not found" });
+        }
+        return res.status(200).json(user.reviews);
+        
+    }catch(error){
+        console.error("Error in get personal reviews function", error);
+        const errorMessage = getErrorMessage(error);
+        throw new Error(errorMessage);
+    }
+});
+
 
 module.exports = router;
