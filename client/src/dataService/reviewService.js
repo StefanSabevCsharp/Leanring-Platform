@@ -15,3 +15,19 @@ export const createReview = async (reviewData, courseId, userId) => {
     }
 
 };
+
+export const getPersonalReviews = async (userId) => {
+
+    try{
+        const response = await axios.get(`${import.meta.env.VITE_EXPRESS_API}/reviews/personal/${userId}`, { withCredentials: true });
+        return response.data;
+
+    }catch(error){
+        console.error("Error in get personal reviews function", error);
+        const errorMessage = getErrorMessage(error);
+        throw new Error(errorMessage);
+    }
+
+}
+
+};
