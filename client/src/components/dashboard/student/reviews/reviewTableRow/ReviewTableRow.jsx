@@ -1,17 +1,15 @@
+import { useState } from "react";
 import { deleteReview } from "../../../../../dataService/reviewService";
 
-export default function ReviewTableRow({ review, setReviews,refreshReviews }) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+export default function ReviewTableRow({ review, setReviews, refreshReviews }) {
+
 
     const handleDeleteReview = async (reviewId) => {
         try {
             console.log("here")
-           const response =  await deleteReview(reviewId);
-              if(response.status === 200){
-                setReviews((prevReviews) => prevReviews.filter((review) => review._id !== reviewId));
-                }
-                refreshReviews();
-           
+            const response = await deleteReview(reviewId);
+             refreshReviews();
+
         } catch (error) {
             console.error("Error in delete review function", error);
         }
@@ -28,24 +26,24 @@ export default function ReviewTableRow({ review, setReviews,refreshReviews }) {
                 <div>
                     {/* review */}
                     <div className="text-primaryColor">
-                       {[...Array(review.stars)].map((star,index)=>(
-                        <svg
-                        key={index}
-                        xmlns="http://www.w3.org/2000/svg"
-                        width={24}
-                        height={24}
-                        viewBox="0 0 24 24"
-                        fill="blue"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="feather feather-star w-4 inline-block"
-                    >
-                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                    </svg>
-                       ))}
-                       <p className="text-white font-bold">{review.text}</p>
+                        {[...Array(review.stars)].map((star, index) => (
+                            <svg
+                                key={index}
+                                xmlns="http://www.w3.org/2000/svg"
+                                width={24}
+                                height={24}
+                                viewBox="0 0 24 24"
+                                fill="blue"
+                                stroke="currentColor"
+                                strokeWidth={2}
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                className="feather feather-star w-4 inline-block"
+                            >
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                            </svg>
+                        ))}
+                        <p className="text-white font-bold">{review.text}</p>
                         <span className="md:text-sm text-blackColor dark:text-blackColor-dark font-bold">
                             ({review.course.reviews.length} Reviews)
                         </span>

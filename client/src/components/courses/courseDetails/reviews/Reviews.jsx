@@ -6,6 +6,7 @@ import Pagination from "../../../pagination/Pagination";
 
 export default function Reviews({reviews, setReviews, courseId, user}) {
   const [page, setPage] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const reviewsPerPage = 5;
   const indexOfLastReview = page * reviewsPerPage;
   const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
@@ -80,7 +81,7 @@ export default function Reviews({reviews, setReviews, courseId, user}) {
         </ul>
       </div>
       {/* add reviews */}
-     {user && <ReviewForm setReviews={setReviews} courseId={courseId} user={user} />}
+     {user && <ReviewForm setReviews={setReviews} courseId={courseId} user={user} isSubmitting={isSubmitting} setIsSubmitting={setIsSubmitting}/>}
     </>
   );
 }

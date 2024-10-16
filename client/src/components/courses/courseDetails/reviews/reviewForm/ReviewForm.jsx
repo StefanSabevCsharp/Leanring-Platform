@@ -3,9 +3,9 @@ import useForm from "../../../../../hooks/useForm";
 import { createReview } from "../../../../../dataService/reviewService";
 import toast, { Toaster } from "react-hot-toast";
 
-export default function ReviewForm({ setReviews, courseId, user }) {
+export default function ReviewForm({ setReviews, courseId, user,isSubmitting, setIsSubmitting }) {
     const [stars, setStars] = useState(5);
-
+    
     const initialValues = {
         text: "",
         stars,
@@ -24,6 +24,7 @@ export default function ReviewForm({ setReviews, courseId, user }) {
             return;
         }
         const dataObj = { text, stars };
+        setIsSubmitting(true);
         try {
             const { message, review: newReview } = await createReview(dataObj, courseId, user._id);
             setReviews(oldReviews => [...oldReviews, newReview]);
@@ -87,6 +88,7 @@ export default function ReviewForm({ setReviews, courseId, user }) {
                     />
                     <div className="mt-30px">
                         <button
+                        disabled={isSubmitting}
                             type="submit"
                             className="text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark"
                         >

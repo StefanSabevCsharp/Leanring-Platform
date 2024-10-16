@@ -138,7 +138,7 @@ export default function Header() {
               <button
                 className="w-full bg-primaryColor text-white py-2 px-4 rounded hover:bg-secondaryColor"
                 onClick={() => {
-                  () => logout();
+                  logout();
                   setShowMobileMenu((prev) => !prev);
                 }}
               >
