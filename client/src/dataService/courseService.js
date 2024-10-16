@@ -54,3 +54,15 @@ export const getAllCourses = async (limit) => {
             throw new Error(errorMessage);
         }
 };
+
+export const deleteCourseById = async (courseId) => {
+    try {
+        const response = await axios.delete(`${import.meta.env.VITE_EXPRESS_API}/courses/${courseId}`, { withCredentials: true });
+        return response.data;
+        
+    } catch (error) {
+        console.error("Error in delete course function", error);
+        const errorMessage = getErrorMessage(error);
+        throw new Error(errorMessage);
+    }
+}
