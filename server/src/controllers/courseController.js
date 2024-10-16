@@ -93,4 +93,34 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.delete("/:courseId", authenticateToken, async (req, res) => {
+    const { courseId } = req.params;
+    const userId = req.user._id;
+
+    if(!courseId){
+        return res.status(400).json({ message: "Course ID is required." });
+    }
+    try {
+        const course = await Course.findById(courseId);
+        console.log(course);
+        const instructorId = course.instructor;
+        if(instructorId.toString() !== userId.toString()){
+            return res.status(403).json({ message: "You are not authorized to delete this course." });
+        }
+        const deletedCourse = await Course.findByIdAndDelete(courseId);
+        const user = await User.findById(userId);
+        user.createdCourses = user.createdCourses.filter(course => course.toString() !== courseId);
+        await user.save();
+
+        return res.status(200).json({ message: "Course deleted successfully." });
+
+
+        
+    } catch (error) {
+        console.error("Error in delete course function", error);
+        const errorMessage = getErrorMessage(error);
+        throw new Error(errorMessage);
+        
+    }
+});
 module.exports = router;
