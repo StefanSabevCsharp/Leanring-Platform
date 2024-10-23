@@ -24,6 +24,7 @@ import BecomeInstructor from "./components/becomeInstructor/BecomeInstructor"
 import CourseDetails from "./components/courses/courseDetails/CourseDetails"
 import { DataProvider } from "./context/dataContext"
 import InstructorDetails from "./components/instuctorDetails/InstructorDetails"
+import NotFound from "./components/notFound/NotFound"
 
 
 function App() {
@@ -77,6 +78,8 @@ function App() {
               } />
               <Route path="/courses/:_Id" element={<CourseDetails />} />
               <Route path="/users/:_Id" element={<InstructorDetails />} />
+              <Route path="/404" element={<NotFound/>} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
           <Footer />

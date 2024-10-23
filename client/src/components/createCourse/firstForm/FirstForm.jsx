@@ -33,7 +33,7 @@ export default function FirstForm() {
 
         try {
             const {course, message} = await createCourse(courseData, user._id);
-            navigate(`/course/${course._id}`);
+            navigate(`/courses/${course._id}`);
             
         } catch (err) {
             console.error("Error creating course", err);
