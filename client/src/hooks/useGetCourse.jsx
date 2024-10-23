@@ -1,29 +1,32 @@
 import { useEffect, useState } from "react";
-import { getErrorMessage } from "../utils/errorParser";
 import { getCourseById } from "../dataService/courseService";
-
+import { getErrorMessage } from "../utils/errorParser";
 
 export default function useGetCourse(courseId) {
     const [course, setCourse] = useState(null);
     const [loading, setLoading] = useState(true);
-    //TODO : fix error handling
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        setLoading(true);
-        try{
-            const getCourse = async () => {
+        const getCourse = async () => {
+            try {
+                setLoading(true); 
                 const response = await getCourseById(courseId);
                 setCourse(response.course);
+                setError(null); 
+            } catch (error) {
+                const errorMessage = getErrorMessage(error); 
+                console.error("Error fetching course:", errorMessage);
+                setError(errorMessage);
+            } finally {
                 setLoading(false);
             }
+        };
+
+        if (courseId) {
             getCourse();
-        
-        }catch(error){
-            console.log("Error in get course function", error);
-            return getErrorMessage(error);
         }
-        
     }, [courseId]);
 
-    return [course, loading];
+    return [course, loading, error];
 }
