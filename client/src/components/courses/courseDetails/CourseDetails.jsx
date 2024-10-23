@@ -22,7 +22,7 @@ export default function CourseDetails() {
     const courseId = params._Id;
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState(1);
-    const [course, loading] = useGetCourse(courseId);
+    const [course, loading,error] = useGetCourse(courseId);
     const [comments, setComments] = useState([]);
     const [reviews, setReviews] = useState([]);
     const { user } = useContext(AuthContext);
@@ -64,7 +64,9 @@ export default function CourseDetails() {
     const activeTabStyle = noActiveTabStyle + " active";
 
 
-
+    if(!loading && error){
+        navigate("/404");
+    }
 
     if (loading) {
         return <Spinner />
