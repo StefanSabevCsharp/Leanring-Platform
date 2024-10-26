@@ -1,17 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import StudentDashboard from "./student/dashboard/Dashboard";
 import StudentNavigation from "./student/navigation/StudentNavigation";
 import TopElement from "./topElement/TopElement";
 import AuthContext from "../../context/authContext";
 import { Route, Routes } from "react-router-dom";
-import MyCourses from "./student/myCourses/MyCourses";
-import Profile from "./student/profile/Profile";
-import Wishlist from "./student/wishlist/Wishlist";
-import Reviews from "./student/reviews/Reviews";
-import Settings from "./student/settings/Settings";
 import roleRoutesConfig from "./roleRoutesConfig";
 import InstructorNavigation from "./instructor/navigation/InstructorNavigation";
-import { getFullUserData } from "../../dataService/authService";
 import { DataContext } from "../../context/dataContext";
 
 
@@ -20,8 +13,7 @@ export default function Dashboard() {
     const { userData, loading} = useContext(DataContext);
     const currentRole = user?.role || "student";
     const routes = roleRoutesConfig[currentRole];
-    console.log(userData);
-
+    console.log(userData)
     if(loading) {
         //TODO: Add a loading spinner
         return (

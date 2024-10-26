@@ -10,6 +10,7 @@ export default function Header() {
   const navigate = useNavigate();
 
   const { theme } = useTheme();
+  //TODO:Fix social links to be mine
   return (
     <header>
       {/* header top start */}
@@ -17,13 +18,13 @@ export default function Header() {
         <div className="container 3xl:container2-lg 4xl:container mx-auto text-size-12 xl:text-sm py-5px xl:py-9px">
           <div className="flex justify-between items-center">
             <div>
-              <p>Call Us: ......... - Mail Us: ........</p>
+              <p>CALL Stefan Sabev: 0041 79 720 51 14 - Mail ME: stevenbg91@gmail.com</p>
             </div>
             <div className="flex gap-37px items-center">
               <div>
                 <p>
                   <i className="icofont-location-pin text-primaryColor text-size-15 mr-5px" />
-                  <span>684 West College St. Sun City, USA</span>
+                  <span>1400 Yverdon-les-Bains,Suisse</span>
                 </p>
               </div>
               <div>

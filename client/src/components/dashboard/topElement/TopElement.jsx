@@ -4,6 +4,7 @@ import AuthContext from "../../../context/authContext";
 
 export default function TopElement() {
   const {user} = useContext(AuthContext);
+  const role = user.role;
   return (
     <>
       <section>
@@ -24,12 +25,13 @@ export default function TopElement() {
               
             </div>
             
-            <div>
-              <Link
-                to="/create-course"
+            <div> 
+              {role === "student" ? (
+                <Link
+                to="/courses"
                 className="text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor rounded group text-nowrap flex gap-1 items-center"
               >
-               Create course DEMO
+               FIND NEW COURSES
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width={24}
@@ -46,6 +48,32 @@ export default function TopElement() {
                   <polyline points="12 5 19 12 12 19" />
                 </svg>
               </Link>
+              ) : 
+              (
+                <Link
+                to="/create-course"
+                className="text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor rounded group text-nowrap flex gap-1 items-center"
+              >
+               CREATE COURSE
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={24}
+                  height={24}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="feather feather-arrow-right"
+                >
+                  <line x1={5} y1={12} x2={19} y2={12} />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </Link>
+              )}
+              
+              
             </div>
           </div>
         </div>

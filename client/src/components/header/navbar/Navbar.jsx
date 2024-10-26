@@ -113,14 +113,13 @@ export default function Navbar({setShowMobileMenu}) {
 
                   <div className="lg:col-start-10 lg:col-span-3">
                     <ul className="relative nav-list flex justify-end items-center">
-                      <li className="px-5 lg:px-10px 2xl:px-5 lg:py-4 2xl:py-26px 3xl:py-9 group">
+                      {/* <li className="px-5 lg:px-10px 2xl:px-5 lg:py-4 2xl:py-26px 3xl:py-9 group">
                         <a href="../ecommerce/cart.html" className="relative block">
                           <i className="icofont-cart-alt text-2xl text-blackColor group-hover:text-secondaryColor transition-all duration-300 dark:text-blackColor-dark" />
                           <span className="absolute -top-1 2xl:-top-[5px] -right-[10px] lg:right-3/4 2xl:-right-[10px] text-[10px] font-medium text-white dark:text-whiteColor-dark bg-secondaryColor px-1 py-[2px] leading-1 rounded-full z-50 block">
                             3
                           </span>
                         </a>
-                        {/* dropdown menu */}
                         <div
                           className="dropdown absolute top-full right-0 lg:right-8 z-medium hidden opacity-0"
                           style={{ transition: "0.3s" }}
@@ -203,7 +202,6 @@ export default function Navbar({setShowMobileMenu}) {
                                 <span className="font-bold text-secondaryColor">$ 210.00</span>
                               </p>
                             </div>
-                            {/* action buttons */}
                             <div className="flex flex-col gap-y-5">
                               <a
                                 href="../ecommerce/cart.html"
@@ -220,7 +218,7 @@ export default function Navbar({setShowMobileMenu}) {
                             </div>
                           </div>
                         </div>
-                      </li>
+                      </li> */}
 
 
                       <li className="hidden lg:block">
@@ -236,7 +234,7 @@ export default function Navbar({setShowMobileMenu}) {
                       <button
                       className="open-mobile-menu text-3xl text-darkdeep1 hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
                       onClick={() => setShowMobileMenu((prev) => !prev)}
-                      // Step 3: Add onClick handler
+                     
                     >
                       <i className="icofont-navigation-menu" />
                     </button>

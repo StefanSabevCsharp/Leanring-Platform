@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 export default function StudentDashboard({ user }) {
+    console.log(user);
     //TODO: implement completed courses
     return (
         <div className="lg:col-start-4 lg:col-span-9">
@@ -25,7 +26,39 @@ export default function StudentDashboard({ user }) {
                                     <span>+</span>
                                 </p>
                                 <p className="text-blackColor font-medium leading-[18px] dark:text-blackColor-dark">
-                                    Bought Courses
+                                    Signed Up Courses
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="p-5 md:px-10 md:py-50px bg-lightGrey5 dark:bg-whiteColor-dark rounded-lg2 shadow-accordion-dark">
+                        <div className="flex gap-4">
+                            <div>
+                                <img src="../../assets/images/counter/counter__2.png" alt="" />
+                            </div>
+                            <div>
+                                <p className="text-size-34 leading-[1.1] text-blackColor font-bold font-hind dark:text-blackColor-dark">
+                                    <span data-countup-number={8}>{user.reviews.length}</span>
+                                    {/* <span>+</span> */}
+                                </p>
+                                <p className="text-blackColor font-medium leading-[18px] dark:text-blackColor-dark">
+                                    Reviews Submitted
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="p-5 md:px-10 md:py-50px bg-lightGrey5 dark:bg-whiteColor-dark rounded-lg2 shadow-accordion-dark">
+                        <div className="flex gap-4">
+                            <div>
+                                <img src="../../assets/images/counter/counter__2.png" alt="" />
+                            </div>
+                            <div>
+                                <p className="text-size-34 leading-[1.1] text-blackColor font-bold font-hind dark:text-blackColor-dark">
+                                    <span data-countup-number={8}>{user.wishlist.length}</span>
+                                    {/* <span>+</span> */}
+                                </p>
+                                <p className="text-blackColor font-medium leading-[18px] dark:text-blackColor-dark">
+                                    Courses In Wishlist
                                 </p>
                             </div>
                         </div>

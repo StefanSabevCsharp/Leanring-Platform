@@ -12,7 +12,7 @@ export default function Reviews({reviews, setReviews, courseId, user}) {
   const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
   const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
   const totalPages = Math.ceil(reviews.length / reviewsPerPage);
-  console.log(reviews);
+  
   const calculateAvarageRating = () => {
     if(reviews.length === 0) return 0;
     const totalRating = reviews.reduce((acc, review) => acc + review.stars, 0);

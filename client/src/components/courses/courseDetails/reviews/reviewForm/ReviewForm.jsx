@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useForm from "../../../../../hooks/useForm";
 import { createReview } from "../../../../../dataService/reviewService";
 import toast, { Toaster } from "react-hot-toast";
+import { DataContext } from "../../../../../context/dataContext";
 
 export default function ReviewForm({ setReviews, courseId, user,isSubmitting, setIsSubmitting }) {
     const [stars, setStars] = useState(5);
+    const {userData} = useContext(DataContext);
     
     const initialValues = {
         text: "",
@@ -28,6 +30,7 @@ export default function ReviewForm({ setReviews, courseId, user,isSubmitting, se
         try {
             const { message, review: newReview } = await createReview(dataObj, courseId, user._id);
             setReviews(oldReviews => [...oldReviews, newReview]);
+            userData.reviews.push(newReview._id);
             console.log("Review created", newReview);
 
         } catch (error) {
