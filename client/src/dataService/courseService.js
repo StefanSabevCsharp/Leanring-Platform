@@ -66,3 +66,15 @@ export const deleteCourseById = async (courseId) => {
         throw new Error(errorMessage);
     }
 }
+
+export const subscribeToCourse = async (courseId, userId) => {
+    try {
+        const response = await axios.post(`${import.meta.env.VITE_EXPRESS_API}/courses/subscribe`, { courseId, userId }, { withCredentials: true });
+        return response.data;
+        
+    } catch (error) {
+        console.error("Error in subscribe to course function", error);
+        const errorMessage = getErrorMessage(error);
+        throw new Error(errorMessage);
+    }
+}
