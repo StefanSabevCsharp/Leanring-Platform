@@ -209,5 +209,45 @@ router.post("/subscribe", authenticateToken, async (req, res) => {
         return res.status(500).json({ message: errorMessage });
     }
 });
+// Add this route in your server, for example in routes/courses.js
+
+router.post("/unsubscribe", authenticateToken, async (req, res) => {
+    const { courseId, userId } = req.body;
+
+    if (!courseId || !userId) {
+        return res.status(400).json({ message: "Course ID and user ID are required." });
+    }
+
+    try {
+        const course = await Course.findById(courseId);
+        if (!course) {
+            return res.status(404).json({ message: "Course not found." });
+        }
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found." });
+        }
+
+        if (!user.courses.includes(courseId)) {
+            return res.status(400).json({ message: "User is not subscribed to this course." });
+        }
+
+        user.courses = user.courses.filter(id => id.toString() !== courseId);
+
+        const instructor = await User.findById(course.instructor);
+        if (instructor) {
+            instructor.signedUpStudents = instructor.signedUpStudents.filter(id => id.toString() !== userId);
+        }
+
+        await Promise.all([user.save(), instructor.save()]);
+        return res.status(200).json({ message: "Unsubscribed from course successfully." });
+        
+    } catch (error) {
+        console.error("Error in unsubscribe from course function", error);
+        const errorMessage = getErrorMessage(error);
+        return res.status(500).json({ message: errorMessage });
+    }
+});
 
 module.exports = router;
