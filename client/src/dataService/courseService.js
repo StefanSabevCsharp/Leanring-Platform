@@ -78,3 +78,14 @@ export const subscribeToCourse = async (courseId, userId) => {
         throw new Error(errorMessage);
     }
 }
+export const unsubscribeFromCourse = async (courseId, userId) => {
+    try {
+        const response = await axios.post(`${import.meta.env.VITE_EXPRESS_API}/courses/unsubscribe`, { courseId, userId }, { withCredentials: true });
+        return response.data;
+        
+    } catch (error) {
+        console.error("Error in unsubscribe from course function", error);
+        const errorMessage = getErrorMessage(error);
+        throw new Error(errorMessage);
+    }
+}

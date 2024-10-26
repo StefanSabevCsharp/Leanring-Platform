@@ -14,7 +14,9 @@ import FormAddComment from "./formAddComment/FormAddComment";
 import Reviews from "./reviews/Reviews";
 import upperCase from "../../../utils/upperCase";
 import toast, {Toaster} from "react-hot-toast";
-import { deleteCourseById } from "../../../dataService/courseService";
+import { deleteCourseById} from "../../../dataService/courseService";
+import SubscribeButton from "./subscribeButton/SubscribeButton";
+
 
 export default function CourseDetails() {
     const [isDeleting, setIsDeleting] = useState(false);
@@ -26,7 +28,8 @@ export default function CourseDetails() {
     const [comments, setComments] = useState([]);
     const [reviews, setReviews] = useState([]);
     const { user } = useContext(AuthContext);
-    //TODO : use reviews and comments from course when server populates everything
+    const {userData} = useContext(DataContext);
+    console.log(userData)
     //TODO: add enrolled prop in user to display here
    
     if(isDeleting){
@@ -63,7 +66,7 @@ export default function CourseDetails() {
     const noActiveTabStyle = "is-checked relative p-10px md:px-25px md:py-15px lg:py-3 2xl:py-15px 2xl:px-45px text-blackColor bg-whiteColor hover:bg-primaryColor hover:text-whiteColor shadow-overview-button dark:bg-whiteColor-dark dark:text-blackColor-dark dark:hover:bg-primaryColor dark:hover:text-whiteColor flex items-center";
     const activeTabStyle = noActiveTabStyle + " active";
 
-
+    
     if(!loading && error){
         navigate("/404");
     }
@@ -77,10 +80,12 @@ export default function CourseDetails() {
         const createdCourses = instructor.createdCourses;
         const otherCourses = createdCourses.filter(id => id !== _id);
         const isOwner = user?._id === instructor._id;
+        const isAlreadySubscribed = userData?.courses.includes(courseId);
+        console.log(isAlreadySubscribed)
         //TODO: add functionality to the buttons edit delete 
         return (
             <>
-                
+                <Toaster />
                 <section>
                     <div className="container py-10 md:py-50px lg:py-60px 2xl:py-100px">
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-30px">
@@ -542,7 +547,7 @@ export default function CourseDetails() {
                                             </div>
                                             <div>
                                                 <a
-                                                    href="#"
+                                                   
                                                     className="uppercase text-sm font-semibold text-secondaryColor2 leading-27px px-2 bg-whitegrey1 dark:bg-whitegrey1-dark"
                                                 >
                                                     {princeDiscount(freeRegularPrice, discountedPrice)}% OFF
@@ -552,22 +557,18 @@ export default function CourseDetails() {
                                         <div className="mb-5" data-aos="fade-up">
                                             {!isOwner ? (
                                                 <>
-                                                    <button
+                                                    {/* <button
                                                         type="submit"
                                                         className="w-full text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border mb-10px leading-1.8 border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark"
                                                     >
-                                                        Add To Cart
-                                                    </button>
-                                                    <button
-                                                        type="submit"
-                                                        className="w-full text-size-15 text-whiteColor bg-secondaryColor px-25px py-10px mb-10px leading-1.8 border border-secondaryColor hover:text-secondaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-secondaryColor dark:hover:bg-whiteColor-dark"
-                                                    >
-                                                        Buy Now
-                                                    </button>
-                                                    <span className="text-size-13 text-contentColor dark:text-contentColor-dark leading-1.8">
+                                                        Add to Wishlist
+                                                    </button> */}
+                                                   <SubscribeButton initialIsSubscribed={isAlreadySubscribed} courseId={courseId} />
+                                                   
+                                                    {/* <span className="text-size-13 text-contentColor dark:text-contentColor-dark leading-1.8">
                                                         <i className="icofont-ui-rotation" /> 45-Days Money-Back
                                                         Guarantee
-                                                    </span>
+                                                    </span> */}
                                                 </>)
                                                 :
                                                 (<>
