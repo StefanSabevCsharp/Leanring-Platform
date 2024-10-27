@@ -1,31 +1,31 @@
-import { useContext } from "react";
-import { createCourse } from "../../../dataService/courseService";
+import { useContext, useMemo } from "react";
+import { createCourse, updateCourse } from "../../../dataService/courseService";
 import useForm from "../../../hooks/useForm";
 import AuthContext from "../../../context/authContext";
 import { useNavigate } from "react-router-dom";
 
-export default function FirstForm() {
+
+export default function FirstForm({ course, courseId }) {
+    console.log(course);
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     //TODO: Handle error messages and loading state 
     //TODO: When form is submitted have to change the restrictions for the date,because now it only accepts the format dd/mm/yy. have to add dd/mm/yyyy
- 
-    const initialValues = {
-        courseTitle: "",
-        courseImageUrl: "",
-        startDate: "",
-        language: "",
-        freeRegularPrice: "",
-        discountedPrice: "",
-        description: "",
-        category: "",
-        aboutCourse: "",
 
-    }
+    const initialValues = useMemo(() => ({
+        courseTitle: course ? course.courseTitle : "",
+        courseImageUrl: course ? course.courseImageUrl : "",
+        startDate: course ? course.startDate : "",
+        language: course ? course.language : "",
+        freeRegularPrice: course ? course.freeRegularPrice : "",
+        discountedPrice: course ? course.discountedPrice : "",
+        description: course ? course.description : "",
+        category: course ? course.category : "",
+        aboutCourse: course ? course.aboutCourse : "",
+    }), [course]);
 
     const submitHandler = async (values) => {
         console.log("First Form Data", values);
-        //TODO : send data to server
         const courseData = {
             ...values,
             freeRegularPrice: parseInt(values.freeRegularPrice),
@@ -33,16 +33,19 @@ export default function FirstForm() {
         }
 
         try {
-            const {course, message} = await createCourse(courseData, user._id);
+            if (!courseId) {
+                const { course, message } = await createCourse(courseData, user._id);
+            } else {
+                const { course, message } = await updateCourse(courseData, courseId, user._id);
+            }
             navigate(`/courses/${course._id}`);
-            
+
         } catch (err) {
             console.error("Error creating course", err);
         }
     };
 
-    const [values, onChange, onSubmit, loading, errors] = useForm(initialValues, submitHandler, "firstForm");
-
+    const [values, onChange, onSubmit, loading, errors] = useForm(initialValues, submitHandler, "firstForm", { reinitializeValues: true });
     return (
         <div className="content-wrapper py-4 px-5">
             <div>
@@ -216,7 +219,7 @@ export default function FirstForm() {
 
                                 className="text-whiteColor bg-primaryColor w-full p-13px hover:text-whiteColor hover:bg-secondaryColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-secondaryColor text-center"
                             >
-                                Create Course
+                                {course ? "Edit Course" : "Create Course"}
                             </a>
                         </button>
                     </div>
