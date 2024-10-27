@@ -233,7 +233,31 @@ router.delete("/:courseId", authenticateToken, async (req, res) => {
         return res.status(500).json({ message: "An error occurred while deleting the course." });
     }
 });
+router.put("/:courseId", authenticateToken, async (req, res) => {
+    const { courseData, userId } = req.body;
+    const { courseId } = req.params;
+    if(!courseData || !userId || !courseId){
+        return res.status(400).json({ message: "Course data, course ID and user ID are required." });
+    }
+    const currentUserID = req.user._id;
+    if(currentUserID.toString() !== userId.toString()){
+        return res.status(403).json({ message: "You are not authorized to update this course." });
+    }
 
+    try{
+        const course = await Course.findById(courseId);
+        if(!course){
+            return res.status(404).json({ message: "Course not found." });
+        }
+        const updatedCourse = await Course.findByIdAndUpdate(courseId, { $set: courseData }, { new: true });
+
+        return res.status(200).json({ message: "Course updated successfully.", course: updatedCourse });
+    }catch(error){
+        console.error("Error in update course function", error);
+        const errorMessage = getErrorMessage(error);
+        return res.status(500).json({ message: errorMessage });
+    }
+});
 
 router.post("/subscribe", authenticateToken, async (req, res) => {
     const { courseId, userId } = req.body;
