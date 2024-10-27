@@ -66,6 +66,17 @@ export const deleteCourseById = async (courseId) => {
         throw new Error(errorMessage);
     }
 }
+export const updateCourse = async (courseData, courseId, userId) => {
+    try {
+        const response = await axios.put(`${import.meta.env.VITE_EXPRESS_API}/courses/${courseId}`, { courseData, userId }, { withCredentials: true });
+        return response.data;
+        
+    } catch (error) {
+        console.error("Error in update course function", error);
+        const errorMessage = getErrorMessage(error);
+        throw new Error(errorMessage);
+    }
+}
 
 export const subscribeToCourse = async (courseId, userId) => {
     try {
