@@ -63,6 +63,10 @@ const courseSchema = new Schema({
     },
     creator:{
         type: String
+    },
+    enrolledStudents:{
+        type: Number,
+        default: 0
     }
     
 },{timestamps: true});

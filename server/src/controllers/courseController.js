@@ -8,9 +8,9 @@ const mongoose = require("mongoose");
 const router = require("express").Router();
 
 router.post("/create", authenticateToken, async (req, res) => {
-    // console.log("create course");
+    
     const { courseData, userId } = req.body;
-    // console.log(courseData);
+   
     if (!courseData || !userId) {
         return res.status(400).json({ message: "Course data and user ID are required." });
     }
@@ -19,7 +19,8 @@ router.post("/create", authenticateToken, async (req, res) => {
         const newCourse = new Course({
             ...courseData,
             instructor: userId,
-            creator: req.user.fistName + " " + req.user.lastName
+            creator: req.user.fistName + " " + req.user.lastName,
+            enrolledStudents: 0,
         });
         const savedCourse = await newCourse.save();
 
@@ -194,12 +195,13 @@ router.post("/subscribe", authenticateToken, async (req, res) => {
         }
 
         user.courses.push(courseId);
+        course.enrolledStudents += 1;
         const instructor = await User.findById(course.instructor);
         if (instructor) {
             instructor.signedUpStudents.push(userId);
             
         }
-        await Promise.all([user.save(), instructor.save()]);
+        await Promise.all([user.save(), instructor.save(), course.save()]);
 
         return res.status(200).json({ message: "Subscribed to course successfully.", course });
         
@@ -209,7 +211,7 @@ router.post("/subscribe", authenticateToken, async (req, res) => {
         return res.status(500).json({ message: errorMessage });
     }
 });
-// Add this route in your server, for example in routes/courses.js
+
 
 router.post("/unsubscribe", authenticateToken, async (req, res) => {
     const { courseId, userId } = req.body;
@@ -234,13 +236,14 @@ router.post("/unsubscribe", authenticateToken, async (req, res) => {
         }
 
         user.courses = user.courses.filter(id => id.toString() !== courseId);
+        course.enrolledStudents -= 1;
 
         const instructor = await User.findById(course.instructor);
         if (instructor) {
             instructor.signedUpStudents = instructor.signedUpStudents.filter(id => id.toString() !== userId);
         }
 
-        await Promise.all([user.save(), instructor.save()]);
+        await Promise.all([user.save(), instructor.save(), course.save()]);
         return res.status(200).json({ message: "Unsubscribed from course successfully." });
         
     } catch (error) {
