@@ -6,8 +6,6 @@ import { princeDiscount } from "../../../utils/priceDiscout";
 import AuthorMoreCourses from "./authorMoreCourses/AuthorMoreCourses";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../../context/authContext";
-import useForm from "../../../hooks/useForm";
-import { createComment } from "../../../dataService/commentService";
 import { DataContext } from "../../../context/dataContext";
 import Comments from "./comments/Comments";
 import FormAddComment from "./formAddComment/FormAddComment";
@@ -29,9 +27,22 @@ export default function CourseDetails() {
     const [reviews, setReviews] = useState([]);
     const { user } = useContext(AuthContext);
     const {userData} = useContext(DataContext);
+    const [enrolledStudentsCount, setEnrolledStudentsCount] = useState(0);
+    useEffect( () => {
+        if(course){
+            setEnrolledStudentsCount(course.enrolledStudents);
+        }
+    }, [course]);
+
+    const changeEnrolledStudentsCount = (isSubscribed) => {
+        if(!isSubscribed){
+            setEnrolledStudentsCount(enrolledStudentsCount + 1);
+        }else{
+            setEnrolledStudentsCount(enrolledStudentsCount - 1);
+        }
+    }
     console.log(userData)
-    //TODO: add enrolled prop in user to display here
-   
+
     if(isDeleting){
         if(window.confirm("Are you sure deleting this product")){
             setIsDeleting(false)
@@ -76,12 +87,12 @@ export default function CourseDetails() {
     }
     if (!loading && course) {
 
-        const { _id, courseTitle, courseImageUrl, startDate, language, aboutCourse, category, courseStatus, createdAt, creator, description, discountedPrice, freeRegularPrice, instructor, sold, updatedAt } = course;
+        const { _id, courseTitle, courseImageUrl, startDate, language, aboutCourse, category, courseStatus, createdAt, creator, description, discountedPrice, freeRegularPrice, instructor, sold, updatedAt,enrolledStudents } = course;
         const createdCourses = instructor.createdCourses;
         const otherCourses = createdCourses.filter(id => id !== _id);
         const isOwner = user?._id === instructor._id;
         const isAlreadySubscribed = userData?.courses.includes(courseId);
-        console.log(isAlreadySubscribed)
+        console.log(course)
         //TODO: add functionality to the buttons edit delete 
         return (
             <>
@@ -197,7 +208,7 @@ export default function CourseDetails() {
                                                         <p className="text-contentColor2 dark:text-contentColor2-dark flex justify-between items-center">
                                                             Enrolled :
                                                             <span className="text-base lg:text-sm 2xl:text-base text-blackColor dark:text-deepgreen-dark font-medium text-opacity-100">
-                                                                TO DO
+                                                                {enrolledStudentsCount}
                                                             </span>
                                                         </p>
                                                     </li>
@@ -518,26 +529,7 @@ export default function CourseDetails() {
                                         className="py-33px px-25px shadow-event mb-30px bg-whiteColor dark:bg-whiteColor-dark rounded-md"
                                         data-aos="fade-up"
                                     >
-                                        {/* meeting thumbnail */}
-                                        {/* <div className="overflow-hidden relative mb-5">
-                                    <img
-                                        src="assets/images/blog/blog_7.png"
-                                        alt=""
-                                        className="w-full"
-                                    />
-                                    <div className="absolute top-0 right-0 left-0 bottom-0 flex items-center justify-center z-10">
-                                        <div>
-                                            <button
-                                                data-url="https://www.youtube.com/watch?v=vHdclsdkp28"
-                                                className="lvideo relative w-15 h-15 md:h-20 md:w-20 lg:w-15 lg:h-15 2xl:h-70px 2xl:w-70px 3xl:h-20 3xl:w-20 bg-secondaryColor rounded-full flex items-center justify-center"
-                                            >
-                                                <span className="animate-buble absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 block w-[180px] h-[180px] border-secondaryColor rounded-full" />
-                                                <span className="animate-buble2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 block w-[180px] h-[180px] border-secondaryColor rounded-full" />
-                                                <img src="assets/images/icon/video.png" alt="" />
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div> */}
+                                       
                                         <div className="flex justify-between mb-5">
                                             <div className="text-size-21 font-bold text-primaryColor font-inter leading-25px">
                                                 ${discountedPrice}.00
@@ -563,7 +555,7 @@ export default function CourseDetails() {
                                                     >
                                                         Add to Wishlist
                                                     </button> */}
-                                                   <SubscribeButton initialIsSubscribed={isAlreadySubscribed} courseId={courseId} />
+                                                   <SubscribeButton initialIsSubscribed={isAlreadySubscribed} courseId={courseId} changeEnrolledStudentsCount={changeEnrolledStudentsCount} />
                                                    
                                                     {/* <span className="text-size-13 text-contentColor dark:text-contentColor-dark leading-1.8">
                                                         <i className="icofont-ui-rotation" /> 45-Days Money-Back
@@ -611,7 +603,7 @@ export default function CourseDetails() {
                                                     Enrolled
                                                 </p>
                                                 <p className="text-xs text-contentColor dark:text-contentColor-dark px-10px py-6px bg-borderColor dark:bg-borderColor-dark rounded-full leading-13px">
-                                                    TO DO
+                                                    {enrolledStudentsCount}
                                                 </p>
                                             </li>
 

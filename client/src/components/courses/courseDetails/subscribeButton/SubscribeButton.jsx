@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import { useSubscribeButton } from "../../../../hooks/useSubscribeButton";
 
-export default function SubscribeButton({ courseId, initialIsSubscribed }) {
+export default function SubscribeButton({ courseId, initialIsSubscribed,changeEnrolledStudentsCount }) {
     const [isSubscribed, setIsSubscribed] = useState(initialIsSubscribed);
     const [handleSubscribe, isSubscribing] = useSubscribeButton(courseId);
 
     const toggleSubscription = async () => {
         const updatedSubscriptionStatus = await handleSubscribe(isSubscribed);
         setIsSubscribed(updatedSubscriptionStatus);
+        changeEnrolledStudentsCount(isSubscribed);
+       
     };
 
     return (

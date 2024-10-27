@@ -45,6 +45,21 @@ export default function InstructorDashboard({ user }) {
                     <div className="p-5 md:px-10 md:py-50px bg-lightGrey5 dark:bg-whiteColor-dark rounded-lg2 shadow-accordion-dark">
                         <div className="flex gap-4">
                             <div>
+                                <img src="../../assets/images/counter/counter__2.png" alt="" />
+                            </div>
+                            <div>
+                                <p className="text-size-34 leading-[1.1] text-blackColor font-bold font-hind dark:text-blackColor-dark">
+                                    <span >{user.signedUpStudents.length}</span>
+                                </p>
+                                <p className="text-blackColor font-medium leading-[18px] dark:text-blackColor-dark">
+                                    Enrolled Students
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="p-5 md:px-10 md:py-50px bg-lightGrey5 dark:bg-whiteColor-dark rounded-lg2 shadow-accordion-dark">
+                        <div className="flex gap-4">
+                            <div>
                                 <img src="../../assets/images/counter/counter__4.png" alt="" />
                             </div>
                             <div>

@@ -6,9 +6,7 @@ import Spinner from "../../../spinner/Spinner";
 export default function CreatedCourses({ user }) {
     //TODO : render real created courses
     const [createdCourses, loading] = useGetCreatedCourses(user._id);
-    if (loading) {
-        return <Spinner />
-    }
+   
     if (createdCourses.length == 0) {
         return <h1>No courses created yet</h1>
     }

@@ -8,7 +8,8 @@ export default function FirstForm() {
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     //TODO: Handle error messages and loading state 
-
+    //TODO: When form is submitted have to change the restrictions for the date,because now it only accepts the format dd/mm/yy. have to add dd/mm/yyyy
+ 
     const initialValues = {
         courseTitle: "",
         courseImageUrl: "",
@@ -201,14 +202,14 @@ export default function FirstForm() {
 
                     <div className="mt-10 leading-1.8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-x-30px gap-y-5">
 
-                        <button data-aos="fade-up" className="lg:col-start-1 lg:col-span-4">
+                        {/* <button data-aos="fade-up" className="lg:col-start-1 lg:col-span-4">
                             <a
 
                                 className="text-whiteColor bg-primaryColor w-full p-13px hover:text-whiteColor hover:bg-secondaryColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-secondaryColor text-center"
                             >
                                 Preview
                             </a>
-                        </button>
+                        </button> */}
 
                         <button data-aos="fade-up" className="lg:col-start-5 lg:col-span-8">
                             <a

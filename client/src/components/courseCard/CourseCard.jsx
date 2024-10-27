@@ -9,8 +9,6 @@ export default function CourseCard({ courseInfo }) {
   const { user } = useContext(AuthContext);
   const stars = calculateStarsToShow(courseInfo);
   
-  
-
   return (
     <div className="group">
       <div className="tab-content-wrapper" data-aos="fade-up">
