@@ -142,16 +142,7 @@ export default function RegisterForm({ setIsLogin }) {
                             />
                         </div>
                     </div>
-                    <div className="text-contentColor dark:text-contentColor-dark flex items-center">
-                        <input
-                            type="checkbox"
-                            id="accept-pp"
-                            className="w-18px h-18px mr-2 block box-content"
-                        />
-                        <label htmlFor="accept-pp">
-                            Accept the Terms and Privacy Policy
-                        </label>
-                    </div>
+                    
                     <div className="mt-25px text-center">
                         <button
 

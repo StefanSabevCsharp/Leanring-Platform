@@ -11,59 +11,39 @@ import Comments from "./comments/Comments";
 import FormAddComment from "./formAddComment/FormAddComment";
 import Reviews from "./reviews/Reviews";
 import upperCase from "../../../utils/upperCase";
-import toast, {Toaster} from "react-hot-toast";
-import { deleteCourseById} from "../../../dataService/courseService";
+import toast, { Toaster } from "react-hot-toast";
+import { deleteCourseById } from "../../../dataService/courseService";
 import SubscribeButton from "./subscribeButton/SubscribeButton";
+import DeleteButton from "./deleteButton/DeleteButton";
+import EditButton from "./editButton/EditButton";
 
 
 export default function CourseDetails() {
     const [isDeleting, setIsDeleting] = useState(false);
+    const [comments, setComments] = useState([]);
+    const [reviews, setReviews] = useState([]);
+    const [enrolledStudentsCount, setEnrolledStudentsCount] = useState(0);
+    const [activeTab, setActiveTab] = useState(1);
     const params = useParams();
     const courseId = params._Id;
     const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState(1);
-    const [course, loading,error] = useGetCourse(courseId);
-    const [comments, setComments] = useState([]);
-    const [reviews, setReviews] = useState([]);
+    const [course, loading, error] = useGetCourse(courseId);
     const { user } = useContext(AuthContext);
-    const {userData} = useContext(DataContext);
-    const [enrolledStudentsCount, setEnrolledStudentsCount] = useState(0);
-    useEffect( () => {
-        if(course){
+    const { userData } = useContext(DataContext);
+    useEffect(() => {
+        if (course) {
             setEnrolledStudentsCount(course.enrolledStudents);
         }
     }, [course]);
 
     const changeEnrolledStudentsCount = (isSubscribed) => {
-        if(!isSubscribed){
+        if (!isSubscribed) {
             setEnrolledStudentsCount(enrolledStudentsCount + 1);
-        }else{
+        } else {
             setEnrolledStudentsCount(enrolledStudentsCount - 1);
         }
     }
     console.log(userData)
-
-    if(isDeleting){
-        if(window.confirm("Are you sure deleting this product")){
-            setIsDeleting(false)
-            //TODO: delete course
-           try {
-            const deleteCourse = async(courseId) => {
-                const response = await deleteCourseById(courseId);
-                
-                console.log(response?.message);
-                navigate("/courses");
-            }
-
-            deleteCourse(courseId);
-            
-           } catch (error) {
-            //TODO: add error handling
-            toast.error("Error deleting course");
-           }
-        }
-    }
-
 
     useEffect(() => {
         if (course && course.comments) {
@@ -77,8 +57,8 @@ export default function CourseDetails() {
     const noActiveTabStyle = "is-checked relative p-10px md:px-25px md:py-15px lg:py-3 2xl:py-15px 2xl:px-45px text-blackColor bg-whiteColor hover:bg-primaryColor hover:text-whiteColor shadow-overview-button dark:bg-whiteColor-dark dark:text-blackColor-dark dark:hover:bg-primaryColor dark:hover:text-whiteColor flex items-center";
     const activeTabStyle = noActiveTabStyle + " active";
 
-    
-    if(!loading && error){
+
+    if (!loading && error) {
         navigate("/404");
     }
 
@@ -87,7 +67,7 @@ export default function CourseDetails() {
     }
     if (!loading && course) {
 
-        const { _id, courseTitle, courseImageUrl, startDate, language, aboutCourse, category, courseStatus, createdAt, creator, description, discountedPrice, freeRegularPrice, instructor, sold, updatedAt,enrolledStudents } = course;
+        const { _id, courseTitle, courseImageUrl, startDate, language, aboutCourse, category, courseStatus, createdAt, creator, description, discountedPrice, freeRegularPrice, instructor, sold, updatedAt, enrolledStudents } = course;
         const createdCourses = instructor.createdCourses;
         const otherCourses = createdCourses.filter(id => id !== _id);
         const isOwner = user?._id === instructor._id;
@@ -529,7 +509,7 @@ export default function CourseDetails() {
                                         className="py-33px px-25px shadow-event mb-30px bg-whiteColor dark:bg-whiteColor-dark rounded-md"
                                         data-aos="fade-up"
                                     >
-                                       
+
                                         <div className="flex justify-between mb-5">
                                             <div className="text-size-21 font-bold text-primaryColor font-inter leading-25px">
                                                 ${discountedPrice}.00
@@ -539,7 +519,7 @@ export default function CourseDetails() {
                                             </div>
                                             <div>
                                                 <a
-                                                   
+
                                                     className="uppercase text-sm font-semibold text-secondaryColor2 leading-27px px-2 bg-whitegrey1 dark:bg-whitegrey1-dark"
                                                 >
                                                     {princeDiscount(freeRegularPrice, discountedPrice)}% OFF
@@ -555,8 +535,8 @@ export default function CourseDetails() {
                                                     >
                                                         Add to Wishlist
                                                     </button> */}
-                                                   <SubscribeButton initialIsSubscribed={isAlreadySubscribed} courseId={courseId} changeEnrolledStudentsCount={changeEnrolledStudentsCount} />
-                                                   
+                                                    <SubscribeButton initialIsSubscribed={isAlreadySubscribed} courseId={courseId} changeEnrolledStudentsCount={changeEnrolledStudentsCount} />
+
                                                     {/* <span className="text-size-13 text-contentColor dark:text-contentColor-dark leading-1.8">
                                                         <i className="icofont-ui-rotation" /> 45-Days Money-Back
                                                         Guarantee
@@ -564,19 +544,8 @@ export default function CourseDetails() {
                                                 </>)
                                                 :
                                                 (<>
-                                                    <button
-                                                        type="submit"
-                                                        className="w-full text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border mb-10px leading-1.8 border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark"
-                                                    >
-                                                        Edit
-                                                    </button>
-                                                    <button
-                                                        onClick={() => setIsDeleting(true)}
-                                                        type="submit"
-                                                        className="w-full text-size-15 text-whiteColor bg-secondaryColor px-25px py-10px mb-10px leading-1.8 border border-secondaryColor hover:text-secondaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-secondaryColor dark:hover:bg-whiteColor-dark"
-                                                    >
-                                                        Delete
-                                                    </button>
+                                                    <EditButton course={course} />
+                                                    <DeleteButton course={course} />
                                                 </>)}
 
                                         </div>

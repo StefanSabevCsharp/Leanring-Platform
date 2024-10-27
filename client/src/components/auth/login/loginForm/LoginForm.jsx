@@ -80,24 +80,7 @@ export default function LoginForm({ setIsLogin }) {
                             className="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
                         />
                     </div>
-                    <div className="text-contentColor dark:text-contentColor-dark flex items-center justify-between">
-                        <div className="flex items-center">
-                            <input
-                                type="checkbox"
-                                id="remember"
-                                className="w-18px h-18px mr-2 block box-content"
-                            />
-                            <label htmlFor="remember"> Remember me</label>
-                        </div>
-                        <div>
-                            <a
-                                href="#"
-                                className="hover:text-primaryColor relative after:absolute after:left-0 after:bottom-0.5 after:w-0 after:h-0.5 after:bg-primaryColor after:transition-all after:duration-300 hover:after:w-full"
-                            >
-                                Forgot your password?
-                            </a>
-                        </div>
-                    </div>
+                    
                     <div className="my-25px text-center">
                         <button
                             type="submit"

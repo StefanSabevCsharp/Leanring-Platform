@@ -78,6 +78,7 @@ function App() {
               } />
               <Route path="/courses/:_Id" element={<CourseDetails />} />
               <Route path="/users/:_Id" element={<InstructorDetails />} />
+              <Route path="/courses/edit/:_Id" element={<CreateCourse />} />
               <Route path="/404" element={<NotFound/>} />
               <Route path="*" element={<NotFound />} />
             </Routes>

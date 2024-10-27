@@ -1,13 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { validateLoginForm, validateProfileSettingsForm, validateRegisterForm, validateChangePasswordForm, validateCreateCourseForm, validateCommentForm } from "../utils/validateForm";
 
 
 
-export default function useForm(initialValues, submitHandler, formType) {
+export default function useForm(initialValues, submitHandler, formType,options = {reinitializeValues: false}) {
 
     const [values, setValues] = useState(initialValues);
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
+    useEffect( () => {
+        if(options.reinitializeValues){
+            setValues(initialValues);
+        }
+    },[initialValues,options.reinitializeValues])
 
     const onChange = (e) => {
         const { name, value } = e.target;

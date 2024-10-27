@@ -36,7 +36,7 @@ export default function Navbar({setShowMobileMenu}) {
                   </Link>
 
                 </li>
-                <li className="nav-item group">
+                {/* <li className="nav-item group">
                   <Link
                     to="/blog"
                     className="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor"
@@ -45,7 +45,7 @@ export default function Navbar({setShowMobileMenu}) {
 
                   </Link>
 
-                </li>
+                </li> */}
                 <li className="nav-item group">
                   <Link
                     to="/courses"
@@ -68,8 +68,26 @@ export default function Navbar({setShowMobileMenu}) {
                   {/* dropdown menu */}
 
                 </li>)}
+                <li className="nav-item group">
+                  <Link
+                    to="/about"
+                    className="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor"
+                  >
+                    About
+                  </Link>
 
-                <li className="nav-item group relative">
+                </li>
+                <li className="nav-item group">
+                  <Link
+                    to="/contact"
+                    className="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor"
+                  >
+                    Contact
+                  </Link>
+
+                </li>
+
+                {/* <li className="nav-item group relative">
                   <Link
                     to="/shop"
                     className="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor"
@@ -78,7 +96,7 @@ export default function Navbar({setShowMobileMenu}) {
 
                   </Link>
 
-                </li>
+                </li> */}
               </ul>
             </div>
             {/* navbar right */}

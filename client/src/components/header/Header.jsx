@@ -87,14 +87,14 @@ export default function Header() {
               </li>
 
               <li className="accordion" onClick={() => setShowMobileMenu((prev) => !prev)}>
-                <div className="flex items-center justify-between">
+                {/* <div className="flex items-center justify-between">
                   <Link
                     className="leading-1 py-11px text-darkdeep1 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
                     to="/blog"
                   >
                     Blog
                   </Link>
-                </div>
+                </div> */}
 
               </li>
 
@@ -105,6 +105,26 @@ export default function Header() {
                     to="/courses"
                   >
                     Courses
+                  </Link>
+                </div>
+              </li>
+              <li className="accordion" onClick={() => setShowMobileMenu((prev) => !prev)}>
+                <div className="flex items-center justify-between">
+                  <Link
+                    className="leading-1 py-11px text-darkdeep1 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
+                    to="/about"
+                  >
+                    About
+                  </Link>
+                </div>
+              </li>
+              <li className="accordion" onClick={() => setShowMobileMenu((prev) => !prev)}>
+                <div className="flex items-center justify-between">
+                  <Link
+                    className="leading-1 py-11px text-darkdeep1 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
+                    to="/contact"
+                  >
+                    Contact
                   </Link>
                 </div>
               </li>
@@ -122,7 +142,7 @@ export default function Header() {
                   </li>
                 )}
 
-              <li className="accordion" onClick={() => setShowMobileMenu((prev) => !prev)}>
+              {/* <li className="accordion" onClick={() => setShowMobileMenu((prev) => !prev)}>
                 <div className="flex items-center justify-between">
                   <Link
                     className="leading-1 py-11px text-darkdeep1 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
@@ -131,7 +151,7 @@ export default function Header() {
                     Shop
                   </Link>
                 </div>
-              </li>
+              </li> */}
             </ul>
           </div>
           <div className="mt-6">
