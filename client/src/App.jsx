@@ -25,6 +25,8 @@ import CourseDetails from "./components/courses/courseDetails/CourseDetails"
 import { DataProvider } from "./context/dataContext"
 import InstructorDetails from "./components/instuctorDetails/InstructorDetails"
 import NotFound from "./components/notFound/NotFound"
+import Contact from "./components/contact/Contact"
+import AboutPage from "./components/about/aboutPage/AboutPage"
 
 
 function App() {
@@ -79,6 +81,8 @@ function App() {
               <Route path="/courses/:_Id" element={<CourseDetails />} />
               <Route path="/users/:_Id" element={<InstructorDetails />} />
               <Route path="/courses/edit/:_Id" element={<CreateCourse />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/contact" element={<Contact />} />
               <Route path="/404" element={<NotFound/>} />
               <Route path="*" element={<NotFound />} />
             </Routes>
