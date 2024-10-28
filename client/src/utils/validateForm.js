@@ -171,6 +171,15 @@ const validateCommentForm = (values) => {
 
 }
 
+const validateEmail = (values) => {
+    let errors = {};
+    const { email } = values;
+    if (!isEmail(email)) {
+        errors.email = "Invalid email";
+    }
+    return errors;
+}
+
 
 export {
     validateRegisterForm,
@@ -178,5 +187,6 @@ export {
     validateProfileSettingsForm,
     validateChangePasswordForm,
     validateCreateCourseForm,
-    validateCommentForm
+    validateCommentForm,
+    validateEmail
 }
