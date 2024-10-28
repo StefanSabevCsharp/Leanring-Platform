@@ -1,18 +1,26 @@
 import { useEffect, useState } from "react";
-import { validateLoginForm, validateProfileSettingsForm, validateRegisterForm, validateChangePasswordForm, validateCreateCourseForm, validateCommentForm } from "../utils/validateForm";
+import toast from "react-hot-toast";
+import { validateLoginForm, validateProfileSettingsForm, validateRegisterForm, validateChangePasswordForm, validateCreateCourseForm, validateCommentForm, validateEmail } from "../utils/validateForm";
 
 
 
-export default function useForm(initialValues, submitHandler, formType,options = {reinitializeValues: false}) {
+export default function useForm(initialValues, submitHandler, formType, options = { reinitializeValues: false }) {
 
     const [values, setValues] = useState(initialValues);
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
-    useEffect( () => {
-        if(options.reinitializeValues){
+    useEffect(() => {
+        if (options.reinitializeValues) {
             setValues(initialValues);
         }
-    },[initialValues,options.reinitializeValues])
+    }, [initialValues, options.reinitializeValues])
+    useEffect(() => {
+        Object.values(errors).forEach(errorMessage => {
+            if (errorMessage) {
+                toast.error(errorMessage);
+            }
+        });
+    }, [errors]);
 
     const onChange = (e) => {
         const { name, value } = e.target;
@@ -41,8 +49,11 @@ export default function useForm(initialValues, submitHandler, formType,options =
             case "firstForm":
                 validationErrors = validateCreateCourseForm(values);
                 break;
-                case "comment":
+            case "comment":
                 validationErrors = validateCommentForm(values);
+                break;
+            case "emailForm":
+                validationErrors = validateEmail(values);
                 break;
 
             default:
