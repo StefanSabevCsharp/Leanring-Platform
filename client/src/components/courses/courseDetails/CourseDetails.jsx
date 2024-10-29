@@ -527,28 +527,28 @@ export default function CourseDetails() {
                                             </div>
                                         </div>
                                         <div className="mb-5" data-aos="fade-up">
-                                            {!isOwner ? (
+                                            {user && (!isOwner ? (
                                                 <>
                                                     {/* <button
-                                                        type="submit"
-                                                        className="w-full text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border mb-10px leading-1.8 border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark"
-                                                    >
-                                                        Add to Wishlist
-                                                    </button> */}
+                type="submit"
+                className="w-full text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border mb-10px leading-1.8 border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark"
+            >
+                Add to Wishlist
+            </button> */}
                                                     <SubscribeButton initialIsSubscribed={isAlreadySubscribed} courseId={courseId} changeEnrolledStudentsCount={changeEnrolledStudentsCount} />
 
                                                     {/* <span className="text-size-13 text-contentColor dark:text-contentColor-dark leading-1.8">
-                                                        <i className="icofont-ui-rotation" /> 45-Days Money-Back
-                                                        Guarantee
-                                                    </span> */}
-                                                </>)
-                                                :
-                                                (<>
+                <i className="icofont-ui-rotation" /> 45-Days Money-Back Guarantee
+            </span> */}
+                                                </>
+                                            ) : (
+                                                <>
                                                     <EditButton course={course} />
                                                     <DeleteButton course={course} />
-                                                </>)}
-
+                                                </>
+                                            ))}
                                         </div>
+
                                         <ul>
                                             <li className="flex items-center justify-between py-10px border-b border-borderColor dark:border-borderColor-dark">
                                                 <p className="text-sm font-medium text-contentColor dark:text-contentColor-dark leading-1.8">

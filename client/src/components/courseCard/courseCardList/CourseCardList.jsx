@@ -8,6 +8,7 @@ import AuthContext from "../../../context/authContext";
 export default function CourseCardList({ courseInfo }) {
     const { user } = useContext(AuthContext);
     const stars = calculateStarsToShow(courseInfo);
+    console.log(courseInfo)
 
     return (
         <div className="w-full group grid-item rounded">

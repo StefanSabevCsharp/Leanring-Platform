@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 
 
 export default function FirstForm({ course, courseId }) {
-    console.log(course);
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     //TODO: Handle error messages and loading state 
@@ -35,10 +34,14 @@ export default function FirstForm({ course, courseId }) {
         try {
             if (!courseId) {
                 const { course, message } = await createCourse(courseData, user._id);
+                console.log("Course created", course);
+                console.log(message)
+                navigate(`/courses/${course._id}`);
             } else {
                 const { course, message } = await updateCourse(courseData, courseId, user._id);
+                navigate(`/courses/${course._id}`);
             }
-            navigate(`/courses/${course._id}`);
+            
 
         } catch (err) {
             console.error("Error creating course", err);
