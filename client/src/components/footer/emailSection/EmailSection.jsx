@@ -8,7 +8,7 @@ export default function EmailSection() {
     }
     const submitHandler = async (email) => {
         const templateParams = {
-            email,  // recipient's email
+            email, 
         };
     
         try {

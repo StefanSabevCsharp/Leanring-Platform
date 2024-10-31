@@ -52,6 +52,14 @@ export default function Footer() {
                     About Us
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    to="/contact"
+                    className="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0"
+                  >
+                    Contact Us
+                  </Link>
+                </li>
                 {/* <li>
               <a
                 href="#"
