@@ -180,6 +180,24 @@ const validateEmail = (values) => {
     return errors;
 }
 
+const validateContact = (values) => {
+    const {name, email, message} = values;
+    let errors = {};
+    if(!name || !email || !message){
+        errors = "All fields are required";
+    }
+    if(!isEmail(email)){
+        errors.email = "Invalid email";
+    }
+    if(!isLength(name, {min: 3})){
+        errors.name = "Name must be between 3 characters";
+    }
+    if(!isLength(message, {min: 10})){
+        errors.message = "Message must be between 10 characters";
+    }
+    return errors;
+}
+
 
 export {
     validateRegisterForm,
@@ -188,5 +206,6 @@ export {
     validateChangePasswordForm,
     validateCreateCourseForm,
     validateCommentForm,
-    validateEmail
+    validateEmail,
+    validateContact
 }
