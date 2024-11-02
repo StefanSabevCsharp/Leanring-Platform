@@ -2,7 +2,7 @@
 export const getErrorMessage = (error) => {
   
     if (error.response && error.response.data) {
-        return error.response.data.message || 'An error occurred';
+        return error.response.data.message || error.response.data.error || 'An error occurred';
     }
 
     if (error.request) {

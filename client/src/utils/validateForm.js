@@ -184,7 +184,7 @@ const validateContact = (values) => {
     const {name, email, message} = values;
     let errors = {};
     if(!name || !email || !message){
-        errors = "All fields are required";
+       errors.all = "All fields are required";
     }
     if(!isEmail(email)){
         errors.email = "Invalid email";

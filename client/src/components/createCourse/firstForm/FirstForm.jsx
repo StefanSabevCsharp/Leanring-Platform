@@ -19,7 +19,7 @@ export default function FirstForm({ course, courseId }) {
         freeRegularPrice: course ? course.freeRegularPrice : "",
         discountedPrice: course ? course.discountedPrice : "",
         description: course ? course.description : "",
-        category: course ? course.category : "",
+        category: course ? course.category : "Web Design",
         aboutCourse: course ? course.aboutCourse : "",
     }), [course]);
 

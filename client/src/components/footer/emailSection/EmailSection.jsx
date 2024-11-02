@@ -25,7 +25,7 @@ export default function EmailSection() {
         }
     }
     
-    const [values, onChange, onSubmit, errors] = useForm(initialValues, submitHandler, "emailForm")
+    const [values, onChange, onSubmit, errors] = useForm(initialValues, submitHandler, "contact")
     if(errors.email) {
       toast.error("Email not submitted");
     }

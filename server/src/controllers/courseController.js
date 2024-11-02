@@ -89,15 +89,17 @@ router.get("/:courseId", async (req, res) => {
 router.get("/", async (req, res) => {
     try {
         const limit = parseInt(req.query.limit) || 0;
+        const category = req.query.category;
+        const query = category && category !== "all" ? { category } : {};
 
-        const courses = await Course.find().populate("instructor").populate("reviews").limit(limit);
+        const courses = await Course.find(query).populate("instructor").populate("reviews").limit(limit);
 
         return res.status(200).json(courses);
 
     } catch (error) {
         console.error("Error in get all courses function", error);
         const errorMessage = getErrorMessage(error);
-        throw new Error(errorMessage);
+        res.status(500).json({ message: errorMessage });
     }
 });
 

@@ -42,10 +42,10 @@ export const getCourseById = async (courseId) => {
         }
 }
 
-export const getAllCourses = async (limit) => {
+export const getAllCourses = async (limit, category) => {
     
         try{
-            const response = await axios.get(`${import.meta.env.VITE_EXPRESS_API}/courses?limit=${limit}`, { withCredentials: true });
+            const response = await axios.get(`${import.meta.env.VITE_EXPRESS_API}/courses?limit=${limit}&category=${category}`, { withCredentials: true });
             return response.data;
     
         }catch(error){

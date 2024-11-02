@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getAllCourses } from "../dataService/courseService";
 
 
-export const useGetAllCourses = (limit) => {
+export const useGetAllCourses = (limit,category) => {
     const [courses, setCourses] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -11,7 +11,7 @@ export const useGetAllCourses = (limit) => {
         setLoading(true);
         const getData = async () => {
             try {
-                const response = await getAllCourses(limit);
+                const response = await getAllCourses(limit,category);
                 setCourses(response);
                 setLoading(false);
             } catch (error) {
@@ -20,7 +20,7 @@ export const useGetAllCourses = (limit) => {
             }
         }
         getData();
-    }, []);
+    }, [category, limit]);
 
     return [courses, loading, error];
 }

@@ -1,10 +1,11 @@
+import { useEffect, useState } from "react";
 import { useGetAllCourses } from "../../hooks/useGetAllCourses";
 import CourseCard from "../courseCard/CourseCard";
 import Spinner from "../spinner/Spinner";
 
 export default function Courses() {
-  //TODO : get latest 6 courses from the server to render them down
-  const [courses, loading] = useGetAllCourses(6);
+  const [category, setCategory] = useState("all");
+  const [courses, loading] = useGetAllCourses(6, category);
 
 
   if (!loading && courses) {
@@ -33,57 +34,75 @@ export default function Courses() {
                 >
                   <li>
                     <button
-                      data-filter="*"
-                      className="is-checked dark:is-checked pr-5 md:pr-10 lg:pr-17px 2xl:pr-10 text-contentColor font-medium hover:text-primaryColor dark:text-contentColor-dark dark:hover:text-primaryColor"
+                      onClick={() => setCategory("all")}
+                      className={`pr-5 md:pr-10 lg:pr-17px 2xl:pr-10 font-medium ${category === "all"
+                        ? "text-primaryColor"
+                        : "text-contentColor hover:text-primaryColor dark:text-contentColor-dark dark:hover:text-primaryColor"
+                        }`}
                     >
                       See All
                     </button>
                   </li>
                   <li>
                     <button
-                      data-filter=".filter1"
-                      className="pr-5 md:pr-10 lg:pr-17px 2xl:pr-10 text-contentColor font-medium hover:text-primaryColor dark:text-contentColor-dark dark:hover:text-primaryColor"
+                      onClick={() => setCategory("Web Design")}
+                      className={`pr-5 md:pr-10 lg:pr-17px 2xl:pr-10 font-medium ${category === "Web Design"
+                        ? "text-primaryColor"
+                        : "text-contentColor hover:text-primaryColor dark:text-contentColor-dark dark:hover:text-primaryColor"
+                        }`}
                     >
-                      Data science
+                      Web Design
                     </button>
                   </li>
                   <li>
                     <button
-                      data-filter=".filter2"
-                      className="pr-5 md:pr-10 lg:pr-17px 2xl:pr-10 text-contentColor font-medium hover:text-primaryColor dark:text-contentColor-dark dark:hover:text-primaryColor"
+                      onClick={() => setCategory("Graphic")}
+                      className={`pr-5 md:pr-10 lg:pr-17px 2xl:pr-10 font-medium ${category === "Graphic"
+                        ? "text-primaryColor"
+                        : "text-contentColor hover:text-primaryColor dark:text-contentColor-dark dark:hover:text-primaryColor"
+                        }`}
                     >
-                      Engineering
+                      Graphic
                     </button>
                   </li>
                   <li>
                     <button
-                      data-filter=".filter3"
-                      className="pr-5 md:pr-10 lg:pr-17px 2xl:pr-10 text-contentColor font-medium hover:text-primaryColor dark:text-contentColor-dark dark:hover:text-primaryColor"
+                      onClick={() => setCategory("App Development")}
+                      className={`pr-5 md:pr-10 lg:pr-17px 2xl:pr-10 font-medium ${category === "App Development"
+                        ? "text-primaryColor"
+                        : "text-contentColor hover:text-primaryColor dark:text-contentColor-dark dark:hover:text-primaryColor"
+                        }`}
                     >
-                      Featured
+                      App Development
                     </button>
                   </li>
                   <li>
                     <button
-                      data-filter=".filter4"
-                      className="text-contentColor font-medium hover:text-primaryColor dark:text-contentColor-dark dark:hover:text-primaryColor"
+                      onClick={() => setCategory("Web Application")}
+                      className={`font-medium ${category === "Web Application"
+                        ? "text-primaryColor"
+                        : "text-contentColor hover:text-primaryColor dark:text-contentColor-dark dark:hover:text-primaryColor"
+                        }`}
                     >
-                      Architecture
+                      Web Application
                     </button>
                   </li>
+
                 </ul>
               </div>
             </div>
-            {/* course cards */}
+
             <div
-              className="container p-0 filter-contents flex flex-wrap sm:-mx-15px mt-7 lg:mt-10"
+              className="container p-0 filter-contents flex flex-wrap sm:-mx-15px mt-7 lg:mt-10 items-center justify-center"
               data-aos="fade-up"
             >
-
-              {courses.map((course, index) => <CourseCard key={index} courseInfo={course} />)}
-             
-
-
+              {courses.length === 0 ? (
+                <h1 className="text-2xl font-bold text-blackColor dark:text-blackColor-dark text-center">
+                  No courses found in this category
+                </h1>
+              ) : (
+                courses.map((course, index) => <CourseCard key={index} courseInfo={course} />)
+              )}
             </div>
           </div>
         </div>
