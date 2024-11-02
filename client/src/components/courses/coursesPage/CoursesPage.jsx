@@ -6,10 +6,15 @@ import { useGetAllCourses } from "../../../hooks/useGetAllCourses";
 import CourseCard from "../../courseCard/CourseCard";
 import CourseCardList from "../../courseCard/courseCardList/CourseCardList";
 import Pagination from "../../pagination/Pagination";
+import { useSearchParams } from "react-router-dom";
+import Category from "./category/Category";
 
 export default function CoursesPage() {
+    const [searchParams] = useSearchParams();
+    const categoryFromUrl = searchParams.get("category") || "all";
     const [isActive, setIsActive] = useState(false);
-    const [courses, loading, error] = useGetAllCourses(0);
+    const [category, setCategory] = useState(categoryFromUrl);
+    const [courses, loading, error] = useGetAllCourses(0, category);
     const [page, setPage] = useState(1);
     const [perPage, setPerPage] = useState(9);
     const [totalPages, setTotalPages] = useState(0);
@@ -23,6 +28,9 @@ export default function CoursesPage() {
             setTotalPages(Math.ceil(courses.length / perPage));
         }
     }, [courses, perPage]);
+    useEffect(() => {
+        setCategory(categoryFromUrl);
+    }, [categoryFromUrl]);
 
     if (error) {
         toast.error(error.message);
@@ -30,25 +38,32 @@ export default function CoursesPage() {
 
     if (courses && courses.length === 0) {
         return (
-            <div className="container tab py-10 md:py-50px lg:py-60px 2xl:py-100px">
-                <div className="text-center">
-                    <h2 className="text-2xl font-bold text-black dark:text-blackColor-dark mb-5">
-                        No courses found
-                    </h2>
-                    <p className="text-base text-black dark:text-blackColor-dark">
-                        Please check back later
-                    </p>
+            <>
+                <Toaster />
+                <AbstractBanner name="Courses List" path="Home" page="Courses List" />
+                <Category />
+                <div className="container tab py-10 md:py-50px lg:py-60px 2xl:py-100px">
+                    <div className="text-center">
+                        <h2 className="text-2xl font-bold text-black dark:text-blackColor-dark mb-5">
+                            No courses found
+                        </h2>
+                        <p className="text-base text-black dark:text-blackColor-dark">
+                            Please check back later
+                        </p>
+                    </div>
                 </div>
-            </div>
+            </>
         );
     }
 
     if (!loading && courses.length > 0) {
         return (
             <>
+
                 <Toaster />
                 {/* Banner section */}
                 <AbstractBanner name="Courses List" path="Home" page="Courses List" />
+                <Category />
 
                 {/* Courses section */}
                 <div>
@@ -111,5 +126,5 @@ export default function CoursesPage() {
         );
     }
 
-    
+
 }
