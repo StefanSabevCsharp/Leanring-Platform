@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Popular() {
@@ -20,19 +21,16 @@ export default function Popular() {
                                 />
                             </div>
                             <span className="text-sm font-semibold text-primaryColor bg-whitegrey3 px-6 py-5px mb-5 rounded-full inline-block">
-                                Popular Subject
+                                Popular Categories
                             </span>
                             <h3 className="text-3xl md:text-size-35 2xl:text-size-38 3xl:text-size-42 leading-10 md:leading-45px 2xl:leading-50px 3xl:leading-2xl font-bold text-blackColor dark:text-blackColor-dark pb-25px">
-                                Provide It &amp; Technol Subject For You
+                                Explore Our Course Categories
                             </h3>
                             <p className="text-sm md:text-base text-contentColor dark:text-contentColor-dark mb-10px 2xl:mb-50px">
-                                Construction is a general term meaning the art and science to form
-                                systems organizations, and comes from Latin Construction is
+                                Discover a variety of subjects designed to enhance your skills and knowledge.
                             </p>
                             <p className="text-sm md:text-base leading-7 text-contentColor dark:text-contentColor-dark mb-10 pl-3 border-l-[3px] border-secondaryColor">
-                                Construction is a general term meaning the art and science to form
-                                systems organizations, and comes from Latin Construction is a
-                                organizations, and comes from Latin construction and Old
+                                From web development to graphic design, our courses are tailored to meet your learning needs and help you achieve your goals.
                             </p>
                             <div>
                                 <Link
@@ -44,7 +42,8 @@ export default function Popular() {
                             </div>
                         </div>
                     </div>
-                    {/* sbject right */}
+
+                    {/* about right */}
                     <div className="relative z-0 overflow-visible">
                         {/* animted area */}
                         <div data-aos="fade-up">
@@ -138,24 +137,24 @@ export default function Popular() {
                                     </div>
                                     {/* card content */}
                                     <div>
-                                        <a
-                                            href="#"
+                                        <Link
+                                            to={`/courses?category=Web Development`}
                                             className="text-2xl lg:text-lg 2xl:text-2xl font-semibold mb-15px md:mb-0 2xl:mb-15px hover:text-secondaryColor font-hind  dark:text-whiteColor dark:hover:text-secondaryColor dark:transition-all dark:duration-300"
                                         >
-                                            Business Studies
-                                        </a>
+                                            Web Development
+                                        </Link>
                                         <p className="text-sm lg:text-xs 2xl:text-sm text-contentColor group-hover:text-whiteColor mb-15px lg:mb-2 2xl:mb-15px transition-all duration-300">
-                                            Construction is a general term the art and science to form
+                                            Web development involves building and optimizing websites for user engagement.
                                         </p>
                                         <div>
                                             <div className="text-sm text-black dark:text-blackColor-darkColor group-hover:text-whiteColor dark:text-blackColor-dark dark:group-hover:text-whiteColor-dark">
-                                                <a
-                                                    href="#"
+                                                <Link
+                                                    to={`/courses?category=Web Development`}
                                                     className="text-sm font-medium hover:text-secondaryColor transition-none"
                                                 >
-                                                    View Subject
+                                                    View Category
                                                     <i className="icofont-long-arrow-right" />
-                                                </a>
+                                                </Link>
                                             </div>
                                         </div>
                                     </div>
@@ -239,24 +238,24 @@ export default function Popular() {
                                         </div>
                                         {/* card content */}
                                         <div>
-                                            <a
-                                                href="#"
+                                            <Link
+                                                to={`/courses?category=App Development`}
                                                 className="text-2xl lg:text-lg 2xl:text-2xl font-semibold mb-15px md:mb-0 2xl:mb-15px hover:text-secondaryColor font-hind  dark:text-whiteColor dark:hover:text-secondaryColor dark:transition-all dark:duration-300"
                                             >
-                                                Artist &amp; Design
-                                            </a>
+                                                App Development
+                                            </Link>
                                             <p className="text-sm lg:text-xs 2xl:text-sm text-contentColor group-hover:text-whiteColor mb-15px lg:mb-2 2xl:mb-15px transition-all duration-300">
-                                                Construction is a general term the art and science to form
+                                                Building engaging applications for various platforms.
                                             </p>
                                             <div>
                                                 <div className="text-sm text-black dark:text-blackColor-darkColor group-hover:text-whiteColor dark:text-blackColor-dark dark:group-hover:text-whiteColor-dark">
-                                                    <a
-                                                        href="#"
+                                                    <Link
+                                                        to={`/courses?category=App Development`}
                                                         className="text-sm font-medium hover:text-secondaryColor transition-all duration-300"
                                                     >
-                                                        View Subject
+                                                        View Category
                                                         <i className="icofont-long-arrow-right" />
-                                                    </a>
+                                                    </Link>
                                                 </div>
                                             </div>
                                         </div>
@@ -343,24 +342,25 @@ export default function Popular() {
                                     </div>
                                     {/* card content */}
                                     <div>
-                                        <a
-                                            href="#"
+                                        <Link
+                                            to={`/courses?category=English`}
                                             className="text-2xl lg:text-lg 2xl:text-2xl font-semibold mb-15px md:mb-0 2xl:mb-15px hover:text-secondaryColor font-hind  dark:text-whiteColor dark:hover:text-secondaryColor dark:transition-all dark:duration-300"
                                         >
-                                            Machine Learning
-                                        </a>
+                                            English
+                                        </Link>
                                         <p className="text-sm lg:text-xs 2xl:text-sm text-contentColor group-hover:text-whiteColor mb-15px lg:mb-2 2xl:mb-15px transition-all duration-300">
-                                            Construction is a general term the art and science to form
+                                            English is a global language, connecting cultures and ideas. Discover the art of communication, literature, and grammar to enhance your skills.
+
                                         </p>
                                         <div>
                                             <div className="text-sm text-black dark:text-blackColor-darkColor group-hover:text-whiteColor dark:text-blackColor-dark dark:group-hover:text-whiteColor-dark">
-                                                <a
-                                                    href="#"
+                                                <Link
+                                                    to={`/courses?category=English`}
                                                     className="text-sm font-medium hover:text-secondaryColor transition-none"
                                                 >
-                                                    View Subject
+                                                    View Category
                                                     <i className="icofont-long-arrow-right" />
-                                                </a>
+                                                </Link>
                                             </div>
                                         </div>
                                     </div>
@@ -449,24 +449,25 @@ export default function Popular() {
                                         </div>
                                         {/* card content */}
                                         <div>
-                                            <a
-                                                href="#"
+                                            <Link
+                                                to={`/courses?category=Spanish`}
                                                 className="text-2xl lg:text-lg 2xl:text-2xl font-semibold mb-15px md:mb-0 2xl:mb-15px hover:text-secondaryColor font-hind  dark:text-whiteColor dark:hover:text-secondaryColor dark:transition-all dark:duration-300"
                                             >
-                                                Artist &amp; Design
-                                            </a>
+                                                Spanish
+                                            </Link>
                                             <p className="text-sm lg:text-xs 2xl:text-sm text-contentColor group-hover:text-whiteColor mb-15px lg:mb-2 2xl:mb-15px transition-all duration-300">
-                                                Construction is a general term the art and science to form
+                                                Spanish is a vibrant and widely spoken language. Discover its rich culture, literature, and conversational skills to enhance your fluency.
+
                                             </p>
                                             <div>
                                                 <div className="text-sm text-black dark:text-blackColor-darkColor group-hover:text-whiteColor dark:text-blackColor-dark dark:group-hover:text-whiteColor-dark">
-                                                    <a
-                                                        href="#"
+                                                    <Link
+                                                        to={`/courses?category=Spanish`}
                                                         className="text-sm font-medium hover:text-secondaryColor transition-all duration-300"
                                                     >
-                                                        View Subject
+                                                        View Category
                                                         <i className="icofont-long-arrow-right" />
-                                                    </a>
+                                                    </Link>
                                                 </div>
                                             </div>
                                         </div>
