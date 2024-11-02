@@ -20,7 +20,7 @@ export default function CourseCard({ courseInfo }) {
               className="w-full overflow-hidden rounded"
             >
               <img
-                src="../../assets/images/grid/grid_2.png"
+                src={courseInfo?.courseImageUrl}
                 alt=""
                 className="w-full transition-all duration-300 group-hover:scale-110"
               />

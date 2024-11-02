@@ -49,7 +49,7 @@ export default function Contact() {
             {/* heading */}
             <div className="mb-10">
               <h4 className="text-size-23 md:text-size-44 font-bold leading-10 md:leading-70px text-blackColor dark:text-blackColor-dark" data-aos="fade-up">
-                Drop Us a Line
+                Drop Me a Line
               </h4>
               <p data-aos="fade-up" className="text-size-13 md:text-base leading-5 md:leading-30px text-contentColor dark:text-contentColor-dark">
                 Your email address will not be published. Required fields are marked *
@@ -60,6 +60,7 @@ export default function Contact() {
                 <input
                   name="name"
                   onChange={onChange}
+                  value={values.name}
                   id="con_name"
                   type="text"
                   placeholder="Enter your name*"
@@ -73,6 +74,7 @@ export default function Contact() {
                 <input
                   name="email"
                   onChange={onChange}
+                  value={values.email}
                   id="con_email"
                   type="email"
                   placeholder="Enter Email Address*"
@@ -87,6 +89,7 @@ export default function Contact() {
               <textarea
                 name="message"
                 onChange={onChange}
+                value={values.message}
                 id="con_message"
                 placeholder="Enter your Message here"
                 className="w-full pl-26px bg-transparent text-contentColor dark:text-contentColor-dark border border-borderColor2 dark:border-borderColor2-dark placeholder:text-placeholder placeholder:opacity-80 rounded"

@@ -41,7 +41,7 @@ export default function UpperSection() {
           </div>
           <div className="">
             <h3 className="text-2xl font-semibold text-blackColor dark:text-blackColor-dark leading-38px">
-              Mail address
+              Email address
             </h3>
             <p className="text-size-13 lg:text-size-15 text-contentColor dark:text-contentColor-dark leaing-5">
               stevenbg91@gmail.com

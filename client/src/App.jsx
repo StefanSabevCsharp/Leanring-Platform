@@ -48,8 +48,8 @@ function App() {
                   <About />
                   <Popular />
                   <Courses />
-
-                  <AboutInstructor />
+{/* 
+                  <AboutInstructor /> */}
                   <News />
                 </>} />
               <Route path="/login" element={

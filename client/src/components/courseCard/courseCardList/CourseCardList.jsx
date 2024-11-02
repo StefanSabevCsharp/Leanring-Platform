@@ -18,7 +18,7 @@ export default function CourseCardList({ courseInfo }) {
                     <div className="relative overflow-hidden w-full md:w-35%">
                         <Link to={`/courses/${courseInfo._id}`} className="w-full overflow-hidden">
                             <img
-                                src="assets/images/grid/grid_1.png"
+                                src={courseInfo?.courseImageUrl}
                                 alt=""
                                 className="w-full transition-all duration-300 group-hover:scale-110 block"
                             />
