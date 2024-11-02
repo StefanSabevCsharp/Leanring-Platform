@@ -4,12 +4,12 @@ import { formatDate } from "../../utils/formatDate";
 import EmailSection from "./emailSection/EmailSection";
 
 export default function Footer() {
-  const [courses, loading, error] = useGetAllCourses(3);
+  const [courses, loading, error] = useGetAllCourses(3, "all");
   return (
     <footer className="bg-darkblack">
       <div className="container pt-65px pb-5 lg:pb-10">
         {/* footer top or subscription */}
-       <EmailSection />
+        <EmailSection />
         {/* footer main */}
         <section>
           <div className="grid grid-cols-12 gap-30px md:gap-y-5 lg:gap-y-0 pt-60px pb-50px md:pt-30px md:pb-30px lg:pt-110px lg:pb-20">
@@ -24,7 +24,7 @@ export default function Footer() {
               <p className="text-base lg:text-sm 2xl:text-base text-darkgray mb-30px leading-1.8 2xl:leading-1.8">
                 Dedicated to creating impactful learning experiences, our platform blends innovative design with a deep commitment to user satisfaction. We focus on crafting intuitive interfaces that make learning accessible, engaging, and fulfilling for everyone.
               </p>
-             
+
             </div>
 
             {/* middle 1 */}
@@ -80,56 +80,56 @@ export default function Footer() {
               </ul>
             </div>
             {/* middle 2 */}
-            {/* <div
-          className="col-start-1 col-span-12 md:col-start-1 lg:col-start-7 md:col-span-6 lg:col-span-3 pl-0 2xl:pl-60px"
-          data-aos="fade-up"
-        >
-          <h4 className="text-size-22 font-bold text-whiteColor mb-3">
-            Course
-          </h4>
-          <ul className="flex flex-col gap-y-3">
-            <li>
-              <a
-                href="#"
-                className="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0"
-              >
-                Ui Ux Design
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0"
-              >
-                Web Development
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0"
-              >
-                Business Strategy
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0"
-              >
-                Softwere Development
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0"
-              >
-                Business English
-              </a>
-            </li>
-          </ul>
-        </div> */}
+            <div
+              className="col-start-1 col-span-12 md:col-start-1 lg:col-start-7 md:col-span-6 lg:col-span-3 pl-0 2xl:pl-60px"
+              data-aos="fade-up"
+            >
+              <h4 className="text-size-22 font-bold text-whiteColor mb-3">
+                Categories
+              </h4>
+              <ul className="flex flex-col gap-y-3">
+                <li>
+                  <Link
+                    to={`/courses?category=Web Design`}
+                    className="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0"
+                  >
+                    Web Design
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={`/courses?category=Web Development`}
+                    className="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0"
+                  >
+                    Web Development
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={`/courses?category=App Development`}
+                    className="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0"
+                  >
+                    App Development
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={`/courses?category=English`}
+                    className="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0"
+                  >
+                    English
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={`/courses?category=Spanish`}
+                    className="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0"
+                  >
+                    Spanish
+                  </Link>
+                </li>
+              </ul>
+            </div>
             {/* right */}
             <div
               className="col-start-1 col-span-12 md:col-start-7 lg:col-start-10 md:col-span-6 lg:col-span-3 pl-0 2xl:pl-50px"
