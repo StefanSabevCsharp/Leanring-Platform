@@ -1,3 +1,4 @@
+import InProgress from "../inProgress/InProgress";
 import CreatedCourses from "./instructor/createdCourses/CreatedCourses";
 import InstructorDashboard from "./instructor/dashboard/InstructorDashboard";
 import StudentDashboard from "./student/dashboard/Dashboard";
@@ -23,6 +24,10 @@ const roleRoutesConfig = {
       {path:"/reviews" , element: (user) => <Reviews user={user}/>},
       {path:"/settings" , element: (user) => <Settings user={user}/>},
       {path:"/instructor-course" , element: (user) => <CreatedCourses user={user}/>},
+      {path:"/instructor-announcments", element: (user) => <InProgress/>},
+      {path:"/instructor-assignments", element: (user) =><InProgress/>}, 
+  
+
 
     ],
 }

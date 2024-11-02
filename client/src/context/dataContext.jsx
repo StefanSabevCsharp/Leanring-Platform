@@ -11,7 +11,6 @@ export function DataProvider({ children }) {
     const [userData, setUserData] = useState(null);
     const [refresh, setRefresh] = useState(false);
     const { user } = useContext(AuthContext);
-    //TODO: probably add refresh toglle to refresh the data
 
     useEffect(() => {
         if (user) {
@@ -27,7 +26,6 @@ export function DataProvider({ children }) {
                 getUserData();
 
             } catch (err) {
-                //TODO : handle error correctly
                 console.log(err);
                 setLoading(false);
             }

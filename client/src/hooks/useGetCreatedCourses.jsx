@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getCreatedCourses } from "../dataService/courseService";
+import toast from "react-hot-toast";
 
 
 export default function useGetCreatedCourses(_id){
@@ -14,8 +15,8 @@ export default function useGetCreatedCourses(_id){
                 setLoading(false);
     
             } catch (error) {
-                //TODO: handle error
-                console.error("Error in get created courses function", error);
+                toast.error("Error getting created courses");
+                
             }
         };
         getCourses();

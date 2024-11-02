@@ -29,7 +29,6 @@ export const logoutUser = async () => {
         console.log(response);
     } catch (err) {
         console.error("Error in logout function", err);
-        //todo : handle error
         const errorMessage = getErrorMessage(err);
         throw new Error(errorMessage);
     }

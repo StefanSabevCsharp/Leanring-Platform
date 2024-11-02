@@ -12,11 +12,10 @@ import FormAddComment from "./formAddComment/FormAddComment";
 import Reviews from "./reviews/Reviews";
 import upperCase from "../../../utils/upperCase";
 import toast, { Toaster } from "react-hot-toast";
-import { deleteCourseById } from "../../../dataService/courseService";
 import SubscribeButton from "./subscribeButton/SubscribeButton";
 import DeleteButton from "./deleteButton/DeleteButton";
 import EditButton from "./editButton/EditButton";
-
+import CourseCard from "../../courseCard/CourseCard";
 
 export default function CourseDetails() {
     const [isDeleting, setIsDeleting] = useState(false);
@@ -69,11 +68,10 @@ export default function CourseDetails() {
 
         const { _id, courseTitle, courseImageUrl, startDate, language, aboutCourse, category, courseStatus, createdAt, creator, description, discountedPrice, freeRegularPrice, instructor, sold, updatedAt, enrolledStudents } = course;
         const createdCourses = instructor.createdCourses;
-        const otherCourses = createdCourses.filter(id => id !== _id);
+        const otherCourses = createdCourses.filter(id => id !== _id).slice(0, 3);
         const isOwner = user?._id === instructor._id;
         const isAlreadySubscribed = userData?.courses.includes(courseId);
         console.log(course)
-        //TODO: add functionality to the buttons edit delete 
         return (
             <>
                 <Toaster />
@@ -488,6 +486,7 @@ export default function CourseDetails() {
                                                     <div className="swiper-wrapper">
                                                         {/* card 1 */}
                                                         {otherCourses.map((courseId, index) => (<AuthorMoreCourses key={index} courseId={courseId} />))}
+                                                       
                                                     </div>
                                                 </div>
                                             </div>

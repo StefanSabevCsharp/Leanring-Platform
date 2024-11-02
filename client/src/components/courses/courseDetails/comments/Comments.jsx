@@ -11,7 +11,6 @@ export default function Comments({ comments }) {
     const currentComments = comments.slice(indexOfFirstComment, indexOfLastComment);
     const totalPages = Math.ceil(comments.length / commentsPerPage);
     
-    //TODO : add pagination
     return (
         <>
         <div className="pt-50px pb-15px border-y border-borderColor2 dark:border-borderColor2-dark">
@@ -19,7 +18,7 @@ export default function Comments({ comments }) {
                 className="text-size-26 font-bold text-blackColor dark:text-blackColor-dark mb-30px !leading-30px"
                 data-aos="fade-up"
             >
-                {comments.length == 0 ? "No Comments Yet" : `${comments.length} Comments` }
+                {comments.length == 0 ? "No Comments Yet.  Sign in to write the first one!" : `${comments.length} Comments` }
                 
             </h4>
             <ul>
@@ -27,7 +26,8 @@ export default function Comments({ comments }) {
                 {currentComments.map((comment) => (<CourseComment comment={comment} key={comment._id} />))}
             </ul>
         </div>
-        <Pagination  setPage={setPage} totalPages={totalPages} page={page}/>
+        {currentComments > 1 && <Pagination setPage={setPage} totalPages={totalPages} page={page}/>}
+        
         </>
     );
 }

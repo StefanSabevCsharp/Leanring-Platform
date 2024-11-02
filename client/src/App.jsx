@@ -27,6 +27,8 @@ import InstructorDetails from "./components/instuctorDetails/InstructorDetails"
 import NotFound from "./components/notFound/NotFound"
 import Contact from "./components/contact/Contact"
 import AboutPage from "./components/about/aboutPage/AboutPage"
+import Blog from "./components/blog/Blog"
+import CreateBlog from "./components/blog/createBlog/CreateBlog"
 
 
 function App() {
@@ -52,6 +54,7 @@ function App() {
                   <AboutInstructor /> */}
                   <News />
                 </>} />
+                
               <Route path="/login" element={
                 <LoggedInUserGuard>
                   <Login />
@@ -78,6 +81,8 @@ function App() {
                   <Dashboard />
                 </ProtectedRoute>
               } />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/create-blog" element={<CreateBlog />} />
               <Route path="/courses/:_Id" element={<CourseDetails />} />
               <Route path="/users/:_Id" element={<InstructorDetails />} />
               <Route path="/courses/edit/:_Id" element={<CreateCourse />} />

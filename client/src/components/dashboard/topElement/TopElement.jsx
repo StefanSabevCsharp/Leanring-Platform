@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../../../context/authContext";
+import upperCase from "../../../utils/upperCase";
 
 export default function TopElement() {
   const {user} = useContext(AuthContext);
@@ -20,7 +21,7 @@ export default function TopElement() {
               </div>
               <div className="text-whiteColor font-bold text-center sm:text-start">
                 <h5 className="text-xl leading-1.2 mb-5px">Hello</h5>
-                <h2 className="text-2xl leading-1.24">{`${user.firstName} ${user.lastName} `}</h2>
+                <h2 className="text-2xl leading-1.24">{`${upperCase(user.firstName)} ${upperCase(user.lastName)}`}</h2>
               </div>
               
             </div>
@@ -50,6 +51,7 @@ export default function TopElement() {
               </Link>
               ) : 
               (
+                <>
                 <Link
                 to="/create-course"
                 className="text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor rounded group text-nowrap flex gap-1 items-center"
@@ -71,6 +73,28 @@ export default function TopElement() {
                   <polyline points="12 5 19 12 12 19" />
                 </svg>
               </Link>
+              <Link
+                to="/create-blog"
+                className="text-size-15  mt-5 text-whiteColor bg-primaryColor px-25px py-10px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor rounded group text-nowrap flex gap-1 items-center"
+              >
+               CREATE BLOG POST
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={24}
+                  height={24}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="feather feather-arrow-right"
+                >
+                  <line x1={5} y1={12} x2={19} y2={12} />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </Link>
+                </>
               )}
               
               

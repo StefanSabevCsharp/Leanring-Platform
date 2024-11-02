@@ -4,10 +4,11 @@ import AuthContext from "../../../../context/authContext";
 
 export default function InstructorNavigation({ user }) {
     return (
+        
         <div className="p-30px pt-5 lg:p-5 2xl:p-30px 2xl:pt-5 rounded-lg2 shadow-accordion dark:shadow-accordion-dark bg-whiteColor dark:bg-whiteColor-dark">
             {/* greeting */}
             <h5 className="text-sm leading-1 font-semibold uppercase text-contentColor dark:text-contentColor-dark bg-lightGrey5 dark:bg-whiteColor-dark p-10px pb-7px mt-5 mb-10px">
-                {user.userName}
+                {user?.userName}
             </h5>
             <ul>
 
@@ -206,7 +207,53 @@ export default function InstructorNavigation({ user }) {
                                 <line x1={8} y1={21} x2={16} y2={21} />
                                 <line x1={12} y1={17} x2={12} y2={21} />
                             </svg>
-                            My Course
+                            Created Courses
+                        </NavLink>
+                    </li>
+                    <li className="py-10px border-b border-borderColor dark:border-borderColor-dark">
+                        <NavLink
+                            to="/create-course"
+                            className="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width={16}
+                                height={24}
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth={2}
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                className="feather feather-volume-1"
+                            >
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                                <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                            </svg>
+                            Create Course
+                        </NavLink>
+                    </li>
+                    <li className="py-10px border-b border-borderColor dark:border-borderColor-dark">
+                        <NavLink
+                            to="/create-blog"
+                            className="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width={16}
+                                height={24}
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth={2}
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                className="feather feather-volume-1"
+                            >
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                                <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                            </svg>
+                            Create Blog
                         </NavLink>
                     </li>
                     <li className="py-10px border-b border-borderColor dark:border-borderColor-dark">

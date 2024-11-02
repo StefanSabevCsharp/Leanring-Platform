@@ -14,14 +14,13 @@ export default function Dashboard() {
     const currentRole = user?.role || "student";
     const routes = roleRoutesConfig[currentRole];
     console.log(userData)
-    if(loading) {
-        //TODO: Add a loading spinner
-        return (
-            <div className="loading-container">
-                <p>Loading your dashboard...</p>
-            </div>
-        );
-    }
+    // if(loading) {
+    //     return (
+    //         <div className="loading-container">
+    //             <p>Loading your dashboard...</p>
+    //         </div>
+    //     );
+    // }
     
 
     return (

@@ -31,23 +31,23 @@ export default function Header() {
                 {/* header social list */}
                 <ul className="flex gap-13px text-size-15">
                   <li>
-                    <a className="hover:text-primaryColor" href="#">
+                    <a className="hover:text-primaryColor" href="https://www.facebook.com/stefan.sabev.94">
                       <i className="icofont-facebook" />
                     </a>
                   </li>
-                  <li>
+                  {/* <li>
                     <a className="hover:text-primaryColor" href="#">
                       <i className="icofont-twitter" />
                     </a>
-                  </li>
+                  </li> */}
                   <li>
-                    <a className="hover:text-primaryColor" href="#">
+                    <a className="hover:text-primaryColor" href="https://www.instagram.com/stevenbg91/">
                       <i className="icofont-instagram" />
                     </a>
                   </li>
                   <li>
-                    <a className="hover:text-primaryColor" href="#">
-                      <i className="icofont-youtube-play" />
+                    <a className="hover:text-primaryColor" href="https://www.linkedin.com/in/stefan-sabev-952a5620a/">
+                      <i className="icofont-linkedin" />
                     </a>
                   </li>
                 </ul>
@@ -87,14 +87,14 @@ export default function Header() {
               </li>
 
               <li className="accordion" onClick={() => setShowMobileMenu((prev) => !prev)}>
-                {/* <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between">
                   <Link
                     className="leading-1 py-11px text-darkdeep1 font-medium hover:text-secondaryColor dark:text-whiteColor dark:hover:text-secondaryColor"
                     to="/blog"
                   >
                     Blog
                   </Link>
-                </div> */}
+                </div>
 
               </li>
 

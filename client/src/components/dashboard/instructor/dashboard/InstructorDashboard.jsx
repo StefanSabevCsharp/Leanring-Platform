@@ -18,7 +18,7 @@ export default function InstructorDashboard({ user }) {
                             </div>
                             <div>
                                 <p className="text-size-34 leading-[1.1] text-blackColor font-bold font-hind dark:text-blackColor-dark">
-                                    <span> {user.createdCourses.length}</span>
+                                    <span> {user?.createdCourses.length}</span>
                                     
                                 </p>
                                 <p className="text-blackColor font-medium leading-[18px] dark:text-blackColor-dark">
@@ -34,7 +34,7 @@ export default function InstructorDashboard({ user }) {
                             </div>
                             <div>
                                 <p className="text-size-34 leading-[1.1] text-blackColor font-bold font-hind dark:text-blackColor-dark">
-                                    <span >{user.soldCourses.length}</span>
+                                    <span >{user?.soldCourses.length}</span>
                                 </p>
                                 <p className="text-blackColor font-medium leading-[18px] dark:text-blackColor-dark">
                                     Sold Courses
@@ -49,7 +49,7 @@ export default function InstructorDashboard({ user }) {
                             </div>
                             <div>
                                 <p className="text-size-34 leading-[1.1] text-blackColor font-bold font-hind dark:text-blackColor-dark">
-                                    <span >{user.signedUpStudents.length}</span>
+                                    <span >{user?.signedUpStudents.length}</span>
                                 </p>
                                 <p className="text-blackColor font-medium leading-[18px] dark:text-blackColor-dark">
                                     Enrolled Students
@@ -64,7 +64,7 @@ export default function InstructorDashboard({ user }) {
                             </div>
                             <div>
                                 <p className="text-size-34 leading-[1.1] text-blackColor font-bold font-hind dark:text-blackColor-dark">
-                                    <span>{user.totalEarnings }</span>
+                                    <span>{user?.totalEarnings }</span>
                                 </p>
                                 <p className="text-blackColor font-medium leading-[18px] dark:text-blackColor-dark">
                                     Total Earning

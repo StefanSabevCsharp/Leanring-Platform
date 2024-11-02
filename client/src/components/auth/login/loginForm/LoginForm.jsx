@@ -9,7 +9,6 @@ export default function LoginForm({ setIsLogin }) {
     const { user, setUser } = useContext(AuthContext);
     const navigate = useNavigate();
 
-    //TODO: Add error notification with toast or directly on the form
 
     let initialValues = {
         email: "",
@@ -18,7 +17,6 @@ export default function LoginForm({ setIsLogin }) {
 
 
     const submitHandler = async (values) => {
-        //TODO: Add API call to login user
         try {
             const newUser = await login(values);
           
@@ -63,7 +61,7 @@ export default function LoginForm({ setIsLogin }) {
                             value={values.email}
                             onChange={onChange}
                             type="text"
-                            placeholder="Your username"
+                            placeholder="Your email"
                             className="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
                         />
                     </div>
@@ -76,7 +74,7 @@ export default function LoginForm({ setIsLogin }) {
                             value={values.password}
                             onChange={onChange}
                             type="password"
-                            placeholder="Password"
+                            placeholder=" Password"
                             className="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
                         />
                     </div>

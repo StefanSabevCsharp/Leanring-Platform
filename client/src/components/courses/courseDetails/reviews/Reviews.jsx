@@ -77,7 +77,8 @@ export default function Reviews({reviews, setReviews, courseId, user}) {
         </h4>
         <ul>
           {currentReviews.map((review) => (<SingleReview key={review._id} review={review} />))}
-          <Pagination setPage={setPage} totalPages={totalPages} page={page} />
+          {currentReviews.length > 1 && (<Pagination setPage={setPage} totalPages={totalPages} page={page} />)}
+          
         </ul>
       </div>
       {/* add reviews */}

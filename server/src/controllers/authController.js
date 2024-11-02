@@ -257,7 +257,6 @@ router.post("/checkPassword", authenticateToken, async (req, res) => {
 router.put("/updateToInstructor/:_id", authenticateToken, async (req, res) => {
 
     const userId = req.params._id;
-    //TODO: ne idva zaqvkata do tuka
     try {
         const updatedUser = await User.findByIdAndUpdate(userId, { role: "instructor" }, { new: true });
         // console.log(`updatedUser: ${updatedUser}`);
@@ -274,7 +273,6 @@ router.put("/updateToInstructor/:_id", authenticateToken, async (req, res) => {
 });
 
 router.get("/getFullUserData/:_id", async (req, res) => {
-    //TODO: not sure if have to add authenticateToken middleware here
     const userId = req.params._id;
 
     try {

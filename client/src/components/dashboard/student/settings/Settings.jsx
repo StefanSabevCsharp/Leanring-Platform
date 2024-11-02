@@ -33,9 +33,9 @@ export default function Settings({ user }) {
         <button onClick={() => handleTabChange(1)} className={activeTab== 1 ? activeStyle : baseStyle}>
           PASSWORD
         </button>
-        <button  onClick={() => handleTabChange(2)} className={activeTab== 2 ? activeStyle : baseStyle}>
+        {/* <button  onClick={() => handleTabChange(2)} className={activeTab== 2 ? activeStyle : baseStyle}>
           SOCIAL ICON
-        </button>
+        </button> */}
       </div>
       <div className="tab-contents">
         {tabContents[activeTab]}

@@ -52,7 +52,7 @@ export default function ReviewTableRow({ review, setReviews, refreshReviews }) {
             </td>
             <td className="px-5px py-10px md:px-5">
                 <div className="flex">
-                    <a
+                    {/* <a
                         className="flex items-center gap-1 md:text-sm font-bold text-blackColor dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor px-10px leading-1.8 relative before:w-0 before:h-0.5 before:absolute before:-bottom-0.5 lg:before:bottom-0 before:left-0 before:bg-primaryColor hover:before:w-full before:transition-all before:duration-300"
                         href="#"
                     >
@@ -72,7 +72,7 @@ export default function ReviewTableRow({ review, setReviews, refreshReviews }) {
                             <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                         </svg>
                         Edit
-                    </a>
+                    </a> */}
                     <button
                         className="flex items-center gap-1 md:text-sm font-bold text-blackColor dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor px-10px leading-1.8"
                         onClick={() => handleDeleteReview(review._id)}

@@ -8,8 +8,8 @@ import { useNavigate } from "react-router-dom";
 export default function FirstForm({ course, courseId }) {
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
-    //TODO: Handle error messages and loading state 
-    //TODO: When form is submitted have to change the restrictions for the date,because now it only accepts the format dd/mm/yy. have to add dd/mm/yyyy
+    //TODO: Handle error messages
+    
 
     const initialValues = useMemo(() => ({
         courseTitle: course ? course.courseTitle : "",

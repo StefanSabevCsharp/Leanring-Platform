@@ -1,10 +1,16 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import AuthContext from "../../../../context/authContext";
 import useGetCourse from "../../../../hooks/useGetCourse";
 import Spinner from "../../../spinner/Spinner";
+import { calculateStarsToShow } from "../../../../utils/calculateStarsToShow";
+import WishlistButton from "../../../dashboard/student/wishlist/wishlistButton/WishlistButton";
 
 export default function AuthorMoreCourses({ courseId }) {
-   
+    const { user } = useContext(AuthContext);
+
     const [course, loading] = useGetCourse(courseId);
+    const stars = calculateStarsToShow(course);
     if (loading) {
         return <Spinner />;
     }
@@ -18,7 +24,7 @@ export default function AuthorMoreCourses({ courseId }) {
                             <div className="relative mb-4 overflow-hidden">
                                 <Link to={`/courses/${course._id}`} className="w-full">
                                     <img
-                                        src="/assets/images/grid/grid_1.png"
+                                        src={course.courseImageUrl}
                                         alt=""
                                         className="w-full transition-all duration-300 group-hover:scale-110"
                                     />
@@ -29,18 +35,13 @@ export default function AuthorMoreCourses({ courseId }) {
                                             {course.category}
                                         </p>
                                     </div>
-                                    <a
-                                        className="text-white bg-black bg-opacity-15 rounded hover:bg-primaryColor"
-                                        href="#"
-                                    >
-                                        <i className="icofont-heart-alt text-base py-1 px-2" />
-                                    </a>
+                                    {user && <WishlistButton courseId={course._id} />}
                                 </div>
                             </div>
                             {/* card content */}
                             <div>
                                 <div className="grid grid-cols-2 mb-15px">
-                                  
+
                                     <div className="flex items-center">
                                         <div>
                                             <i className="icofont-clock-time pr-5px text-primaryColor text-lg" />
@@ -56,7 +57,7 @@ export default function AuthorMoreCourses({ courseId }) {
                                     to={`/courses/${course._id}`}
                                     className="text-xl font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor"
                                 >
-                                    {course.aboutCourse}
+                                    {course.courseTitle}
                                 </Link>
                                 {/* price */}
                                 <div className="text-lg font-semibold text-primaryColor font-inter mb-4">
@@ -64,7 +65,7 @@ export default function AuthorMoreCourses({ courseId }) {
                                     <del className="text-sm text-lightGrey4 font-semibold">
                                         / ${course.freeRegularPrice}
                                     </del>
-                                    
+
                                 </div>
                                 {/* author and rating*/}
                                 <div className="grid grid-cols-1 md:grid-cols-2 pt-15px border-t border-borderColor">
@@ -75,20 +76,25 @@ export default function AuthorMoreCourses({ courseId }) {
                                         >
                                             <img
                                                 className="w-[30px] h-[30px] rounded-full mr-15px"
-                                                src="assets/images/grid/grid_small_1.jpg"
+                                                src="/assets/images/grid/grid_small_1.jpg"
                                                 alt=""
                                             />
                                             <span className="flex">{course.creator}</span>
                                         </Link>
                                     </div>
                                     <div className="text-start md:text-end">
-                                        <i className="icofont-star text-size-15 text-yellow" />
-                                        <i className="icofont-star text-size-15 text-yellow" />
-                                        <i className="icofont-star text-size-15 text-yellow" />
-                                        <i className="icofont-star text-size-15 text-yellow" />
-                                        <i className="icofont-star text-size-15 text-yellow" />
+                                        {stars === 0 ? (
+                                            [...Array(5)].map((_, index) => (
+                                                <i key={index} className="icofont-star text-size-15 text-yellow" />
+                                            ))
+                                        ) : (
+
+                                            [...Array(stars)].map((_, index) => (
+                                                <i key={index} className="icofont-star text-size-15 text-yellow" />
+                                            ))
+                                        )}
                                         <span className="text-xs text-lightGrey6">
-                                            (44)
+                                           {course.reviews.length} Reviews
                                         </span>
                                     </div>
                                 </div>
@@ -99,6 +105,6 @@ export default function AuthorMoreCourses({ courseId }) {
             </div>
         );
     }
-    
+
 
 }

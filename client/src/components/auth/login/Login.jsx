@@ -9,7 +9,6 @@ import LoginForm from "./loginForm/loginForm";
 
 export default function Login() {
     const [isLogin, setIsLogin] = useState(true);
-    //TODO: Add error notification with toast or directly on the form
 
     // useEffect(() => {
     //     if (Object.keys(errors).length > 0) {

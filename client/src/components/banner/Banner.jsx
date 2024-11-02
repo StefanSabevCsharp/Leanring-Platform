@@ -16,8 +16,7 @@ export default function Banner() {
                             Trusted by 1000+
                         </h1>
                         <p className="text-size-15md:text-lg text-white font-medium mb-45px">
-                            Lorem Ipsum is simply dummy text of the printing typesetting industry.
-                            Lorem Ipsum has been
+                        Empower your learning journey with our innovative platform that adapts to your pace and goals. Access courses, assignments, and progress tracking all in one place.
                         </p>
                         <div>
                             <Link
