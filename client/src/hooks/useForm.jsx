@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { validateLoginForm, validateProfileSettingsForm, validateRegisterForm, validateChangePasswordForm, validateCreateCourseForm, validateCommentForm, validateEmail, validateContact } from "../utils/validateForm";
+import { validateLoginForm, validateProfileSettingsForm, validateRegisterForm, validateChangePasswordForm, validateCreateCourseForm, validateCommentForm, validateEmail, validateContact, validateCreateBlogForm } from "../utils/validateForm";
 
 
 
@@ -57,6 +57,9 @@ export default function useForm(initialValues, submitHandler, formType, options 
                 break;
             case "contact":
                 validationErrors = validateContact(values);
+                break;
+            case "createBlog":
+                validationErrors = validateCreateBlogForm(values);
                 break;
 
             default:
