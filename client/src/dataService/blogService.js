@@ -11,4 +11,15 @@ export const createBlog = async (values, userId) => {
         const errorMessage = getErrorMessage(error);
         throw new Error(errorMessage);
     }
+};
+
+export const getBlogDetails = async (blogId) => {
+    try {
+        const response = await axios.get(`${import.meta.env.VITE_EXPRESS_API}/blog/${blogId}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error in get blog details function", error);
+        const errorMessage = getErrorMessage(error);
+        throw new Error(errorMessage);
+    }
 }
