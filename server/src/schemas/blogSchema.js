@@ -27,6 +27,22 @@ const blogSchema = new Schema({
         type: String,
         required: true
     },
+    thirdPartParagraph:{
+        type: String,
+        required: true
+    }, 
+    fourthPartParagraph:{
+        type: String,
+        required: true
+    },
+    fifthPartParagraph:{
+        type: String,
+        required: true
+    },
+    sixthPartParagraph:{
+        type: String,
+        required: true
+    },
     additionalText:{
         type: String,
         required: true

@@ -18,7 +18,7 @@ export default function Comments({ comments }) {
                 className="text-size-26 font-bold text-blackColor dark:text-blackColor-dark mb-30px !leading-30px"
                 data-aos="fade-up"
             >
-                {comments.length == 0 ? "No Comments Yet.  Sign in to write the first one!" : `${comments.length} Comments` }
+                {comments.length == 0 ? "No Comments Yet." : `${comments.length} Comments` }
                 
             </h4>
             <ul>

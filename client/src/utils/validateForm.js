@@ -194,30 +194,40 @@ const validateContact = (values) => {
 
 const validateCreateBlogForm = (values) => {
     const errors = {};
-    const {title, heading, mainImageUrl, secondImageUrl, firstPartParagraph, secondPartParagraph, additionalText} = values;
-    if(!isLength(title, {min: 5, max: 100})){
-        errors.title = "Title must be between 5 and 100 characters";
+    const { title, heading, mainImageUrl, secondImageUrl, additionalText } = values;
+
+    if (!isLength(title, { min: 5, max: 35 })) {
+        errors.title = "Title must be between 5 and 35 characters";
     }
-    if(!isLength(heading, {min: 5, max: 100})){
-        errors.heading = "Heading must be between 5 and 100 characters";
+    if (!isLength(heading, { min: 5, max: 40 })) {
+        errors.heading = "Heading must be between 5 and 40 characters";
     }
-    if(validateImage(mainImageUrl)){
-        errors.mainImageUrl = "Invalid Main image url";
+
+    if (!validateImage(mainImageUrl)) {
+        errors.mainImageUrl = "Invalid main image URL";
     }
-    if(validateImage(secondImageUrl)){
-        errors.secondImageUrl = "Invalid Second image url";
+    if (!validateImage(secondImageUrl)) {
+        errors.secondImageUrl = "Invalid second image URL";
     }
-    if(!isLength(firstPartParagraph, {min: 50, max: 2000})){
-        errors.firstPartParagraph = "First part paragraph must be between 50 and 2000 characters";
-    }
-    if(!isLength(secondPartParagraph, {min: 50, max: 2000})){
-        errors.secondPartParagraph = "Second part paragraph must be between 50 and 2000 characters";
-    }
-    if(!isLength(additionalText, {min: 50, max: 2000})){
-        errors.additionalText = "Additional text must be between 50 and 2000 characters";
-    }
+
+    const paragraphs = [
+        { name: "firstPartParagraph", value: values.firstPartParagraph },
+        { name: "secondPartParagraph", value: values.secondPartParagraph },
+        { name: "thirdPartParagraph", value: values.thirdPartParagraph },
+        { name: "fourthPartParagraph", value: values.fourthPartParagraph },
+        { name: "fifthPartParagraph", value: values.fifthPartParagraph },
+        { name: "sixthPartParagraph", value: values.sixthPartParagraph },
+        { name: "additionalText", value: additionalText }
+    ];
+
+    paragraphs.forEach(({ name, value }) => {
+        if (!isLength(value, { min: 50, max: 2000 })) {
+            errors[name] = `${name.replace(/([A-Z])/g, ' $1')} must be between 50 and 2000 characters`;
+        }
+    });
+
     return errors;
-}
+};
 
 
 export {

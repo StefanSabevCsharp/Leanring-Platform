@@ -5,18 +5,18 @@ const authenticateToken = require("../middlewares/authMiddleware");
 
 router.post("/create", authenticateToken, async (req, res) => {
     const { values, userId } = req.body;
-    const { title, heading, mainImageUrl, secondImageUrl, firstPartParagraph, secondPartParagraph, additionalText } = values;
+    const { title, heading, mainImageUrl, secondImageUrl, firstPartParagraph, secondPartParagraph, thirdPartParagraph, fourthPartParagraph, fifthPartParagraph, sixthPartParagraph, additionalText } = values;
 
     if (!userId || !title || !heading || !mainImageUrl || !firstPartParagraph) {
         return res.status(400).json({ message: "All required fields must be filled" });
     }
-  
+
     try {
         const user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
-        
+
         const blog = new Blog({
             title,
             heading,
@@ -24,6 +24,10 @@ router.post("/create", authenticateToken, async (req, res) => {
             secondImageUrl,
             firstPartParagraph,
             secondPartParagraph,
+            thirdPartParagraph,
+            fourthPartParagraph,
+            fifthPartParagraph,
+            sixthPartParagraph,
             additionalText,
             creator: `${user.firstName} ${user.lastName}`,
         });
@@ -36,6 +40,20 @@ router.post("/create", authenticateToken, async (req, res) => {
         return res.status(201).json({ message: "Blog created successfully.", blog: savedBlog });
     } catch (error) {
         console.error("Error in create blog function", error);
+        return res.status(500).json({ message: "Internal server error" });
+    }
+});
+
+router.get("/:blogId", async (req, res) => {
+    const { blogId } = req.params;
+    try {
+        const blog = await Blog.findById(blogId);
+        if (!blog) {
+            return res.status(404).json({ message: "Blog not found" });
+        }
+        return res.status(200).json(blog);
+    } catch (error) {
+        console.error("Error in get blog details function", error);
         return res.status(500).json({ message: "Internal server error" });
     }
 });

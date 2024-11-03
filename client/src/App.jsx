@@ -29,6 +29,7 @@ import Contact from "./components/contact/Contact"
 import AboutPage from "./components/about/aboutPage/AboutPage"
 import Blog from "./components/blog/Blog"
 import CreateBlog from "./components/blog/createBlog/CreateBlog"
+import BlogDetails from "./components/blog/blogDetails/BlogDetails"
 
 
 function App() {
@@ -83,6 +84,7 @@ function App() {
               } />
               <Route path="/blog" element={<Blog />} />
               <Route path="/create-blog" element={<CreateBlog />} />
+              <Route path="/blog/:_Id" element={<BlogDetails />} />
               <Route path="/courses/:_Id" element={<CourseDetails />} />
               <Route path="/users/:_Id" element={<InstructorDetails />} />
               <Route path="/courses/edit/:_Id" element={<CreateCourse />} />
