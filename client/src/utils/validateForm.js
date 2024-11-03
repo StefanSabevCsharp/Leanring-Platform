@@ -1,5 +1,6 @@
 import { isLength, isMobilePhone, isIn, isURL, isNumeric, matches } from "validator";
 import isEmail from "validator/lib/isEmail";
+import { validateImage } from "./validateImage";
 
 
 
@@ -106,14 +107,7 @@ const validateCreateCourseForm = (values) => {
     ];
 
 
-    const validateImage = (url) => {
-        const validImageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg', '.webp'];
-
-        if (isURL(url) && validImageExtensions.some(ext => url.toLowerCase().endsWith(ext))) {
-            return true;
-        }
-        return false;
-    }
+  
     const validateStartDate = (date) => {
 
         const datePattern = /^(0[1-9]|[12][0-9]|3[01])[./](0[1-9]|1[0-2])[./](\d{2}|\d{4})$/;
@@ -198,6 +192,33 @@ const validateContact = (values) => {
     return errors;
 }
 
+const validateCreateBlogForm = (values) => {
+    const errors = {};
+    const {title, heading, mainImageUrl, secondImageUrl, firstPartParagraph, secondPartParagraph, additionalText} = values;
+    if(!isLength(title, {min: 5, max: 100})){
+        errors.title = "Title must be between 5 and 100 characters";
+    }
+    if(!isLength(heading, {min: 5, max: 100})){
+        errors.heading = "Heading must be between 5 and 100 characters";
+    }
+    if(validateImage(mainImageUrl)){
+        errors.mainImageUrl = "Invalid Main image url";
+    }
+    if(validateImage(secondImageUrl)){
+        errors.secondImageUrl = "Invalid Second image url";
+    }
+    if(!isLength(firstPartParagraph, {min: 50, max: 2000})){
+        errors.firstPartParagraph = "First part paragraph must be between 50 and 2000 characters";
+    }
+    if(!isLength(secondPartParagraph, {min: 50, max: 2000})){
+        errors.secondPartParagraph = "Second part paragraph must be between 50 and 2000 characters";
+    }
+    if(!isLength(additionalText, {min: 50, max: 2000})){
+        errors.additionalText = "Additional text must be between 50 and 2000 characters";
+    }
+    return errors;
+}
+
 
 export {
     validateRegisterForm,
@@ -207,5 +228,6 @@ export {
     validateCreateCourseForm,
     validateCommentForm,
     validateEmail,
-    validateContact
+    validateContact,
+    validateCreateBlogForm
 }
