@@ -71,6 +71,11 @@ const authSchema = new Schema({
         ref: "Comment",
         default: []
     },
+    blogs: {
+        type: [Schema.Types.ObjectId],
+        ref: "Blog",
+        default: []
+    },
     signedUpStudents:{
         type: [Schema.Types.ObjectId],
         ref: "User",
