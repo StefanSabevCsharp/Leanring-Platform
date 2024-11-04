@@ -3,36 +3,52 @@ const router = require("express").Router();
 const Comment = require("../schemas/commentSchema");
 const User = require("../schemas/authSchema");
 const Course = require("../schemas/courseSchema");
+const Blog = require("../schemas/blogSchema");
 const { getErrorMessage } = require("../utils/errorParser");
 
-router.post("/create", authenticateToken,async (req,res) => {
-    const { text, courseId, userId } = req.body;
-    console.log(text, courseId, userId);
-    if(!text || !courseId || !userId){
-        return res.status(400).json({ message: "Text, course ID and user ID are required." });
+router.post("/create", authenticateToken, async (req, res) => {
+    const { text, entityId, userId, entityType } = req.body;
+    console.log(text, entityId, userId, entityType);
+    if (!text || !entityId || !userId || !entityType) {
+        return res.status(400).json({ message: "Text, entityType, entity ID and user ID are required." });
     }
-    try{
+    try {
         const newComment = new Comment({
-            text: text,
-            course: courseId,
+            text,
             user: userId,
-            creator: req.user.firstName + " " + req.user.lastName
+            creator: req.user.firstName + " " + req.user.lastName,
         });
-        const savedComment = await newComment.save();
-        if(savedComment){
-            const course = await Course.findById(courseId);
-            course.comments.push(savedComment._id);
-            await course.save();
-            const user = await User.findById(userId);
-            user.comments.push(savedComment._id);
-            await user.save();
-        }
-        return res.status(201).json({ message: "Comment created successfully.", comment: savedComment });
 
-    }catch(error){
+        const savedComment = await newComment.save();
+
+        if (savedComment) {
+            let entity;
+            if (entityType === 'course') {
+                entity = await Course.findById(entityId);
+            } else if (entityType === 'blog') {
+                entity = await Blog.findById(entityId);
+            }
+
+            if (entity) {
+                entity.comments.push(savedComment._id);
+                await entity.save();
+            }
+
+            const user = await User.findById(userId);
+            if (user) {
+                user.comments.push(savedComment._id);
+                await user.save();
+            }
+            console.log("Comment created successfully.");
+            console.log(savedComment);
+
+            return res.status(201).json({ message: "Comment created successfully.", comment: savedComment });
+        }
+
+    } catch (error) {
         console.error("Error in create comment function", error);
         const errorMessage = getErrorMessage(error);
-        throw new Error(errorMessage);
+        return res.status(500).json({ message: errorMessage });
     }
 })
 

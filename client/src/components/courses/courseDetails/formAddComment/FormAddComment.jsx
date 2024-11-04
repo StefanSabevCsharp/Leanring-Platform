@@ -1,12 +1,12 @@
 import { createComment } from "../../../../dataService/commentService";
 import useForm from "../../../../hooks/useForm";
 
-export default function FormAddComment({comments, setComments, courseId, user}) {
+export default function FormAddComment({comments, setComments, entityId, user, entityType}) {
 
     const submitHandler = async (comment) => {
         const { text } = comment;
         try {
-            const {message, comment : newComment} = await createComment(text, courseId, user._id);
+            const {message, comment : newComment} = await createComment(text, entityId, user._id, entityType);
             setComments([...comments, newComment]);
 
         } catch (error) {
