@@ -47,13 +47,24 @@ router.post("/create", authenticateToken, async (req, res) => {
 router.get("/:blogId", async (req, res) => {
     const { blogId } = req.params;
     try {
-        const blog = await Blog.findById(blogId);
+        const blog = await Blog.findById(blogId).populate("comments");
         if (!blog) {
             return res.status(404).json({ message: "Blog not found" });
         }
         return res.status(200).json(blog);
     } catch (error) {
         console.error("Error in get blog details function", error);
+        return res.status(500).json({ message: "Internal server error" });
+    }
+});
+
+router.get("/", async (req, res) => {
+    const limit = parseInt(req.query.limit) || 0;
+    try {
+        const blogs = await Blog.find().sort({ createdAt: -1 }).limit(limit);
+        return res.status(200).json({ blogs });
+    } catch (error) {
+        console.error("Error in get blogs function", error);
         return res.status(500).json({ message: "Internal server error" });
     }
 });
