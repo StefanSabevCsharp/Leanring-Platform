@@ -23,3 +23,14 @@ export const getBlogDetails = async (blogId) => {
         throw new Error(errorMessage);
     }
 }
+
+export const getBlogs = async (limit) => {
+    try {
+        const response = await axios.get(`${import.meta.env.VITE_EXPRESS_API}/blog?limit=${limit}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error in get blogs function", error);
+        const errorMessage = getErrorMessage(error);
+        throw new Error(errorMessage);
+    }
+}
