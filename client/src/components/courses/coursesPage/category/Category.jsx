@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
+import { categories } from '../../../../utils/categories';
 export default function Category() {
+   
     return (
 
         <div
@@ -12,54 +14,14 @@ export default function Category() {
                 Categories
             </h4>
             <ul className="flex gap-x-4 flex-wrap justify-center">
-                <li className="text-contentColor hover:text-contentColor-dark hover:bg-primaryColor text-sm font-medium px-4 py-2 border border-borderColor dark:border-borderColor-dark flex justify-between leading-7 transition-all duration-300">
+                {categories.map((category,index) => (
+                    <li className="text-contentColor hover:text-contentColor-dark hover:bg-primaryColor text-sm font-medium px-4 py-2 border border-borderColor dark:border-borderColor-dark flex justify-between leading-7 transition-all duration-300">
                     <Link
-                        to="/courses?category=Web Design">
-                        Web Design
+                        to={category.path}>
+                        {category.title}
                     </Link>
                 </li>
-                <li className="text-contentColor hover:text-contentColor-dark hover:bg-primaryColor text-sm font-medium px-4 py-2 border border-borderColor dark:border-borderColor-dark flex justify-between leading-7 transition-all duration-300">
-                    <Link
-                        to="/courses?category=Graphic">
-                        Graphic
-                    </Link>
-                </li>
-                <li className="text-contentColor hover:text-contentColor-dark hover:bg-primaryColor text-sm font-medium px-4 py-2 border border-borderColor dark:border-borderColor-dark flex justify-between leading-7 transition-all duration-300">
-                    <Link
-                        to="/courses?category=English">
-                        English
-                    </Link>
-                </li>
-                <li className="text-contentColor hover:text-contentColor-dark hover:bg-primaryColor text-sm font-medium px-4 py-2 border border-borderColor dark:border-borderColor-dark flex justify-between leading-7 transition-all duration-300">
-                    <Link
-                        to="/courses?category=Spoken English">
-                        Spoken English
-                    </Link>
-                </li>
-                <li className="text-contentColor hover:text-contentColor-dark hover:bg-primaryColor text-sm font-medium px-4 py-2 border border-borderColor dark:border-borderColor-dark flex justify-between leading-7 transition-all duration-300">
-                    <Link
-                        to="/courses?category=Art Painting">
-                        Art Painting
-                    </Link>
-                </li>
-                <li className="text-contentColor hover:text-contentColor-dark hover:bg-primaryColor text-sm font-medium px-4 py-2 border border-borderColor dark:border-borderColor-dark flex justify-between leading-7 transition-all duration-300">
-                    <Link
-                        to="/courses?category=App Development">
-                        App Development
-                    </Link>
-                </li>
-                <li className="text-contentColor hover:text-contentColor-dark hover:bg-primaryColor text-sm font-medium px-4 py-2 border border-borderColor dark:border-borderColor-dark flex justify-between leading-7 transition-all duration-300">
-                    <Link
-                        to="/courses?category=Web Application">
-                        Web Application
-                    </Link>
-                </li>
-                <li className="text-contentColor hover:text-contentColor-dark hover:bg-primaryColor text-sm font-medium px-4 py-2 border border-borderColor dark:border-borderColor-dark flex justify-between leading-7 transition-all duration-300">
-                    <Link
-                        to="/courses?category=PHP Development">
-                        PHP Development
-                    </Link>
-                </li>
+                ))}
             </ul>
         </div>
     );
