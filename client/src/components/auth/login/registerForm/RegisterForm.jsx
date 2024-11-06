@@ -25,6 +25,7 @@ export default function RegisterForm({ setIsLogin }) {
             console.log(newUser);
             setUser(newUser);
             navigate("/dashboard");
+            window.scrollTo({ top: 0, behavior: "smooth" });
         }catch(err){
             const errorMessage = getErrorMessage(err);
             console.log(errorMessage);

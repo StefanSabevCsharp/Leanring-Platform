@@ -39,6 +39,7 @@ export default function Footer() {
                 <li>
                   <Link
                     to="/"
+                    onClick={() => window.scrollTo({top: 0,behavior: "smooth"})}
                     className="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0"
                   >
                     Home
@@ -47,6 +48,7 @@ export default function Footer() {
                 <li>
                   <Link
                     to="/about"
+                    onClick={() => window.scrollTo({top: 0,behavior: "smooth"})}
                     className="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0"
                   >
                     About Us
@@ -55,6 +57,7 @@ export default function Footer() {
                 <li>
                   <Link
                     to="/contact"
+                    onClick={() => window.scrollTo({top: 0,behavior: "smooth"})}
                     className="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0"
                   >
                     Contact Us
@@ -71,6 +74,8 @@ export default function Footer() {
                 <li>
                   <Link
                     to="/courses"
+                    onClick={() => window.scrollTo({top: 0,behavior: "smooth"})}
+
                     className="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0"
                   >
                     Courses
@@ -91,6 +96,7 @@ export default function Footer() {
                 <li>
                   <Link
                     to={`/courses?category=Web Design`}
+                    onClick={() => window.scrollTo({top: 500,behavior: "smooth"})}
                     className="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0"
                   >
                     Web Design
@@ -99,6 +105,7 @@ export default function Footer() {
                 <li>
                   <Link
                     to={`/courses?category=Web Development`}
+                    onClick={() => window.scrollTo({top: 500,behavior: "smooth"})}
                     className="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0"
                   >
                     Web Development
@@ -107,6 +114,7 @@ export default function Footer() {
                 <li>
                   <Link
                     to={`/courses?category=App Development`}
+                    onClick={() => window.scrollTo({top: 500,behavior: "smooth"})}
                     className="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0"
                   >
                     App Development
@@ -115,6 +123,7 @@ export default function Footer() {
                 <li>
                   <Link
                     to={`/courses?category=English`}
+                    onClick={() => window.scrollTo({top: 500,behavior: "smooth"})}
                     className="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0"
                   >
                     English
@@ -123,6 +132,7 @@ export default function Footer() {
                 <li>
                   <Link
                     to={`/courses?category=Spanish`}
+                    onClick={() => window.scrollTo({top: 500,behavior: "smooth"})}
                     className="text-darkgray relative hover:text-primaryColor after:transition-all after:duration-300 after:w-0 after:h-2px after:absolute after:bg-primaryColor hover:after:w-full after:bottom-0 after:left-0"
                   >
                     Spanish
@@ -140,9 +150,10 @@ export default function Footer() {
               </h4>
               <ul className="flex flex-col gap-y-5">
                 {courses && courses.map((course) => (
-                  <li key={course._id}>
+                  <li key={course._id} onClick={() => window.scrollTo({top: 0 , behavior:"smooth"})}>
                     <Link className="flex items-center gap-3 group cursor-pointer"
                       to={`/courses/${course._id}`}>
+                       
                       <div>
                         <img
                           src={course.courseImageUrl}

@@ -22,6 +22,7 @@ export default function LoginForm({ setIsLogin }) {
           
             setUser(newUser);
             navigate("/dashboard");
+            window.scrollTo({ top: 0, behavior: "smooth" });
         } catch (err) {
             console.log(err);
             // toast.error(err.message);
