@@ -19,7 +19,6 @@ export default function CreateCourse() {
             return;
         }
         setActiveLi(liPosition);
-        console.log(liPosition);
     }
 
     const stylesLi = "accordion mb-5";

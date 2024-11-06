@@ -14,7 +14,6 @@ export default function Blog() {
   const indexOfLastBlog = page * perPage;
   const indexOfFirstBlog = indexOfLastBlog - perPage;
   const currentBlogs = blogs.slice(indexOfFirstBlog, indexOfLastBlog);
-  console.log(blogs)
 
   useEffect(() => {
     if (blogs) {

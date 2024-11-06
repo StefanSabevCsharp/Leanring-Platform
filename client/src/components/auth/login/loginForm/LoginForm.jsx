@@ -24,7 +24,6 @@ export default function LoginForm({ setIsLogin }) {
             navigate("/dashboard");
             window.scrollTo({ top: 0, behavior: "smooth" });
         } catch (err) {
-            console.log(err);
             // toast.error(err.message);
             toast.error("Invalid email or password");
         }

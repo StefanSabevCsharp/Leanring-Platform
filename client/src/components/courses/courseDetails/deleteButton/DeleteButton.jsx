@@ -11,7 +11,6 @@ export default function DeleteButton({ course }) {
     const handleDelete = async () => {
         try {
             const response = await deleteCourseById(course._id);
-            console.log(response?.message);
             navigate("/courses");
         } catch (error) {
             navigate("/404");

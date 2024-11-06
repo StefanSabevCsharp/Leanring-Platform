@@ -19,7 +19,6 @@ export default function useGetUserData(userId) {
             getData();
         
         }catch(error){
-            console.log("Error in useGetUserData hook", error);
             return getErrorMessage(error);
         }
         

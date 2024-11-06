@@ -8,7 +8,6 @@ export const createComment = async (text, entityId, userId, entityType) => {
         return response.data;
 
     } catch (error) {
-        console.log("Error in create comment function", error);
         return getErrorMessage(error);
     }
 }

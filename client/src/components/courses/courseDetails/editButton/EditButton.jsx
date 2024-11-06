@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import ConfirmModal from "../../../modal/Modal";
 
 export default function EditButton({ course }) {
-    console.log(course);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const navigate = useNavigate();
 

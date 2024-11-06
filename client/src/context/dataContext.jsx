@@ -20,13 +20,11 @@ export function DataProvider({ children }) {
                 const getUserData = async () => {
                     const fullUserData = await getFullUserData(userId);
                     setNewData(fullUserData);
-                    console.log(fullUserData);
                     setLoading(false);
                 }
                 getUserData();
 
             } catch (err) {
-                console.log(err);
                 setLoading(false);
             }
         }

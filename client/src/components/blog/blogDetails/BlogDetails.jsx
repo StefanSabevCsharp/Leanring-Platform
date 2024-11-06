@@ -13,7 +13,6 @@ export default function BlogDetails() {
     const { _Id } = useParams();
     const [comments, setComments] = useState([]);
     const [blogs] = useGetBlogs(4);
-    console.log(blogs);
     
 
     const [blog, loading, error] = useGetBlogDetails(_Id);

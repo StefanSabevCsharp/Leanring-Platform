@@ -6,7 +6,6 @@ export default function ReviewTableRow({ review, setReviews, refreshReviews }) {
 
     const handleDeleteReview = async (reviewId) => {
         try {
-            console.log("here")
             const response = await deleteReview(reviewId);
              refreshReviews();
 

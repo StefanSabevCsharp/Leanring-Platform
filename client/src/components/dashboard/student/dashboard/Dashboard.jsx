@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 
 export default function StudentDashboard({ user }) {
-    console.log(user);
-    //TODO: implement completed courses
     return (
         <div className="lg:col-start-4 lg:col-span-9">
             {/* counter */}

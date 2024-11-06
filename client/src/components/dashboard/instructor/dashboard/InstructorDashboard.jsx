@@ -1,5 +1,4 @@
 export default function InstructorDashboard({ user }) {
-    console.log(user)
     return (
         <div className="lg:col-start-4 lg:col-span-9">
             {/* counter */}

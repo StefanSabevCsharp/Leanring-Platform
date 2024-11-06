@@ -78,7 +78,6 @@ router.get("/:courseId", async (req, res) => {
         .populate("comments")
         .populate("reviews");
 
-    // console.log(course);
 
     if (!course) {
         return res.status(404).json({ message: "Course not found." });

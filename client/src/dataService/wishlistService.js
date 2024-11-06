@@ -9,7 +9,6 @@ export const addCourseToWishList = async (courseId, userId) => {
 
     }catch(error){
         const errorMessage = getErrorMessage(error);
-        console.log(errorMessage);
         return new Error(errorMessage);
     }
 };
@@ -22,7 +21,6 @@ export const removeCourseFromWishlist = async (courseId, userId) => {
 
     }catch(error){
         const errorMessage = getErrorMessage(error);
-        console.log(errorMessage);
         return new Error(errorMessage);
     }
 }
@@ -34,7 +32,6 @@ export const getWishListCourses = async (userId) => {
 
     }catch(error){
         const errorMessage = getErrorMessage(error);
-        console.log(errorMessage);
         return new Error(errorMessage);
     }
 };

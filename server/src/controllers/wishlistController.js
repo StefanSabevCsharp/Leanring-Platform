@@ -5,7 +5,6 @@ const { getErrorMessage } = require("../utils/errorParser");
 
 router.post("/add", authenticateToken, async (req, res) => {
     const { courseId, userId } = req.body;
-    console.log(courseId, userId);
     if (!courseId || !userId) {
         return res.status(400).json({ message: "Course ID and User ID are required." });
     }
@@ -31,7 +30,6 @@ router.post("/add", authenticateToken, async (req, res) => {
 
 router.post("/remove", authenticateToken, async (req, res) => {
     const { courseId, userId } = req.body;
-    console.log(courseId, userId);
     if (!courseId || !userId) {
         return res.status(400).json({ message: "Course ID and User ID are required." });
     }

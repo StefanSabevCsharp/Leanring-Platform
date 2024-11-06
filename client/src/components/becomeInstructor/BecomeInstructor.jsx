@@ -27,25 +27,21 @@ export default function BecomeInstructor() {
 
         try {
             const responce = await checkIsPasswordValid(password);
-            console.log(responce);
             if (responce.message === "Password is valid") {
                 toast.success("Updating info...");
             }
         }catch(err){
-            console.log(err);
             return toast.error("Invalid password");
         }
         
         try{
             const newUserData = await updateUserToBecomeInstructor(user._id);
-            console.log(newUserData);
             if(newUserData.role === "instructor"){
                 setUser(newUserData);
                toast.success("Info updated successfully");
                 navigate("/dashboard");
             }
         }catch(err){
-            console.log(err);
             return toast.error("Error updating info");
         }
         

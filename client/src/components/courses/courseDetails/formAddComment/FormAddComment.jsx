@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { createComment } from "../../../../dataService/commentService";
 import useForm from "../../../../hooks/useForm";
 
@@ -11,7 +12,7 @@ export default function FormAddComment({comments, setComments, entityId, user, e
 
         } catch (error) {
             //TODO: add error handling
-            console.log("Error in submitHandler formaddComment", error);
+            toast.error("Error creating comment");
         }
     }
 

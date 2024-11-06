@@ -4,7 +4,6 @@ import SmallBlogCard from "./smallBlog/SmallBlogCard";
 
 export default function News() {
   const [blogs, loading] = useGetBlogs(3);
-console.log(blogs)
   if (!loading && blogs) {
     return (
       <section>

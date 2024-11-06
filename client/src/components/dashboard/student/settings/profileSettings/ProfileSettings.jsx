@@ -19,7 +19,6 @@ export default function ProfileSettings() {
     };
     const submitHandler = async (values) => {
 
-        console.log("Profile settings form submitted with values", values);
         //todo: Sanitize the data before sending to the server
         const response = await updateUserProfile(values);
         if (response) {

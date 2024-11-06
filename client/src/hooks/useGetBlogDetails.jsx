@@ -11,7 +11,6 @@ export default function useGetBlogDetails(blogId) {
         try {
             const getBlog = async () => {
                 const response = await getBlogDetails(blogId);
-                console.log(response);
                 setBlog(response);
                 setLoading(false);
             };

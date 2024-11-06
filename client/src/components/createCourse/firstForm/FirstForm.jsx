@@ -24,7 +24,6 @@ export default function FirstForm({ course, courseId }) {
     }), [course]);
 
     const submitHandler = async (values) => {
-        console.log("First Form Data", values);
         const courseData = {
             ...values,
             freeRegularPrice: parseInt(values.freeRegularPrice),
@@ -34,8 +33,6 @@ export default function FirstForm({ course, courseId }) {
         try {
             if (!courseId) {
                 const { course, message } = await createCourse(courseData, user._id);
-                console.log("Course created", course);
-                console.log(message)
                 navigate(`/courses/${course._id}`);
             } else {
                 const { course, message } = await updateCourse(courseData, courseId, user._id);

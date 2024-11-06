@@ -26,7 +26,6 @@ export const login = async (values) => {
 export const logoutUser = async () => {
     try {
         const response = await axios.get(`${import.meta.env.VITE_EXPRESS_API}/auth/logout`, { withCredentials: true });
-        console.log(response);
     } catch (err) {
         console.error("Error in logout function", err);
         const errorMessage = getErrorMessage(err);

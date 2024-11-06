@@ -4,7 +4,6 @@ const modalProductDetails = () => {
   if (!modalContainers.length) {
     return;
   }
-  console.log(modalContainers.length)
   modalContainers.forEach((modalContainer) => {
     const body = document.body;
     const bodyStyle = body.style;

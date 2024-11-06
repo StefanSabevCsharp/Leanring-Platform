@@ -68,7 +68,6 @@ export default function useForm(initialValues, submitHandler, formType, options 
         setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length > 0) {
-            console.log("Validation errors", validationErrors);
             return;
         }
         setLoading(true);

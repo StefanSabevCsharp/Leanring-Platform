@@ -7,7 +7,6 @@ const { getErrorMessage } = require("../utils/errorParser");
 
 
 router.post("/create", authenticateToken, async (req, res) => {
-    console.log(req.body);
     const { reviewData, courseId, userId } = req.body;
     if(!reviewData || !courseId || !userId){
         return res.status(400).json({ message: "Review data, course ID and user ID are required." });

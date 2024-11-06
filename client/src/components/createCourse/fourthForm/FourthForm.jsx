@@ -24,7 +24,6 @@ export default function FourthForm() {
     };
 
     const submitHandler = async (values) => {
-        console.log(values);
         try {
             const { message, blog } = await createBlog(values, user._id);
             toast.success(message);

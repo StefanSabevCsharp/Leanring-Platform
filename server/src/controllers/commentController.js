@@ -8,7 +8,6 @@ const { getErrorMessage } = require("../utils/errorParser");
 
 router.post("/create", authenticateToken, async (req, res) => {
     const { text, entityId, userId, entityType } = req.body;
-    console.log(text, entityId, userId, entityType);
     if (!text || !entityId || !userId || !entityType) {
         return res.status(400).json({ message: "Text, entityType, entity ID and user ID are required." });
     }
@@ -39,8 +38,6 @@ router.post("/create", authenticateToken, async (req, res) => {
                 user.comments.push(savedComment._id);
                 await user.save();
             }
-            console.log("Comment created successfully.");
-            console.log(savedComment);
 
             return res.status(201).json({ message: "Comment created successfully.", comment: savedComment });
         }

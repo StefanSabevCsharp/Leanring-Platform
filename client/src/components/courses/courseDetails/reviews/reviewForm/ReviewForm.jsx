@@ -16,7 +16,6 @@ export default function ReviewForm({ setReviews, courseId, user,isSubmitting, se
 
     const submitHandler = async (values) => {
         const { text } = values;
-        console.log("Review submitted", { text, stars });
         if (stars === 0) {
             toast.error("Please select a rating");
             return;
@@ -31,11 +30,10 @@ export default function ReviewForm({ setReviews, courseId, user,isSubmitting, se
             const { message, review: newReview } = await createReview(dataObj, courseId, user._id);
             setReviews(oldReviews => [...oldReviews, newReview]);
             userData.reviews.push(newReview._id);
-            console.log("Review created", newReview);
 
         } catch (error) {
             //TODO: add error handling
-            console.log("Error in submit review handler", error);
+            toast.error("Error creating review");
         }
     };
     const [values, onChange, onSubmit, errors] = useForm(initialValues, submitHandler,);

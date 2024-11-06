@@ -22,13 +22,11 @@ export default function RegisterForm({ setIsLogin }) {
     const submitHandler = async (values) => {
         try{
             const newUser = await register(values);
-            console.log(newUser);
             setUser(newUser);
             navigate("/dashboard");
             window.scrollTo({ top: 0, behavior: "smooth" });
         }catch(err){
             const errorMessage = getErrorMessage(err);
-            console.log(errorMessage);
             toast.error(errorMessage);
         }
        
