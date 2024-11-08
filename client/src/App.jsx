@@ -30,11 +30,12 @@ import AboutPage from "./components/about/aboutPage/AboutPage"
 import Blog from "./components/blog/Blog"
 import CreateBlog from "./components/blog/createBlog/CreateBlog"
 import BlogDetails from "./components/blog/blogDetails/BlogDetails"
+import ScrollUpButton from "./components/scrollUpButton/ScrollUpButton"
+import ScrollToTop from "./components/scrollToTop/ScrollToTop"
 
 
 function App() {
   const { user } = useContext(AuthContext)
-  console.log(user)
   return (
 
     <>
@@ -43,6 +44,7 @@ function App() {
           <ThemeController />
           <Header />
           <main className="bg-transparent">
+              <ScrollToTop />
             <Routes>
               <Route path="/" element={
                 <>
@@ -94,6 +96,7 @@ function App() {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
+          <ScrollUpButton />
           <Footer />
         </ThemeProvider>
       </DataProvider>
