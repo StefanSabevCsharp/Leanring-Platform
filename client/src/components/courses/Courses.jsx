@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useGetAllCourses } from "../../hooks/useGetAllCourses";
 import CourseCard from "../courseCard/CourseCard";
-import Spinner from "../spinner/Spinner";
 
 export default function Courses() {
   const [category, setCategory] = useState("all");
@@ -91,19 +90,26 @@ export default function Courses() {
                 </ul>
               </div>
             </div>
-
             <div
-              className="container p-0 filter-contents flex flex-wrap sm:-mx-15px mt-7 lg:mt-10 items-center justify-center"
-              data-aos="fade-up"
-            >
-              {courses.length === 0 ? (
-                <h1 className="text-2xl font-bold text-blackColor dark:text-blackColor-dark text-center">
-                  No courses found in this category
-                </h1>
-              ) : (
-                courses.map((course, index) => <CourseCard key={index} courseInfo={course} />)
-              )}
-            </div>
+  className="container p-0 filter-contents grid grid-cols-1 sm:grid-cols-2 gap-5 mt-7 lg:mt-10"
+  data-aos="fade-up"
+>
+  {courses.length === 0 ? (
+    <h1 className="text-2xl font-bold text-blackColor dark:text-blackColor-dark text-center col-span-full">
+      No courses found in this category
+    </h1>
+  ) : (
+    courses.map((course, index) => (
+      <div key={index} className="flex justify-center items-center">
+        <div className="w-full max-w-[280px] h-[400px]">
+          <CourseCard courseInfo={course} />
+        </div>
+      </div>
+    ))
+  )}
+</div>
+
+
           </div>
         </div>
       </section>

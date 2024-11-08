@@ -6,14 +6,12 @@ import AuthorMoreCourses from "../courses/courseDetails/authorMoreCourses/Author
 
 export default function InstructorDetails() {
     const { _Id } = useParams();
-    console.log(_Id);
     const [userData, loading] = useGetUserData(_Id);
-    if (loading) {
-        return <Spinner />
-    }
+    // if (loading) {
+    //     return <Spinner />
+    // }
     if (!loading && userData) {
         //TODO : ADD photo of the instructor
-        console.log(userData);
         return (
             <>
                 <AbstractBanner name="User Details" path="Home" page="User Details" />

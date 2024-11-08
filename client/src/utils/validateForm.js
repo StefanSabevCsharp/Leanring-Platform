@@ -5,7 +5,6 @@ import { validateImage } from "./validateImage";
 
 
 const validateRegisterForm = (values) => {
-    console.log(values);
     let errors = {};
     const { firstName, lastName, email, userName, password, rePassword } = values;
 
@@ -48,7 +47,6 @@ const validateLoginForm = (values) => {
 }
 
 const validateProfileSettingsForm = (values) => {
-    console.log(values);
     let errors = {};
     const { firstName, lastName, userName, phoneNumber, bio } = values;
     if (!isLength(firstName, { min: 3, max: 30 })) {
@@ -119,11 +117,11 @@ const validateCreateCourseForm = (values) => {
     if (!isLength(courseTitle, { min: 3, max: 100 })) {
         errors.courseTitle = "Course title must be between 3 and 100 characters";
     }
-    if (!isLength(aboutCourse, { min: 10, max: 1000 })) {
-        errors.aboutCourse = "About course must be between 3 and 100 characters";
+    if (!isLength(aboutCourse, { min: 10, max: 2000 })) {
+        errors.aboutCourse = "About course must be between 3 and 2000 characters";
     }
-    if (!isLength(description, { min: 10, max: 1000 })) {
-        errors.description = "Description must be between 3 and 100 characters";
+    if (!isLength(description, { min: 10, max: 2000 })) {
+        errors.description = "Description must be between 3 and 2000 characters";
     }
     if (!isLength(language, { min: 3, max: 30 })) {
         errors.language = "Language must be between 3 and 30 characters";

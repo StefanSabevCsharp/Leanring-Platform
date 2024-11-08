@@ -1,6 +1,5 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useGetCourse from "../../../hooks/useGetCourse";
-import Spinner from "../../spinner/Spinner";
 import { formatDate } from "../../../utils/formatDate";
 import { princeDiscount } from "../../../utils/priceDiscout";
 import AuthorMoreCourses from "./authorMoreCourses/AuthorMoreCourses";
@@ -16,6 +15,7 @@ import SubscribeButton from "./subscribeButton/SubscribeButton";
 import DeleteButton from "./deleteButton/DeleteButton";
 import EditButton from "./editButton/EditButton";
 import CourseCard from "../../courseCard/CourseCard";
+import AbstractBanner from "../../abstractBanner/AbstractBanner";
 
 export default function CourseDetails() {
     const [isDeleting, setIsDeleting] = useState(false);
@@ -42,7 +42,6 @@ export default function CourseDetails() {
             setEnrolledStudentsCount(enrolledStudentsCount - 1);
         }
     }
-    console.log(userData)
 
     useEffect(() => {
         if (course && course.comments) {
@@ -61,9 +60,9 @@ export default function CourseDetails() {
         navigate("/404");
     }
 
-    if (loading) {
-        return <Spinner />
-    }
+    // if (loading) {
+    //     return <Spinner />
+    // }
     if (!loading && course) {
 
         const { _id, courseTitle, courseImageUrl, startDate, language, aboutCourse, category, courseStatus, createdAt, creator, description, discountedPrice, freeRegularPrice, instructor, sold, updatedAt, enrolledStudents } = course;
@@ -71,10 +70,10 @@ export default function CourseDetails() {
         const otherCourses = createdCourses.filter(id => id !== _id).slice(0, 3);
         const isOwner = user?._id === instructor._id;
         const isAlreadySubscribed = userData?.courses.includes(courseId);
-        console.log(course)
         return (
             <>
                 <Toaster />
+                <AbstractBanner name={"Course Details" } path={"Home"} page={"Course Details"}/>
                 <section>
                     <div className="container py-10 md:py-50px lg:py-60px 2xl:py-100px">
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-30px">
@@ -316,7 +315,7 @@ export default function CourseDetails() {
                                                         {/* athor avatar */}
                                                         <div className="flex mb-30px mr-5 flex-shrink-0">
                                                             <img
-                                                                src="/assets/images/blog/blog_10.png"
+                                                                src="/assets/images/mypic.jpg"
                                                                 alt=""
                                                                 className="w-24 h-24 rounded-full"
                                                             />
@@ -383,89 +382,7 @@ export default function CourseDetails() {
                                             </div>
                                         </div>
 
-                                        {/* tag and share  */}
-                                        {/* <div
-                                    className="flex justify-between items-center flex-wrap py-10 mb-10 border-y border-borderColor2 dark:border-borderColor2-dark gap-y-10px"
-                                    data-aos="fade-up"
-                                >
-                                    <div>
-                                        <ul className="flex flex-wrap gap-10px">
-                                            <li>
-                                                <p className="text-lg md:text-size-22 leading-7 md:leading-30px text-blackColor dark:text-blackColor-dark font-bold">
-                                                    Tag
-                                                </p>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    href="blog-details.html"
-                                                    className="px-2 py-5px md:px-3 md:py-9px text-contentColor text-size-11 md:text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor rounded"
-                                                >
-                                                    Business
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    href="blog-details.html"
-                                                    className="px-2 py-5px md:px-3 md:py-9px text-contentColor text-size-11 md:text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor rounded"
-                                                >
-                                                    DESIGN
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    href="blog-details.html"
-                                                    className="px-2 py-5px md:px-3 md:py-9px text-contentColor text-size-11 md:text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor rounded"
-                                                >
-                                                    APPS
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    href="blog-details.html"
-                                                    className="px-2 py-5px md:px-3 md:py-9px text-contentColor text-size-11 md:text-xs font-medium uppercase border border-borderColor2 hover:text-whiteColor hover:bg-primaryColor hover:border-primaryColor dark:text-contentColor-dark dark:border-borderColor2-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:hover:border-primaryColor rounded"
-                                                >
-                                                    DATA
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div>
-                                        
-                                        <div>
-                                            <ul className="flex gap-10px justify-center items-center">
-                                                <li>
-                                                    <p className="text-lg md:text-size-22 leading-7 md:leading-30px text-blackColor dark:text-blackColor-dark font-bold">
-                                                        Share
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <a
-                                                        href="#"
-                                                        className="h-35px w-35px leading-35px md:w-38px md:h-38px md:leading-38px text-size-11 md:text-xs text-center border border-borderColor2 text-contentColor hover:text-whiteColor hover:bg-primaryColor dark:text-contentColor-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:border-borderColor2-dark rounded"
-                                                    >
-                                                        <i className="icofont-twitter" />
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a
-                                                        href="#"
-                                                        className="h-35px w-35px leading-35px md:w-38px md:h-38px md:leading-38px text-size-11 md:text-xs text-center border border-borderColor2 text-contentColor hover:text-whiteColor hover:bg-primaryColor dark:text-contentColor-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:border-borderColor2-dark rounded"
-                                                    >
-                                                        <i className="icofont-facebook" />
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a
-                                                        href="#"
-                                                        className="h-35px w-35px leading-35px md:w-38px md:h-38px md:leading-38px text-size-11 md:text-xs text-center border border-borderColor2 text-contentColor hover:text-whiteColor hover:bg-primaryColor dark:text-contentColor-dark dark:hover:text-whiteColor dark:hover:bg-primaryColor dark:border-borderColor2-dark rounded"
-                                                    >
-                                                        <i className="icofont-instagram" />
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div> */}
+                                    
                                         {/* other courses */}
                                         <div className="mt-50px mb-30px" data-aos="fade-up">
                                             {/* other courses heading */}
@@ -495,7 +412,7 @@ export default function CourseDetails() {
                                         <Comments comments={comments} />
                                         {/* write comment area */}
                                         {user && (
-                                            <FormAddComment courseId={courseId} user={user} comments={comments} setComments={setComments} />)}
+                                            <FormAddComment entityId={courseId} user={user} comments={comments} setComments={setComments} entityType={"course"} />)}
 
                                     </div>
                                 </div>

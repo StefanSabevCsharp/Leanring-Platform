@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CourseCard from "../../../courseCard/CourseCard";
 import useGetWishlist from "../../../../hooks/useGetWishlist";
-import Spinner from "../../../spinner/Spinner";
+
 
 export default function Wishlist({ user }) {
 

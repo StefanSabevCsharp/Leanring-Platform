@@ -26,7 +26,7 @@ export default function Comments({ comments }) {
                 {currentComments.map((comment) => (<CourseComment comment={comment} key={comment._id} />))}
             </ul>
         </div>
-        {currentComments > 1 && <Pagination setPage={setPage} totalPages={totalPages} page={page}/>}
+        <Pagination setPage={setPage} totalPages={totalPages} page={page} />
         
         </>
     );

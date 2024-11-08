@@ -8,7 +8,6 @@ import AuthContext from "../../../context/authContext";
 export default function CourseCardList({ courseInfo }) {
     const { user } = useContext(AuthContext);
     const stars = calculateStarsToShow(courseInfo);
-    console.log(courseInfo)
 
     return (
         <div className="w-full group grid-item rounded">
@@ -73,7 +72,7 @@ export default function CourseCardList({ courseInfo }) {
                                         >
                                             <img
                                                 className="w-[30px] h-[30px] rounded-full mr-15px"
-                                                src="assets/images/grid/grid_small_1.jpg"
+                                                src="assets/images/mypic.jpg"
                                                 alt=""
                                             />
                                             <span className="flex">{upperCase(courseInfo.creator)}</span>

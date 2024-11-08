@@ -9,7 +9,7 @@ export default function CourseComment({comment}) {
             <div className="flex-shrink-0">
                 <div>
                     <img
-                        src="/assets/images/blog-details/blog-details__1.png"
+                        src="/assets/images/mypic.jpg"
                         alt=""
                         className="w-20 h-20 rounded-full"
                     />
@@ -19,11 +19,11 @@ export default function CourseComment({comment}) {
                 <div className="flex justify-between items-center">
                     <div>
                         <h4 className="text-lg font-semibold text-blackColor hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor leading-25px">
-                               {upperCase(comment.creator)}
+                               {upperCase(comment?.creator)}
                            
                         </h4>
                         <p className="text-xs font-medium text-contentColor dark:text-contentColor-dark leading-29px uppercase mb-5px">
-                            {formatDate(comment.createdAt)}
+                            {formatDate(comment?.createdAt)}
                         </p>
                     </div>
                     <div className="author__icon">

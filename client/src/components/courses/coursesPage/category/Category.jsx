@@ -15,7 +15,7 @@ export default function Category() {
             </h4>
             <ul className="flex gap-x-4 flex-wrap justify-center">
                 {categories.map((category,index) => (
-                    <li className="text-contentColor hover:text-contentColor-dark hover:bg-primaryColor text-sm font-medium px-4 py-2 border border-borderColor dark:border-borderColor-dark flex justify-between leading-7 transition-all duration-300">
+                    <li key={index} className="text-contentColor hover:text-contentColor-dark hover:bg-primaryColor text-sm font-medium px-4 py-2 border border-borderColor dark:border-borderColor-dark flex justify-between leading-7 transition-all duration-300">
                     <Link
                         to={category.path}>
                         {category.title}

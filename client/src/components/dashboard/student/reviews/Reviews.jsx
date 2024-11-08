@@ -4,14 +4,12 @@ import ReviewTableRow from "./reviewTableRow/ReviewTableRow";
 
 export default function Reviews({ user }) {
 
-
     const [refresh, setRefresh] = useState(false);
     const refreshReviews = () => {
         setRefresh(!refresh);
     }
     const [reviews, loading] = useGetReviews(user._id, refresh,refreshReviews);
     if (!loading && reviews) {
-        console.log(reviews);
         return (
             <div className="lg:col-start-4 lg:col-span-9">
                 {/* review area */}

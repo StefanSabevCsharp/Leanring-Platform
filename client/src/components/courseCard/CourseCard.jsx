@@ -77,7 +77,7 @@ export default function CourseCard({ courseInfo }) {
                 >
                   <img
                     className="w-[30px] h-[30px] rounded-full mr-15px"
-                    src="../../assets/images/grid/grid_small_2.jpg"
+                    src="../../assets/images/mypic.jpg"
                     alt=""
                   />
                   {upperCase(courseInfo.creator)}

@@ -11,9 +11,9 @@ export default function AuthorMoreCourses({ courseId }) {
 
     const [course, loading] = useGetCourse(courseId);
     const stars = calculateStarsToShow(course);
-    if (loading) {
-        return <Spinner />;
-    }
+    // if (loading) {
+    //     return <Spinner />;
+    // }
     if (!loading && course) {
         return (
             <div className="swiper-slide">
