@@ -8,7 +8,6 @@ import Footer from "./components/footer/Footer"
 import Header from "./components/header/Header"
 import News from "./components/news/News"
 import Popular from "./components/popular/Popular"
-import RegistrationSection from "./components/registrationSection/RegistrationSection"
 import ThemeController from "./components/themeController/ThemeController"
 import Login from "./components/auth/login/Login"
 import CoursesPage from "./components/courses/coursesPage/CoursesPage"
@@ -32,6 +31,9 @@ import CreateBlog from "./components/blog/createBlog/CreateBlog"
 import BlogDetails from "./components/blog/blogDetails/BlogDetails"
 import ScrollUpButton from "./components/scrollUpButton/ScrollUpButton"
 import ScrollToTop from "./components/scrollToTop/ScrollToTop"
+import AuthorGuard from "./components/guards/authorGuard/AuthorGuard"
+import DeleteCourse from "./components/courses/courseDetails/deleteCourse/DeleteCourse"
+import InstructorGuard from "./components/guards/instructorGuard/InstructorGuard"
 
 
 function App() {
@@ -44,7 +46,7 @@ function App() {
           <ThemeController />
           <Header />
           <main className="bg-transparent">
-              <ScrollToTop />
+            <ScrollToTop />
             <Routes>
               <Route path="/" element={
                 <>
@@ -53,11 +55,11 @@ function App() {
                   <About />
                   <Popular />
                   <Courses />
-{/* 
+                  {/* 
                   <AboutInstructor /> */}
                   <News />
                 </>} />
-                
+
               <Route path="/login" element={
                 <LoggedInUserGuard>
                   <Login />
@@ -69,14 +71,14 @@ function App() {
                 </ProtectedRoute>
               } />
               <Route path="/create-course" element={
-
-                <CreateCourse />
-
+                <ProtectedRoute>
+                  <CreateCourse />
+                </ProtectedRoute>
               } />
               <Route path="/become-instructor" element={
-
-                <BecomeInstructor />
-
+                <InstructorGuard>
+                  <BecomeInstructor />
+                </InstructorGuard>
               } />
               <Route path="/courses" element={<CoursesPage />} />
               <Route path="/dashboard/*" element={
@@ -85,14 +87,26 @@ function App() {
                 </ProtectedRoute>
               } />
               <Route path="/blog" element={<Blog />} />
-              <Route path="/create-blog" element={<CreateBlog />} />
+              <Route path="/create-blog" element={
+                <ProtectedRoute>
+                  <CreateBlog />
+                </ProtectedRoute>}
+              />
               <Route path="/blog/:_Id" element={<BlogDetails />} />
               <Route path="/courses/:_Id" element={<CourseDetails />} />
               <Route path="/users/:_Id" element={<InstructorDetails />} />
-              <Route path="/courses/edit/:_Id" element={<CreateCourse />} />
+              <Route path="/courses/edit/:_Id" element={
+                <AuthorGuard>
+                  <CreateCourse />
+                </AuthorGuard>} />
+              <Route path="/courses/delete/:_Id" element={
+                <AuthorGuard>
+                  <DeleteCourse />
+                </AuthorGuard>
+              } />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/contact" element={<Contact />} />
-              <Route path="/404" element={<NotFound/>} />
+              <Route path="/404" element={<NotFound />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
