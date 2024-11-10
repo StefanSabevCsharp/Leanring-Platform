@@ -1,7 +1,7 @@
 
 import AuthContext from "../../context/authContext"
 import useForm from "../../hooks/useForm";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { checkIsPasswordValid, updateUserToBecomeInstructor } from "../../dataService/authService";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,10 @@ import AbstractBanner from "../abstractBanner/AbstractBanner";
 export default function BecomeInstructor() {
     const { user, setUser } = useContext(AuthContext);
     const navigate = useNavigate();
+    
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    },[]);
 
     const initialState = {
         firstName: "",

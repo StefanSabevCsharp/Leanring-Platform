@@ -34,6 +34,7 @@ export default function Popular() {
                             </p>
                             <div>
                                 <Link
+                                    onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                                     className="text-size-15 text-whiteColor bg-secondaryColor px-25px py-10px border border-secondaryColor hover:text-secondaryColor hover:bg-whiteColor inline-block rounded dark:hover:bg-whiteColor-dark dark:hover:text-whiteColor"
                                     to="/courses"
                                 >
@@ -138,6 +139,7 @@ export default function Popular() {
                                     {/* card content */}
                                     <div>
                                         <Link
+                                            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                                             to={`/courses?category=Web Development`}
                                             className="text-2xl lg:text-lg 2xl:text-2xl font-semibold mb-15px md:mb-0 2xl:mb-15px hover:text-secondaryColor font-hind  dark:text-whiteColor dark:hover:text-secondaryColor dark:transition-all dark:duration-300"
                                         >
@@ -239,6 +241,7 @@ export default function Popular() {
                                         {/* card content */}
                                         <div>
                                             <Link
+                                                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                                                 to={`/courses?category=App Development`}
                                                 className="text-2xl lg:text-lg 2xl:text-2xl font-semibold mb-15px md:mb-0 2xl:mb-15px hover:text-secondaryColor font-hind  dark:text-whiteColor dark:hover:text-secondaryColor dark:transition-all dark:duration-300"
                                             >
@@ -343,6 +346,7 @@ export default function Popular() {
                                     {/* card content */}
                                     <div>
                                         <Link
+                                            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                                             to={`/courses?category=English`}
                                             className="text-2xl lg:text-lg 2xl:text-2xl font-semibold mb-15px md:mb-0 2xl:mb-15px hover:text-secondaryColor font-hind  dark:text-whiteColor dark:hover:text-secondaryColor dark:transition-all dark:duration-300"
                                         >
@@ -450,6 +454,7 @@ export default function Popular() {
                                         {/* card content */}
                                         <div>
                                             <Link
+                                                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                                                 to={`/courses?category=Spanish`}
                                                 className="text-2xl lg:text-lg 2xl:text-2xl font-semibold mb-15px md:mb-0 2xl:mb-15px hover:text-secondaryColor font-hind  dark:text-whiteColor dark:hover:text-secondaryColor dark:transition-all dark:duration-300"
                                             >
