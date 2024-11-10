@@ -1,16 +1,25 @@
 import useForm from "../../../hooks/useForm"
 import toast, { Toaster } from "react-hot-toast";
 import emailjs from "emailjs-com";
+import { useEffect, useState } from "react";
 
 export default function EmailSection() {
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+    useEffect(() => {
+        const isEmailSent = sessionStorage.getItem("emailSent");
+        if (isEmailSent) {
+            setIsButtonDisabled(true);
+        }
+    }, []);
     const initialValues = {
         email: ""
     }
     const submitHandler = async (email) => {
         const templateParams = {
-            email, 
+            email: email.email,
         };
-    
+
         try {
             await emailjs.send(
                 `${import.meta.env.VITE_EMAILJS_SERVICE_ID}`,
@@ -19,15 +28,17 @@ export default function EmailSection() {
                 `${import.meta.env.VITE_EMAILJS_PUBLIC_KEY}`
             );
             toast.success("Confirmation email sent!");
+            setIsButtonDisabled(true);
+            sessionStorage.setItem("emailSent", "true");
         } catch (error) {
             toast.error("Failed to send confirmation email.");
             console.error("EmailJS error:", error);
         }
     }
-    
-    const [values, onChange, onSubmit, errors] = useForm(initialValues, submitHandler, "contact")
-    if(errors.email) {
-      toast.error("Email not submitted");
+
+    const [values, onChange, onSubmit, errors] = useForm(initialValues, submitHandler, "emailForm")
+    if (errors.email) {
+        toast.error("Email not submitted");
     }
     return (
         <>
@@ -53,11 +64,13 @@ export default function EmailSection() {
                                 placeholder="Enter your email here"
                                 className="text-whiteColor h-62px pl-15px focus:outline-none border border-deepgray focus:border-whitegrey bg-transparent rounded w-full"
                             />
+
                             <button
                                 type="submit"
-                                className="px-3 md:px-10px lg:px-5 bg-primaryColor hover:bg-deepgray text-xs lg:text-size-15 text-whiteColor border border-primaryColor block rounded absolute right-0 top-0 h-full"
+                                disabled={isButtonDisabled}
+                                className={`px-3 md:px-10px lg:px-5 bg-primaryColor hover:bg-deepgray text-xs lg:text-size-15 text-whiteColor border border-primaryColor block rounded absolute right-0 top-0 h-full ${isButtonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
                             >
-                                Subscribe Now
+                                {isButtonDisabled ? "Email already Sent" : "Subscribe Now"}
                             </button>
                         </form>
                     </div>
