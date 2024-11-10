@@ -19,7 +19,7 @@ export function DataProvider({ children }) {
             try {
                 const getUserData = async () => {
                     const fullUserData = await getFullUserData(userId);
-                    setNewData(fullUserData);
+                    setUserData(fullUserData);
                     setLoading(false);
                 }
                 getUserData();
@@ -28,19 +28,15 @@ export function DataProvider({ children }) {
                 setLoading(false);
             }
         }
-    }, [user])
+    }, [user]);
 
     const refreshData = () => {
         setRefresh(!refresh);
     }
 
-    const setNewData = (data) => {
-        setUserData(data);
-    }
-
     const initialState = {
         userData,
-        setNewData,
+        setUserData,
         loading,
         refreshData
     }

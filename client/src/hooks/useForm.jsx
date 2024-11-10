@@ -73,8 +73,7 @@ export default function useForm(initialValues, submitHandler, formType, options 
         setLoading(true);
         await submitHandler(values);
         setLoading(false);
-        //Temporary reset form is disabled for testing purposes
-        // resetForm();
+        resetForm();
     };
 
 

@@ -3,13 +3,15 @@ import { createCourse, updateCourse } from "../../../dataService/courseService";
 import useForm from "../../../hooks/useForm";
 import AuthContext from "../../../context/authContext";
 import { useNavigate } from "react-router-dom";
+import { DataContext } from "../../../context/dataContext";
 
 
 export default function FirstForm({ course, courseId }) {
     const { user } = useContext(AuthContext);
+    const { userData, setUserData } = useContext(DataContext);
     const navigate = useNavigate();
     //TODO: Handle error messages
-    
+
 
     const initialValues = useMemo(() => ({
         courseTitle: course ? course.courseTitle : "",
@@ -33,12 +35,18 @@ export default function FirstForm({ course, courseId }) {
         try {
             if (!courseId) {
                 const { course, message } = await createCourse(courseData, user._id);
+                setUserData((prev) => {
+                    return {
+                        ...prev,
+                        createdCourses: [...prev.createdCourses, course._id]
+                    }
+                });
                 navigate(`/courses/${course._id}`);
             } else {
                 const { course, message } = await updateCourse(courseData, courseId, user._id);
                 navigate(`/courses/${course._id}`);
             }
-            
+
 
         } catch (err) {
             console.error("Error creating course", err);
