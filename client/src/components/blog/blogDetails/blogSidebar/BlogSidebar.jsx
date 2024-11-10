@@ -3,20 +3,20 @@ import RecentPostCard from "./recentPostCard/RecentPostCard";
 import BlogContactForm from "../../blogContactForm/BlogContactForm";
 import { categories } from "../../../../utils/categories";
 
-export default function BlogSidebar( { blogs }) {
+export default function BlogSidebar({ blogs }) {
     const recentBlogs = blogs.slice(0, 4);
-    
+
     return (
         <>
             {/* blog sidebar */}
             <div className="lg:col-start-9 lg:col-span-4">
                 <div className="flex flex-col">
-                   
+
                     <div
                         className="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark text-center"
                         data-aos="fade-up"
                     >
-                        
+
                         <div className="mb-30px flex justify-center">
                             <img
                                 src="/assets/images/mypic.jpg"
@@ -30,7 +30,7 @@ export default function BlogSidebar( { blogs }) {
                                     href="https://www.linkedin.com/in/stefan-sabev-952a5620a/"
                                     className="text-xl font-bold text-blackColor2 dark:text-blackColor2-dark"
                                 >
-                                   Stefan Sabev
+                                    Stefan Sabev
                                 </a>
                             </h3>
                             <p className="text-xs text-contentColor2 dark:text-contentColor2-dark">
@@ -39,7 +39,7 @@ export default function BlogSidebar( { blogs }) {
                         </div>
                         {/* description */}
                         <p className="text-sm text-contentColor dark:text-contentColor-dark mb-15px">
-                        Passionate about crafting responsive, user-friendly web applications using modern front-end technologies. With a keen eye for design and performance, I aim to create seamless digital experiences.
+                            Passionate about crafting responsive, user-friendly web applications using modern front-end technologies. With a keen eye for design and performance, I aim to create seamless digital experiences.
 
                         </p>
                         {/* social */}
@@ -92,7 +92,7 @@ export default function BlogSidebar( { blogs }) {
                         <ul className="flex flex-col gap-y-4">
                             {categories.map((category, index) => (
                                 <li key={index} className="text-contentColor hover:text-contentColor-dark hover:bg-primaryColor transition-all duration-300 text-sm font-medium px-4 py-2 border border-borderColor2 hover:border-primaryColor dark:border-borderColor2-dark dark:hover:border-primaryColor flex justify-between leading-7">
-                                    <Link to={category.path}>{category.title}</Link>
+                                    <Link onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} to={category.path}>{category.title}</Link>
                                     <span>{category.count}</span>
                                 </li>
                             ))}
@@ -108,14 +108,14 @@ export default function BlogSidebar( { blogs }) {
                         </h4>
                         <ul className="flex flex-col gap-y-25px">
                             {recentBlogs.map((blog, index) => (<RecentPostCard blog={blog} key={index} index={index} />))}
-                           
+
                         </ul>
                     </div>
-                  
+
                     {/* contact form */}
-                   <BlogContactForm />
+                    <BlogContactForm />
                     {/* tags */}
-                   
+
                     {/* social area */}
                     <div
                         className="p-5 md:p-30px lg:p-5 2xl:p-30px mb-30px border border-borderColor2 dark:border-borderColor2-dark"
@@ -158,7 +158,7 @@ export default function BlogSidebar( { blogs }) {
                                         <i className="icofont-github" />
                                     </a>
                                 </li>
-                                
+
                             </ul>
                         </div>
                     </div>
