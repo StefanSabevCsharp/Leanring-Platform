@@ -52,7 +52,7 @@ export default function Blog() {
               {/* blogs */}
               <div className="lg:col-start-1 lg:col-span-8 space-y-[35px]">
                 {/* blog 1 */}
-                {currentBlogs.map((blog) => (<SingleBlogCard blog={blog} key={blog._Id} />))}
+                {currentBlogs.map((blog) => (<SingleBlogCard blog={blog} key={blog._id} />))}
                 
 
                 {/* pagination */}

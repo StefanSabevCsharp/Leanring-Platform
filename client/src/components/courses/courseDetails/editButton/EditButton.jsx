@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ConfirmModal from "../../../modal/Modal";
+import { DataContext } from "../../../../context/dataContext";
 
 export default function EditButton({ course }) {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const navigate = useNavigate();
 
     const handleEdit = async () => {
-        
         navigate(`/courses/edit/${course._id}`);
     };
     return (

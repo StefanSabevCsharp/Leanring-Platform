@@ -124,6 +124,7 @@ export default function RegisterForm({ setIsLogin }) {
                                 onChange={onChange}
                                 type="password"
                                 placeholder="Password"
+                                autoComplete="off"
                                 className="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
                             />
                         </div>
@@ -137,6 +138,7 @@ export default function RegisterForm({ setIsLogin }) {
                                 onChange={onChange}
                                 type="password"
                                 placeholder="Re-Enter Password"
+                                autoComplete="off"
                                 className="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded"
                             />
                         </div>

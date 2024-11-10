@@ -9,16 +9,6 @@ import LoginForm from "./loginForm/loginForm";
 
 export default function Login() {
     const [isLogin, setIsLogin] = useState(true);
-
-    // useEffect(() => {
-    //     if (Object.keys(errors).length > 0) {
-    //         Object.values(errors).forEach(error => {
-    //             toast.error(error);
-    //         })
-    //     }
-    // }, [errors])
-
-
     return (
 
         <>
