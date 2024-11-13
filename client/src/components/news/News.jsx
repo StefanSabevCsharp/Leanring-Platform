@@ -4,7 +4,13 @@ import SmallBlogCard from "./smallBlog/SmallBlogCard";
 
 export default function News() {
   const [blogs, loading] = useGetBlogs(3);
-  if (!loading && blogs) {
+  if(loading){
+    return <div>Loading...</div>
+  }
+  if(!loading && blogs.length === 0){
+    return <div>No blogs found</div>
+  }
+  if (!loading && blogs.length !== 0) {
     return (
       <section>
         <div className="container pt-100px pb-70px">
