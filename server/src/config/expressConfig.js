@@ -12,6 +12,13 @@ const corsOptions = {
 };
 
 function expressConfig(app) {
+    app.use((req, res, next) => {
+        if (req.method === 'HEAD') {
+          res.status(200).end();
+        } else {
+          next();
+        }
+      });
     app.use(cors(corsOptions));
     app.use(cookieParser());
     app.use(express.json());

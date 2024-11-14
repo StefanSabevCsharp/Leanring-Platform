@@ -106,7 +106,7 @@ export default function Contact() {
                 name="submit"
                 className="text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor inline-block rounded group dark:hover:text-whiteColor dark:hover:bg-whiteColor-dark"
               >
-                Post a Comment
+                Send Email
               </button>
               <p className="form-messege" />
             </div>
