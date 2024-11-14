@@ -4,7 +4,7 @@ import useForm from "../../../hooks/useForm";
 import { toast, Toaster } from "react-hot-toast";
 
 import RegisterForm from "./registerForm/RegisterForm";
-import LoginForm from "./loginForm/loginForm";
+import LoginForm from "./loginForm/LoginForm";
 
 
 export default function Login() {
