@@ -49,6 +49,7 @@ export const getUserFromCookie = async () => {
         const response = await axios.get(`${import.meta.env.VITE_EXPRESS_API}/auth/checkAuth`, { withCredentials: true });
         return response.data;
     } catch (err) {
+      
         // console.error("Error verifying token:", err);
         return null;
     }

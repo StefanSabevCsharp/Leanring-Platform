@@ -12,11 +12,11 @@ export default function Banner() {
                             EDUCATION SOLUTION
                         </h3>
                         <h1 className="text-3xl text-whiteColor md:text-6xl lg:text-size-50 2xl:text-6xl leading-10 md:leading-18 lg:leading-62px 2xl:leading-18 md:tracking-half lg:tracking-normal 2xl:tracking-half font-bold mb-15px">
-                            Cloud-based LMS <br className="hidden md:block" />
-                            Trusted by 1000+
+                           Presentational LMS <br className="hidden md:block" />
+                            Fullstack MERN APP
                         </h1>
                         <p className="text-size-15md:text-lg text-white font-medium mb-45px">
-                        Empower your learning journey with our innovative platform that adapts to your pace and goals. Access courses, assignments, and progress tracking all in one place.
+                        Explore a robust fullstack MERN application designed to enhance online learning. Students can browse and subscribe to courses, leave reviews, share comments, and build their wishlist. Instructors are empowered with tools to create, update, and manage courses and lessons effortlessly.
                         </p>
                         <div>
                             <Link

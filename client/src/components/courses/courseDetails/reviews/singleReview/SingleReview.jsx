@@ -9,7 +9,7 @@ export default function SingleReview({ review }) {
             <div className="flex-shrink-0">
                 <div>
                     <img
-                        src="/assets/images/teacher/teacher__2.png"
+                        src="/assets/images/mypic.jpg"
                         alt=""
                         className="w-25 h-25 rounded-full"
                     />
