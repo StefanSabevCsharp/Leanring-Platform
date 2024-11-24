@@ -3,7 +3,7 @@
 A Learning Management System (LMS) built with the MERN stack (MongoDB, Express, React, Node.js), designed to provide a rich, role-based learning experience. This platform allows instructors to create and manage courses, post blog articles, and engage with students, while students can subscribe to courses, leave comments, and provide reviews.
 
 ---
-🌐 **Live Demo**: [learny.stefansabev.com](http://learny.stefansabev.com)
+🌐 **Live Demo**: [learny.stefansabev.com](https://learny.stefansabev.com)
 
 **Note**: While the design of this platform is inspired by the Edurock theme, I built all the functionality from the ground up using React. I put a lot of work into developing custom features, implementing role-based access, managing state with React Context, and ensuring smooth user interactions. The project showcases my ability to turn a static design into a fully dynamic, interactive learning management system.
 ## 📌 Features
